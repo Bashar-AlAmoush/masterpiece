@@ -1,0 +1,15 @@
+.DashboardNav{
+
+    display: none;
+ }
+
+  @media (max-width: 1001px) {
+
+ .DashboardNav{
+
+    display: block;
+ }
+
+
+
+  }

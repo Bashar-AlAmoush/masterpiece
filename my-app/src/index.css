@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #f8f8f8;
+}
+
+.swal-cancel-button {
+    background-color: red;
+    color: white;
+    /* Add any other styling properties you want */
+  }
+  
+
+  
+  
+  
+  
+  
+  
