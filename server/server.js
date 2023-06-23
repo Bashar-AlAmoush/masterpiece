@@ -121,17 +121,6 @@ app.post("/recordp", async function (req, res) {
   }
 });
 
-// Get All restaurants
-app.get("/restaurants", async function (req, res) {
-  try {
-    const all_records = await pool.query(
-      "SELECT *  FROM restaurant JOIN users ON users.userid = restaurant.user_id WHERE users.flags = 1 ;"
-    );
-    res.json(all_records.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
 
 let generatedId;
 app.post("/restaurants", async function (req, res) {
@@ -343,20 +332,19 @@ app.post("/restaurant", async function (req, res) {
 
 
 
-app.put("/tableStatus/:id", async (req, res) => {
+app.put("/product/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const status = req.body.status;
-
     const table_status = await pool.query(
-      "UPDATE res_table SET table_status = $1 WHERE table_number = $2",
-      [status, id]
+      "UPDATE products SET flags = 1 WHERE product_id = $1",
+      [ id]
     );
     res.json(table_status.rows);
   } catch (err) {
     console.log(err.message);
   }
 })
+
 // ---------------- issa --------------------//
 // Add a new payment
 app.post("/payment", async function (req, res) {
@@ -433,23 +421,7 @@ app.get("/ordersData", async (req, res) => {
   }
 });
 
-app.get("/restaurantTables", async (req, res) => {
-  try {
-    const restaurantTablesData = await pool.query(
-      "SELECT * FROM res_table "
-    );
-    const pendingTablesData = await pool.query(
-      "SELECT * FROM res_table WHERE flags = 0 "
-    );
- const restaurantTables =restaurantTablesData.rows
- const pendingTables =pendingTablesData.rows
-    res.json({restaurantTables,
-      pendingTables
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
-});
+
 // ------------------farah ------------------------//
 
 // get user data
@@ -496,21 +468,6 @@ app.get("/oldOrders/:id", async (req, res) => {
   }
 });
 
-// cancel pemding order
-app.delete("/deleteOrders/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const order = await pool.query(
-      "DELETE FROM orders WHERE orders_id = $1 ",
-
-      [id]
-    );
-    res.json(order.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
 
 //  user id
 
@@ -532,46 +489,11 @@ app.get("/getId", async function (req, res) {
   }
 });
 
-app.get("/pendingTables", async function (req, res) {
-  try {
-    // const id = req.params.id;
-    const currentRecord = await pool.query(
-      "SELECT * FROM res_table  WHERE flags = 0"
-    );
-    const currentRecord0 = await pool.query(
-      "SELECT restaurant_name  FROM restaurant JOIN res_table ON res_table.restaurant_id = restaurant.restaurant_id WHERE res_table.flags = 0 ;"
-    );
-    const currentRecord1 = await pool.query(
-      "SELECT users.email FROM users JOIN restaurant ON users.userid = restaurant.user_id JOIN res_table ON restaurant.restaurant_id = res_table.restaurant_id WHERE res_table.flags = 0"
-    );
-    res.json({
-      tables: currentRecord.rows,
-      names: currentRecord0.rows,
-      emails: currentRecord1.rows
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
-});
 
-// Update a Specific Record
-app.put("/pendingTables/:table_id", async function (req, res) {
-  try {
-    const { table_id } = req.params;
-    const record = await pool.query(
-      "UPDATE res_table SET flags = $1 WHERE table_id = $2",
-      [1, table_id]
-    );
-
-    res.send("Updated Successfully");
-  } catch (err) {
-    console.log(err.message);
-  }
-});
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0 ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
