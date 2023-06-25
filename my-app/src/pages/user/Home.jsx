@@ -18,19 +18,10 @@ function Home() {
   const [category, setcategory] = useState('');
   const navigate = useNavigate();
 
-  // This function is used to handle the selection of a food type. It takes a foodType parameter and updates the selectedFoodType state with the selected value.
-  function handleFoodTypeSelection(categoryy) {
+  function handleTypeSelection(categoryy) {
     setcategory(category);
-    //Here it uses the navigate function to navigate to this route.
-    navigate(`/restaurants/${categoryy}`);
+    navigate(`/Product/${categoryy}`);
   }
-
-
-
-
-
-
-
   return (
     <>
       <section className="relative  flex flex-col items-center justify-center text-center text-white " style={{ height: "550px" }}>
@@ -108,7 +99,7 @@ function Home() {
                     </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("drawing")}
+                      onClick={() => handleTypeSelection("drawing")}
                     >
                       View More
                     </button>
@@ -132,7 +123,7 @@ function Home() {
                                         </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("canvas")}
+                      onClick={() => handleTypeSelection("canvas")}
                     >
                       View More
                     </button>
@@ -156,7 +147,7 @@ function Home() {
                     </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("paints")}
+                      onClick={() => handleTypeSelection("paints")}
                     >
                       View More
                     </button>
@@ -180,7 +171,7 @@ function Home() {
                     </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("paper")}
+                      onClick={() => handleTypeSelection("paper")}
                     >
                       View More
                     </button>
@@ -204,7 +195,7 @@ function Home() {
                     </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("tools")}
+                      onClick={() => handleTypeSelection("tools")}
                     >
                       View More
                     </button>
@@ -228,7 +219,7 @@ function Home() {
                     </h2>
                     <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleFoodTypeSelection("paints")}
+                      onClick={() => handleTypeSelection("paints")}
                     >
                       View More
                     </button>

@@ -2,6 +2,7 @@ import React from "react";
 import Icon from '@mdi/react';
 import { useContext } from "react";
 import { mdiSilverwareForkKnife } from '@mdi/js';
+import { mdiBrush } from '@mdi/js';
 import { mdiAccountMultipleOutline } from '@mdi/js';
 import { mdiInbox } from '@mdi/js';
 import { UserContext } from '../../../UserContext';
@@ -35,22 +36,8 @@ import {
 import { Link } from "react-router-dom";
 // profile menu component
 const profileMenuItems = [
-  // {
-  //   label: "My Profile",
-  //   icon: UserCircleIcon,
-  // },
-  // {
-  //   label: "Edit Profile",
-  //   icon: Cog6ToothIcon,
-  // },
-  // {
-  //   label: "Inbox",
-  //   icon: InboxArrowDownIcon,
-  // },
-  {
-    label: "Profile",
-    icon: LifebuoyIcon,
-  },
+  
+
   {
     label: "Sign Out",
     icon: PowerIcon,
@@ -72,9 +59,6 @@ if(label == "Sign Out"){
     window.location.href = 'http://localhost:3000/';
 
   console.log(label)
-}else if(label == "Profile"){
-  window.location.href = 'http://localhost:3000/ProfilePage';
-
 }
 
 };
@@ -230,8 +214,8 @@ const navListItems = [
     path: "/ListUser"
   },
   {
-    label: "ListRestaurant",
-    icon: mdiSilverwareForkKnife,
+    label: "Listproducts",
+    icon: mdiBrush,
     path: "/ListRestaurant"
   },
   {
@@ -287,7 +271,7 @@ export default function ComplexNavbar() {
           as="a"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-          ma6a3mkom
+         Masterpiece
         </Typography>
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">

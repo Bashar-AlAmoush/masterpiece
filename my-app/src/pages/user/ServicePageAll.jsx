@@ -3,15 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./ServicePage.css";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-import { FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
 import EQUIPMENT from '../../images/EQUIPMENTpage.jpg'
-const ServicePageAll = ({ setCurrentTable }) => {
+const ServicePageAll = () => {
   const [product, setproducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
-
-
-  // get all the products from database 
   useEffect(() => {
     axios
       .get("http://localhost:5000/productsAll")
@@ -19,11 +14,10 @@ const ServicePageAll = ({ setCurrentTable }) => {
         console.log(response.data);
         setproducts(response.data);
         setFilterDataUsers(response.data);
-        setLoading(false);
+        
       })
       .catch((error) => {
         console.error(error);
-        setLoading(false);
       });
   }, []);
 
@@ -34,7 +28,6 @@ const ServicePageAll = ({ setCurrentTable }) => {
     let product_id = Products.product_id;
     console.log(product_id);
     navigate(`/Details/${product_id}`);
-
   }
 
   const [yourSelectedStateValueType, setOptionType] = useState("");
@@ -45,7 +38,6 @@ const ServicePageAll = ({ setCurrentTable }) => {
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
 
 
-  //This function is work as filter the restaurants based on their name and update the searchTermUsers state whenever the user types in the search input field.
   const filterDataByNameUsers = (searchTermUsers) => {
     const filteredDataUsers = product?.filter((item) =>
       item.name.toLowerCase().includes(searchTermUsers.toLowerCase())
@@ -213,9 +205,6 @@ const ServicePageAll = ({ setCurrentTable }) => {
   />
   </a>
   <div className="relative border border-gray-100 bg-white p-6">
-    {/* <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
-      New
-    </span> */}
     <h3 className="mt-4 text-lg font-medium text-gray-900">{product.name}</h3>
     <p className="mt-1.5 text-sm text-gray-700">{product.description}</p>
     <form className="mt-4">

@@ -13,11 +13,6 @@ const secretKey = "ZhQrZ951";
 
 let generatedUserId
 
-
-
-
-
-// Get All Records
 app.post("/records", async function (req, res) {
   try {
     const name = req.body.name;
@@ -55,6 +50,25 @@ app.get("/records", async function (req, res) {
   }
 });
 
+app.get("/deleterecords", async function (req, res) {
+  try {
+    const all_records = await pool.query(
+      "SELECT * FROM users where flags=0  "
+    );
+    res.json(all_records.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
+
+
+
+
+
 // Get a Specific Record
 app.get("/records/:id", async function (req, res) {
   try {
@@ -88,6 +102,45 @@ app.put("/records/:userid", async function (req, res) {
     console.log(err.message);
   }
 });
+
+
+
+app.put("/recordss/:userid", async function (req, res) {
+  try {
+    const { userid } = req.params;
+   
+
+    const record = await pool.query(
+      "UPDATE users SET flags = 0 WHERE userid = $1",
+      [ userid]
+    );
+    res.send("Updated Successfully");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+app.put("/recoverrecordss/:userid", async function (req, res) {
+  try {
+    const { userid } = req.params;
+   
+
+    const record = await pool.query(
+      "UPDATE users SET flags = 1 WHERE userid = $1",
+      [ userid]
+    );
+    res.send("Updated Successfully");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
+
 let useremail = "";
 let userpassword = "";
 
@@ -251,27 +304,7 @@ console.log(product_id)
 });
 
 
-// -------------razan contacts ----------------//
-// app.post("/contacts", async function (req, res) {
-//   console.log(req.body);
-//   try {
-//       const name = req.body.name;
-//       const email = req.body.email;
-//       const phone = req.body.phone;
-//       const message = req.body.message;
 
-//       const newRecord = await pool.query(
-//           "INSERT INTO contacts (name, phone, email, message) VALUES ($1, $2, $3, $4) RETURNING *",
-//           [name, phone, email, message]
-//       );
-
-//       res.json(newRecord.rows);
-//   } catch (err) {
-//       console.log(err.message);
-//   }
-// });
-
-// -------------razan about ----------------//
 // in the about page will get the content from the database
 app.get("/aboutus", async (req, res) => {
   try {
@@ -345,6 +378,22 @@ app.put("/product/:id", async (req, res) => {
   }
 })
 
+
+app.put("/recoverproduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const table_status = await pool.query(
+      "UPDATE products SET flags = 0 WHERE product_id = $1",
+      [ id]
+    );
+    res.json(table_status.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+})
+
+
+
 // ---------------- issa --------------------//
 // Add a new payment
 app.post("/payment", async function (req, res) {
@@ -409,6 +458,19 @@ app.get("/paymentData", async (req, res) => {
 });
 
 
+app.get("/ordersData/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM orders WHERE user_id = $1", [
+      id,
+    ]);
+    res.json(record.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
 app.get("/ordersData", async (req, res) => {
   try {
     const ordersData = await pool.query(
@@ -421,8 +483,6 @@ app.get("/ordersData", async (req, res) => {
   }
 });
 
-
-// ------------------farah ------------------------//
 
 // get user data
 app.get("/user/:id", async function (req, res) {
@@ -469,6 +529,20 @@ app.get("/oldOrders/:id", async (req, res) => {
 });
 
 
+app.get("/datauserorders", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const user = await pool.query("SELECT DISTINCT users.* FROM users JOIN orders ON users.userid = orders.user_id  ");
+    res.json(user.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
+
 //  user id
 
 app.get("/getId", async function (req, res) {
@@ -503,6 +577,46 @@ app.get("/productsAll", (req, res) => {
     }
   });
 });
+
+
+
+app.get("/deletedproducts", (req, res) => {
+  pool.query("SELECT * FROM products where flags =1 ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
+
+app.post("/newproduct", async function (req, res) {
+  try {
+    const name = req.body.name;
+    const category = req.body.category;
+    const price = req.body.price;
+    const description = req.body.description;
+    const photo = req.body.photo
+
+    
+      const all_records = await pool.query(
+        "INSERT INTO products (name,category, price, description,photo) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
+        [name, category, price, description, photo]
+      );
+      res.json(all_records.rows);
+    } 
+      
+    
+   catch (err) {
+    console.log(err.message);
+  }
+});
+
+
 
 // Start the server
 const port = 5000;

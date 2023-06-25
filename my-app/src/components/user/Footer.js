@@ -45,8 +45,8 @@ const Footer = () => {
           <div className="grid-1 grid gap-8 md:grid-cols-3 lg:grid-cols-3">
             {/* Tailwind Elements section */}
             <div className>
-              <h6 className="mb-4 flex items-center text-amber-700 justify-center font-semibold uppercase md:justify-start text-white">
-                <img src={logo} alt="logo" width="200" />
+              <h6 className="mb-4 flex items-center text-amber-700 justify-center font-semibold uppercase md:justify-start">
+                <img src={logo} alt="logo" width="150" />
               </h6>
               <p className='text-white'>
                 Book Your Faviorate Restaurant And Enjoy !

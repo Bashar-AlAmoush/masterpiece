@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
-// import SignGoogle from './SignInWithGoogle';
-// import Facebook from './SigInWithFacebook';
+
 import Signup from "../../images/Signup.jpg";
 import { useGoogleLogin } from "@react-oauth/google";
 

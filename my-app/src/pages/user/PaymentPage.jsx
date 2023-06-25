@@ -5,11 +5,13 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function PaymentPage() {
   const [person, setPerson] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -98,7 +100,8 @@ data?.map((element)=>{
       submitPayment();
       hndelorder();
     } else {
-      window.location.href = "http://localhost:3000/SignUp";
+     
+      navigate("/SignUp");
     }
   };
 
@@ -119,7 +122,8 @@ data?.map((element)=>{
           icon: 'success',
         }).then(() => {
           // Redirect to home page
-          window.location.href = "/";
+        
+          navigate("/");
         });
       })
       .catch(() => {

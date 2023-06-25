@@ -8,48 +8,45 @@ import Details from '../../images/Details.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Details1(currentTable) {
+function Details1() {
   const [Products, setProducts] = useState([]);
-  const  prod = useParams();
+  const  Product = useParams();
 
   useEffect(() => {
-    console.log(prod.restaurant_id)
     axios
-      .get(`http://localhost:5000/Prod/${prod.restaurant_id}`)
+      .get(`http://localhost:5000/Prod/${Product.Product_id}`)
       .then((response) => {
-        console.log(response.data);
         setProducts(response.data);
-        console.log(response.data);
       })
       .catch((error) => console.log(error.message));
-  }, [prod]);
+  }, [Product]);
 
   const addToCart = (product) => {
-    // Retrieve existing cart data from localStorage
+   
     const existingCart = localStorage.getItem('cart');
   
     if (existingCart) {
-      // If cart data exists, parse it from a string to an array
+ 
       const cartData = JSON.parse(existingCart);
   
-      // Find the index of the product in the cart
+      
       const productIndex = cartData.findIndex((item) => item.product_id === product.product_id);
   
       if (productIndex !== -1) {
-        // If the product is already in the cart, update the quantity/count
+        
         cartData[productIndex].count += 1;
       } else {
-        // If the product is not in the cart, add it with a count of 1
+       
         cartData.push({ ...product, count: 1 });
       }
   
-      // Save the updated cart data to localStorage
+  
       localStorage.setItem('cart', JSON.stringify(cartData));
     } else {
-      // If no cart data exists, create a new cart array with the product and count of 1
+    
       const cartData = [{ ...product, count: 1 }];
   
-      // Save the cart data to localStorage
+      
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
     toast.success(`${product.name} has been added to your cart.`);
@@ -175,7 +172,7 @@ function Details1(currentTable) {
               />
             </div>
             <button
-  type="button" // Change the type to "button"
+  type="button" 
   className="block rounded bg-red-500 px-5 py-3 text-xs font-medium text-white hover:bg-red-700"
   onClick={() => addToCart(Products[0])} 
 >

@@ -6,11 +6,6 @@ const EditAboutContact = () => {
   const [about, setabout] = useState([]);
   const [about_title, setAbout_title] = useState([]);
   const [about_us, setAbout_us] = useState([]);
-
-// const requestData = {
-//   about_title: about[0].about_title , 
-//   about_us: about[0].about,
-// };
   useEffect(() => {
       axios.get('http://localhost:5000/aboutus')
       .then((response) => {
@@ -21,12 +16,6 @@ const EditAboutContact = () => {
       })
       .catch((error) => console.log(error.message))
   }, []);
-
- 
-
-
-
-
   function hndelAboutUs(e){
     e.preventDefault()
 
@@ -35,13 +24,12 @@ const EditAboutContact = () => {
       showConfirmButton: true,
       showCancelButton: true,
       confirmButtonText: "OK",
-      confirmButtonColor: "orange",
+      confirmButtonColor: "green",
       cancelButtonText: "Cancel",
-      cancelButtonColor: "orange",
+      cancelButtonColor: "red",
       icon: 'warning'
   }
   ).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
    
   
@@ -51,7 +39,7 @@ const EditAboutContact = () => {
         })
           .then(function (response) {
             console.log(response);
-            // window.location.reload(false);
+            
     
           })
           .catch(function (error) {
@@ -61,7 +49,7 @@ const EditAboutContact = () => {
 
           Swal.fire("The about us has been updated successfully", '', 'success');
        
-          // window.location.reload();
+       
       } else
           Swal.fire(' Cancelled', '', 'error')
   
@@ -80,10 +68,10 @@ const EditAboutContact = () => {
     Edit  About us page
     </h2>
     <p className=' mb-4 text-2xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white'>
-    {/* About us Title :     {about[0].about_title} */}
+    
     </p>
     <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
-    {/* {about[0].about_us} */}
+   
     </p>
     <form onSubmit={hndelAboutUs} className="space-y-8">
     <div>
@@ -114,7 +102,7 @@ const EditAboutContact = () => {
       <div className='flex justify-center'>
       <button type='submit'
        
-        className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-amber-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-red-500 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
        Update
       </button>

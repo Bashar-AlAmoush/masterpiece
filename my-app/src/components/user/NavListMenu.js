@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
-import Swal from "sweetalert2";
 import Icon from '@mdi/react';
+import { useNavigate } from 'react-router-dom';
 
 import { mdiPalette } from '@mdi/js';
 import {
@@ -35,8 +35,6 @@ import {
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../../images/logo.png";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
-
 const colors = {
   blue: "bg-blue-50 text-blue-500",
   orange: "bg-orange-50 text-orange-500",
@@ -90,7 +88,7 @@ const navListMenuItems = [
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-
+  
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, color, path }, key) => (
       <Link to={path} key={key}>
@@ -172,14 +170,6 @@ function NavList() {
           </ListItem>
         </Link>
 
-        {/* <Link to="/Cart">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-red-600">
-            <CubeTransparentIcon className="h-[18px] w-[18px] text-red-600" />
-           Cart
-          </ListItem>
-        </Link> */}
-
-
       </Typography>
       <NavListMenu />
       <Typography
@@ -208,35 +198,12 @@ export default function Example() {
     if (localStorage.SignStatus != null) {
       updateSignStatus(localStorage.SignStatus);
     }
-  }, []);
+  }, [SignStatus]);
 
   function handleSign() {
     if (SignStatus == "signUp") {
-      window.location.href = "http://localhost:3000/SignUp";
-    } else {
-      Swal.fire({
-        title: ` logout?  `,
-        showConfirmButton: true,
-        showCancelButton: true,
-        confirmButtonText: "OK",
-        confirmButtonColor: "#ea4d24",
-        cancelButtonText: "Cancel",
-        cancelButtonColor: "#ea4d24",
-        icon: "warning",
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire(`  done `, "", "success");
-
-          updateSignStatus("signUp");
-          localStorage.setItem("SignStatus", "signUp");
-
-          localStorage.removeItem("auth");
-          localStorage.removeItem("roles");
-          window.location.href = "http://localhost:3000/";
-        } else Swal.fire(" Cancelled", "", "error");
-      });
-    }
+      navigate("/SignUp");
+    } 
   }
 
   React.useEffect(() => {
@@ -256,11 +223,11 @@ export default function Example() {
       icon: PowerIcon,
     },
     {
-      label: " Sign Out",
+      label: "Sign Out",
       icon: PowerIcon,
     },
   ];
-
+  const navigate = useNavigate();
   function ProfileMenu() {
     const { SignStatus, updateSignStatus } = useContext(UserContext);
 
@@ -268,22 +235,20 @@ export default function Example() {
 
     const closeMenu = (label) => {
       setIsMenuOpen(false);
-
-      if (label == "Sign Out") {
+    
+      if (label === "Sign Out") {
         updateSignStatus("signUp");
         localStorage.setItem("SignStatus", "signUp");
         localStorage.removeItem("auth");
         localStorage.removeItem("roles");
-        window.location.href = "http://localhost:3000/";
-
-        console.log(label);
-      } else if (label == "Profile") {
-        window.location.href = "http://localhost:3000/ProfilePage";
-      } else if (label == "Cart") {
-        window.location.href = "http://localhost:3000/Cart";
+        localStorage.removeItem("curruntUser");
+        navigate("/");
+      } else if (label === "Profile") {
+        navigate("/ProfilePage");
+      } else if (label === "Cart") {
+        navigate("/Cart");
       }
     };
-
     return (
       <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
         <MenuHandler>
@@ -360,7 +325,7 @@ export default function Example() {
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
           <Link to="/">
-            <img src={logo} alt="logo" width={150} />
+            <img src={logo} alt="logo"  style={{height:"50px",width:"150px"}} />
           </Link>
         </Typography>
         <div className="hidden lg:block">

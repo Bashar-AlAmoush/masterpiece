@@ -1,26 +1,20 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect ,useContext } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2';
-
-
 const ProfilePage = () => {
 
     const [id, setId] = useState()
     const [orders, setOrders] = useState([])
-    const order_pending = false;
     const [prevOrders, setPrevOrders] = useState([])
     const [user, setUser] = useState([])
-
-    // const { curruntUser,updateSetCurruntUser } = useContext(UserContext)
     const [activeTab, setActiveTab] = useState('tab1');
 
     const openTab = (tabName) => {
       setActiveTab(tabName);
     };
- 
     useEffect(() => {
-  
+      setOrders(JSON.parse(localStorage.getItem("cart")))
+      console.log(orders)
         axios.get('http://localhost:5000/getId')
         .then(function (response) {
       
@@ -49,41 +43,9 @@ const ProfilePage = () => {
             console.log(error);
         });
     }, [id]
-
     )
-
-
-
-    // Change the format of the Time.
-    function formatTime(t) {
-
-        if (!order_pending) {
-            const timestamp = t;
-            const time = timestamp.substring(0, 5); // Extract the time portion
-
-            const date = new Date(`2000-01-01T${time}:00`);
-            const formattedTime = date.toLocaleString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            });
-            return formattedTime;
-
-        }
-    }
-
-    // Change the format of the Date.
-    function formatDate(d) {
-        if (!order_pending) {
-            const timestamp = d;
-            const date = new Date(timestamp);
-            const formattedDate = date.toLocaleDateString();
-            return formattedDate;
-        }
-    }
     return (
         <>
-        
             <div className="h-screen bg-gray-200 ">
   <div className="flex flex-col md:flex-row">
     <div className="w-full md:w-1/2 ms:1/3">
@@ -168,8 +130,8 @@ const ProfilePage = () => {
             activeTab === 'tab1' ? 'active:bg-gray-200' : ''
           }`}
           onClick={() => openTab('tab1')}
-        >
-          current orders
+        >User Cart
+          
         </button>
         <button
           className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tr-lg focus:outline-none ${
@@ -178,18 +140,20 @@ const ProfilePage = () => {
           onClick={() => openTab('tab2')}
         >
          previous orders
+         
         </button>
       </div>
       <div id="tab1" className={`tabcontent p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
-      <h2 className="text-lg font-bold text-gray-800">current orders</h2>
+      <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
       <div className="mt-2 text-gray-700 max-h-96 overflow-y-auto"> 
       {orders?.map((order) => {
-                        if(order.status == "pending")   return(
+                           return(
                             <>
-                           
-                        <div  class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
-                <img src="https://f.hubspotusercontent20.net/hubfs/3390327/WordPress-Table-Reservation-plugin-1000x562-1.jpg"
-                 alt="product-image" class="w-full rounded-lg sm:w-40" />
+
+<p className="mt-2 text-gray-700">
+<div  class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
+                <img src={order.photo} 
+                 alt="product-image" class="w-full rounded-lg sm:w-40" style={{width:"100px"}} />
                 <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div class="mt-5 sm:mt-0">
                     <h2 class="text-lg font-bold text-gray-900"></h2>
@@ -198,16 +162,19 @@ const ProfilePage = () => {
                   <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                   
                     <div class="flex items-center space-x-4">
-                      <p class="text-sm">  {order.table_number} </p>
-                      <p class="text-sm">  {order.status} </p>
-                      <p class="text-sm">   {formatDate(order.order_date)} </p>
-                     
+                      <p class="text-sm">  {order.name} </p>
+                      <p class="text-sm">  {order.price}  </p>
+                      <p class="text-sm">  {order.category}  </p>
+                    
                     </div>
                   </div>
                 </div>
               </div>
-                      
-              </>     )
+</p>
+</>
+
+
+                           )
                             })}
 
 </div>
@@ -235,54 +202,13 @@ const ProfilePage = () => {
                       <p class="text-sm">  {order.name} </p>
                       <p class="text-sm">  {order.price}  </p>
                       <p class="text-sm">  {order.category}  </p>
-                      <button    onClick={()=> {
-                                                Swal.fire({
-                                                    title: 'Confirmation',
-                                                    text: 'Are you sure you want to cancel yoir reservation?',
-                                                    icon: 'question',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor:'orange',
-                                                    confirmButtonText: 'OK',
-                                                    cancelButtonColor: 'orange',
-                                                    cancelButtonText: 'Cancel',
-                                                  }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        axios.delete(`http://localhost:5000/deleteOrders/${order.orders_id}`)
-                                                        .then(function (response) {
-                                                            console.log(response.data);
-                                                         
-                                            
-                                            
-                                                        })
-                                                        .catch(function (error) {
-                                                            console.log(error);
-                                                        });
-                                                      Swal.fire('Success!', 'Your order was cancelled successfully!', 'success');
-
-                                                      setTimeout(function () {
-                                                        // window.location.reload();
-                                                      }, 2000);
-                                    
-                                                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                                      // User clicked Cancel or closed the modal
-                                                      Swal.fire('Cancelled', 'cancelled.', 'error');
-                                                    }
-                                                  });
-                                               }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                   
                     </div>
                   </div>
                 </div>
               </div>
 </p>
-</>
-
-
-                           )
-                            })}
+</>   ) })}
 
 </div>
 
@@ -293,21 +219,6 @@ const ProfilePage = () => {
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </>
 
     )

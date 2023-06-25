@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 export default function Cart() {
     const [cartData, setCartData] = useState([]);
-
+   
     useEffect(() => {
         // Retrieve existing cart data from localStorage
         const existingCart = localStorage.getItem("cart");
@@ -47,12 +49,10 @@ const handleRemoveProduct = (index) => {
     const tax = 2;
     return (subtotal  + tax).toFixed(2);
   };
-
-  
-  // Rest of your code
-
+  const navigate = useNavigate(); 
   const handleCheckout = () => {
-    window.location.href = "/PaymentPage";
+    navigate("/PaymentPage");
+   
   };
 
   return (

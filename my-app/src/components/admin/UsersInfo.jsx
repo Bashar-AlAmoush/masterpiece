@@ -1,40 +1,43 @@
 
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
-import { mdiFileEdit } from "@mdi/js";
+import { mdiRestore } from '@mdi/js';
 import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { mdiHumanEdit } from '@mdi/js';
 import Swal from 'sweetalert2'
-
 import { mdiShieldCrownOutline } from '@mdi/js'
 import { mdiAccountOutline } from '@mdi/js';
-
 const UsersInfo = () => {
 
   const [persons, setPersons] = useState([]);
-  const [persons0, setPersons0] = useState([]);
-
+  const [deletepersons, setdeletePersons] = useState([]);
   const [searchTermUsers, setSearchTermUsers] = useState("");
+  const [searchTermdeleteUsers, setSearchTermdeleteUsers] = useState("");
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
+  const [FilterDatadeleteUsers, setFilterDatadeleteUsers] = useState([]);
   const [HandleP, setHandleP] = useState();
 
   useEffect(() => {
       axios.get('http://localhost:5000/records')
       .then((response) => {
           setFilterDataUsers(response.data)
+          setPersons(response.data);
       })
       .catch((error) => console.log(error.message))
   }, [HandleP]);
 
+
+
   useEffect(() => {
-    axios.get('http://localhost:5000/records')
+    axios.get('http://localhost:5000/deleterecords')
     .then((response) => {
-      setPersons(response.data);
+      setFilterDatadeleteUsers(response.data)
+        setdeletePersons(response.data);
     })
     .catch((error) => console.log(error.message))
-});
+}, []);
 
   //-----------------------search------------------------//
 
@@ -47,34 +50,56 @@ const UsersInfo = () => {
     setCurrentPageUsers(1);
   };
 
+  const filterDataByNamedeleteUsers = (searchTermUsers) => {
+
+    const filteredDataUsers = deletepersons.filter((item) =>
+      item.username.toLowerCase().includes(searchTermUsers.toLowerCase())
+    );
+    setFilterDatadeleteUsers(filteredDataUsers);
+    setCurrentPagedeleteUsers(1);
+  };
+
+
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
+  const [currentPagedeleteUsers, setCurrentPagedeleteUsers] = useState(1);
+
+
   let totalItemsUsers;
+  let totalItemsdeleteUsers;
 
   let totalPagesUsers;
+  let totalPagesdeleteUsers;
 
   let slicedArrayUsers;
+  let slicedArraydeleteUsers;
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
 
   totalItemsUsers = FilterDataUsers.length;
+  totalItemsdeleteUsers = FilterDatadeleteUsers.length;
 
   totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
+  totalPagesdeleteUsers = Math.ceil(totalItemsdeleteUsers / itemsPerPage);
 
   const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
+  const startIndexdeleteUsers = (currentPagedeleteUsers - 1) * itemsPerPage;
 
   const endIndexUsers = startIndexUsers + itemsPerPage;
+  const endIndexdeleteUsers = startIndexdeleteUsers + itemsPerPage;
 
   slicedArrayUsers = FilterDataUsers.slice(startIndexUsers, endIndexUsers);
+  slicedArraydeleteUsers = FilterDatadeleteUsers.slice(startIndexdeleteUsers, endIndexdeleteUsers);
 
   const handlePageChangeUsers = (event, pageNumber) => {
     setCurrentPageUsers(pageNumber);
   };
 
+  const handlePageChangedeleteUsers = (event, pageNumber) => {
+    setCurrentPagedeleteUsers(pageNumber);
+  };
+
 
   const handleDelete = (id,name) => {
-
-
-
     Swal.fire({
       title: `Do you want to remove ${name}?  `,
       showConfirmButton: true,
@@ -92,6 +117,19 @@ const UsersInfo = () => {
           axios.put('http://localhost:5000/recordss/'+id)
           .then((response) => {
               console.log(response.data);
+              axios.get('http://localhost:5000/records')
+              .then((response) => {
+                  setFilterDataUsers(response.data)
+                  setPersons(response.data);
+              })
+              .catch((error) => console.log(error.message))
+
+              axios.get('http://localhost:5000/deleterecords')
+              .then((response) => {
+                setFilterDatadeleteUsers(response.data)
+                  setdeletePersons(response.data);
+              })
+              .catch((error) => console.log(error.message))
           })
           .catch((error) => console.log(error.message))
       
@@ -106,6 +144,58 @@ const UsersInfo = () => {
 
 
 }
+
+
+
+const handlerecover = (id,name) => {
+  Swal.fire({
+    title: `Do you want to recover ${name}?  `,
+    showConfirmButton: true,
+    showCancelButton: true,
+    confirmButtonText: "OK",
+    cancelButtonText: "Cancel",
+    icon: 'warning'
+}
+).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+
+        Swal.fire(` ${name} has been recover `, '', 'success');
+     
+        axios.put('http://localhost:5000/recoverrecordss/'+id)
+        .then((response) => {
+            console.log(response.data);
+            axios.get('http://localhost:5000/records')
+            .then((response) => {
+                setFilterDataUsers(response.data)
+                setPersons(response.data);
+            })
+            .catch((error) => console.log(error.message))
+
+            axios.get('http://localhost:5000/deleterecords')
+            .then((response) => {
+              setFilterDatadeleteUsers(response.data)
+                setdeletePersons(response.data);
+            })
+            .catch((error) => console.log(error.message))
+
+
+        })
+        .catch((error) => console.log(error.message))
+    
+        // window.location.reload();
+
+
+
+    } else
+        Swal.fire(' Cancelled', '', 'error')
+
+})
+
+
+}
+
+
 
 const handleUpdate = (userid,typeid,name) => {
 
@@ -140,6 +230,12 @@ if (role == "user"){
     })
     .then(function (response) {  
       setHandleP(HandleP+1)
+      axios.get('http://localhost:5000/records')
+      .then((response) => {
+          setFilterDataUsers(response.data)
+          setPersons(response.data);
+      })
+      .catch((error) => console.log(error.message))
     })
     .catch(function (error) {
     });
@@ -291,11 +387,6 @@ if (role == "user"){
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
                         {e.type_id == 0 ?  <div className=" w-10 flex flex-col justify-center items-center" > <Icon path={mdiAccountOutline} size={1} />  <span>user</span> </div> : <div className=" w-10 flex flex-col justify-center items-center"> <Icon path={mdiShieldCrownOutline} size={1} />  <span>Admin</span> </div> }
-
-{/* <Icon path={mdiShieldCrownOutline} size={1} />
-<Icon path={mdiAccountOutline} size={1} /> */}
-
-
                       </p>
                     </td>
 
@@ -335,7 +426,163 @@ if (role == "user"){
         }
       </div>
 
+     
 
+        </div>
+
+        <div className="relative flex items-center justify-between pt-4">
+          <div className="text-xl font-bold text-navy-700 dark:text-white">
+            Users Table
+          </div>
+        </div>
+        <form>
+          <div className="relative mt-5">
+            <input
+              type="text"
+              id="search"
+              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search"
+              required=""
+              value={searchTermdeleteUsers}
+              onChange={(e) => {
+                setSearchTermdeleteUsers(e.target.value);
+                filterDataByNamedeleteUsers(e.target.value);
+              }}
+            />
+          </div>
+        </form>
+        <div className="mt-8 overflow-x-scroll xl:overflow-hidden " >
+          <table role="table" className="w-full">
+            <thead>
+              <tr role="row">
+                <th
+                  colSpan={1}
+                  role="columnheader"
+                  title="Toggle SortBy"
+                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="text-xs tracking-wide text-gray-600">NAME</p>
+                </th>
+                <th
+                  colSpan={1}
+                  role="columnheader"
+                  title="Toggle SortBy"
+                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="text-xs tracking-wide text-gray-600">email</p>
+                </th>
+                <th
+                  colSpan={1}
+                  role="columnheader"
+                  title="Toggle SortBy"
+                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="text-xs tracking-wide text-gray-600">phone</p>
+                </th>
+                <th
+                  colSpan={1}
+                  role="columnheader"
+                  title="Toggle SortBy"
+                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="text-xs tracking-wide text-gray-600">role</p>
+                </th>
+
+             
+
+                <th
+                  colSpan={1}
+                  role="columnheader"
+                  title="Toggle SortBy"
+                  className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="text-xs tracking-wide text-gray-600">Recover</p>
+                </th>
+              </tr>
+            </thead>
+
+            {slicedArraydeleteUsers.map((e) => {
+              return (
+                <tbody role="rowgroup">
+                  <tr role="row">
+                    <td
+                      className="pt-[14px] pb-[18px] sm:text-[14px] flex items-center"
+                      role="cell"
+                    >
+                      <div className="h-[30px] w-[30px] rounded-full">
+                        <img
+                          src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2244&q=80"
+                          className="h-full w-full rounded-full"
+                          alt=""
+                        />
+                      </div>
+
+                      <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
+                        {e.username}
+                      </p>
+                    </td>
+                    <td
+                      className="pt-[14px] pb-[18px] sm:text-[14px]"
+                      role="cell"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="rounded-full text-xl">
+                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                            {e.email}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      className="pt-[14px] pb-[18px] sm:text-[14px]"
+                      role="cell"
+                    >
+                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                        {e.phone_number}
+                      </p>
+                    </td>
+                    <td
+                      className="pt-[14px] pb-[18px] sm:text-[14px]"
+                      role="cell"
+                    >
+                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                        {e.type_id == 0 ?  <div className=" w-10 flex flex-col justify-center items-center" > <Icon path={mdiAccountOutline} size={1} />  <span>user</span> </div> : <div className=" w-10 flex flex-col justify-center items-center"> <Icon path={mdiShieldCrownOutline} size={1} />  <span>Admin</span> </div> }
+                      </p>
+                    </td>
+
+                
+
+                    <td
+                      className="pt-[14px] pb-[18px] sm:text-[14px]"
+                      role="cell"
+                    >
+                      <button onClick={() => handlerecover(e.userid,e.username)}>
+                        <Icon color="green" path={mdiRestore} size={1} />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+
+
+          <div className="flex w-full justify-center mt-5">
+        {
+          <Pagination
+            count={totalPagesdeleteUsers}
+            page={currentPagedeleteUsers}
+            onChange={handlePageChangedeleteUsers}
+          />
+        }
+      </div>
+
+     
 
         </div>
 

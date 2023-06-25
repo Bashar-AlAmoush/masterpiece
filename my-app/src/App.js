@@ -28,22 +28,15 @@ import AcceptTables from './pages/admin/AcceptTables';
 //---------------------------------------------------------------//
 
 import React, { useEffect, useState ,useContext } from 'react'
-import axios from 'axios'
 import { UserContext } from './UserContext';
 
 function App() {
-
-const [role000 ,setRole000] =useState()
 
 const { routs,updateRouts } = useContext(UserContext)
 const { SignStatus,updateSignStatus } = useContext(UserContext)
 
 const [hideRouterUser, setHideRouterUser] = useState(false );
 const [hideRouterAdmin, setHideRouterAdmin] = useState( true);
-const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
-
-
-
 useEffect(() => {
 
   if(localStorage.roles != null){
@@ -51,7 +44,6 @@ useEffect(() => {
     let status = localStorage.SignStatus
     setHideRouterUser(roles[0])
     setHideRouterAdmin(roles[1])
-    setHideRouterRestaurants(roles[2])
     updateRouts(roles)
    }
 }, []);
@@ -76,10 +68,10 @@ useEffect(() => {
              <Route path="Cart" element={<Cart />} />
              <Route path="PaymentPage" element={<PaymentPage />} />
              <Route path="ProfilePage"  element={<ProfilePage  />} />
-             <Route path="ServicePageAll" element={<ServicePageAll setCurrentTable={setCurrentTable} />} />
-             <Route path="/Details/:restaurant_id" element={<Details currentTable={currentTable} />} />
+             <Route path="ServicePageAll" element={<ServicePageAll />} />
+             <Route path="/Details/:Product_id" element={<Details />} />
              <Route path="EditProfile" element={<EditProfile />} />
-             <Route path="/restaurants/:category" element={<ServicePage />} />
+             <Route path="/Product/:category" element={<ServicePage />} />
         </Routes>
         <Footer/>
       </Router>
