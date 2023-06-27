@@ -13,10 +13,10 @@ module.exports = withMT({
       lg: '1024px',
       // => @media (min-width: 1024px) { ... }
 
-      xl: '1280px',
+      xl: '1260px',
       // => @media (min-width: 1280px) { ... }
 
-      '2xl': '1519px',
+      '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
   },

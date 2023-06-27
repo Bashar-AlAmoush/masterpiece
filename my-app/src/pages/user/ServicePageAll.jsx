@@ -27,6 +27,7 @@ const ServicePageAll = () => {
   function handleRes(Products) {
     let product_id = Products.product_id;
     console.log(product_id);
+ window.scrollTo(0, 0)
     navigate(`/Details/${product_id}`);
   }
 
@@ -97,7 +98,7 @@ const ServicePageAll = () => {
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-red-500">
+                  <Link to="/" className="text-red-500" onClick={() => window.scrollTo(0, 0)} >
                     Home
                   </Link>
                   <svg
@@ -206,6 +207,7 @@ const ServicePageAll = () => {
   <div className="relative border border-gray-100 bg-white p-6">
     <h3 className="mt-4 text-lg font-medium text-gray-900">{product.name}</h3>
     <p className="mt-1.5 text-sm text-gray-700">{product.description}</p>
+    <p className="mt-1.5 text-sm text-gray-700">{product.price}</p>
     <form className="mt-4">
     <button
                         onClick={() => {

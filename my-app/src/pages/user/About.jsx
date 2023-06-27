@@ -189,7 +189,7 @@ function About() {
                       className="w-full rounded-2xl"
                     />
                     <span className="absolute -right-7 -bottom-7 z-[-1]">
-                      {/* <svg
+                      <svg
                         width={134}
                         height={106}
                         viewBox="0 0 134 106"
@@ -756,7 +756,7 @@ function About() {
                           transform="rotate(-90 132 1.66683)"
                           fill="#000000"
                         />
-                      </svg> */}
+                      </svg>
                     </span>
                   </div>
                 </div>
@@ -779,7 +779,7 @@ function About() {
           </div>
         </div>
       </section>
-      {/* ====== About Section End */}
+   
     </>
   );
 }

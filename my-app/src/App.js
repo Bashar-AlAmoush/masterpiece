@@ -33,8 +33,6 @@ import { UserContext } from './UserContext';
 function App() {
 
 const { routs,updateRouts } = useContext(UserContext)
-const { SignStatus,updateSignStatus } = useContext(UserContext)
-
 const [hideRouterUser, setHideRouterUser] = useState(false );
 const [hideRouterAdmin, setHideRouterAdmin] = useState( true);
 useEffect(() => {

@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 function PaymentPage() {
   const [person, setPerson] = useState([]);
   const navigate = useNavigate();
-
+const total=localStorage.getItem("total")
   useEffect(() => {
     axios
       .get("http://localhost:5000/getId")
@@ -100,7 +100,7 @@ data?.map((element)=>{
       submitPayment();
       hndelorder();
     } else {
-     
+      window.scrollTo(0, 0);
       navigate("/SignUp");
     }
   };
@@ -122,7 +122,7 @@ data?.map((element)=>{
           icon: 'success',
         }).then(() => {
           // Redirect to home page
-        
+          window.scrollTo(0, 0);
           navigate("/");
         });
       })
@@ -143,10 +143,10 @@ data?.map((element)=>{
         </div>
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
           <div>
-            <div className="mt-12 flex flex-col items-center">
+            <div className="mt-0 flex flex-col items-center">
              
               <div className="w-full flex-1 mt-8">
-                <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+                <div className="mt-0 bg-gray-50 px-4 pt-0 lg:mt-0">
                   <p className="text-xl font-medium">Payment Details</p>
                   <p className="text-gray-400">
                     Complete your reservation by providing your payment details.
@@ -272,10 +272,11 @@ data?.map((element)=>{
                     <p className="text-sm font-medium text-gray-900">
                       Subtotal
                     </p>
-                    <p className="font-semibold text-gray-900">5.00 JOD</p>
+                    <p className="font-semibold text-gray-900">{total} JOD</p>
                   </div>
                   <div className="mt-6 flex justify-between">
-                    <Link to="/reservation" className="text-sm text-indigo-600">
+                    <Link to="/Cart" className="text-sm text-indigo-600"   onClick={() => window.scrollTo(0, 0)}>
+                    
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 mr-1 inline-block text-sm"
@@ -290,10 +291,10 @@ data?.map((element)=>{
                           d="M15 19l-7-7 7-7"
                         />
                       </svg>
-                      Return to reservation
+                      back to cart
                     </Link>
                     <button
-                      className="inline-block text-sm px-4 py-2 leading-none border rounded-lg mt-4 lg:mt-0 bg-amber-700"
+                      className="inline-block text-sm px-4 py-2 leading-none border rounded-lg mt-4 lg:mt-0 bg-red-500"
                       style={{ color: "white" }}
                       onClick={handlePayment}
                       type="submit"

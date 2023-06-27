@@ -4,9 +4,8 @@ import { UserContext } from "../../UserContext";
 import Icon from '@mdi/react';
 import { useNavigate } from 'react-router-dom';
 import { mdiCartOutline } from '@mdi/js';
-import { mdiPalette } from '@mdi/js';
+import { mdiPaletteOutline } from '@mdi/js';
 import {
-  Avatar,
   Navbar,
   Collapse,
   Typography,
@@ -35,16 +34,7 @@ import {
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../../images/logo.png";
-const colors = {
-  blue: "bg-blue-50 text-blue-500",
-  orange: "bg-orange-50 text-orange-500",
-  green: "bg-green-50 text-green-500",
-  "blue-gray": "bg-blue-gray-50 text-blue-gray-500",
-  purple: "bg-purple-50 text-purple-500",
-  teal: "bg-teal-50 text-teal-500",
-  cyan: "bg-cyan-50 text-cyan-500",
-  pink: "bg-pink-50 text-pink-500",
-};
+
 
 const navListMenuItems = [
   {
@@ -86,14 +76,13 @@ const navListMenuItems = [
 ];
 
 function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, color, path }, key) => (
       <Link to={path} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div className={`rounded-lg p-5 ${colors[color]}`}>
+          <div className={`rounded-lg p-5 `}>
             {React.createElement(icon, {
               strokeWidth: 2,
               className: "h-6 w-6",
@@ -102,7 +91,7 @@ function NavListMenu() {
           <div>
             <Typography
               variant="h6"
-              color="blue-gray"
+              
               className="flex items-center text-sm"
             >
               {title}
@@ -132,11 +121,11 @@ function NavList() {
         as="a"
         href="#"
         variant="small"
-        color="blue-gray"
+        
         className="font-normal"
       >
         <Link to="/">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-red-600">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
             <HomeIcon className="h-[18px] w-[18px] text-red-600" />
             Home
           </ListItem>
@@ -150,8 +139,10 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/ServicePageAll">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-red-600">
-          <Icon path={mdiPalette} size={1} color={'red'}  />
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
+         
+          <Icon path={mdiPaletteOutline}  color={'red'}  size={1} />
+
           EQUIPMENT
           </ListItem>
         </Link>
@@ -164,7 +155,7 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/About">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-red-600">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400  focus:text-red-600">
             <CubeTransparentIcon className="h-[18px] w-[18px] text-red-600" />
             About Us
           </ListItem>
@@ -180,7 +171,7 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/ContactUs">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-red-600">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black  hover:text-red-400  focus:text-red-600">
             <UserCircleIcon className="h-[18px] w-[18px] text-red-600" />
             Contact Us
           </ListItem>
@@ -198,16 +189,16 @@ export default function Example() {
     if (localStorage.SignStatus != null) {
       updateSignStatus(localStorage.SignStatus);
     }
-  }, [SignStatus]);
+  },[SignStatus]);
 
   function handleSign() {
-    if (SignStatus == "signUp") {
+    if (SignStatus ==="signUp") {
       navigate("/SignUp");
     } 
   }
 
   function handlecart() {
-    if (SignStatus == "signUp") {
+    if (SignStatus ==="signUp") {
       navigate("/cart");
     } 
   }
@@ -321,7 +312,7 @@ export default function Example() {
 
   return (
     <Navbar
-      className="w-screen sticky top-0 z-20"
+      className="w-full sticky top-0 z-20"
       style={{ backgroundColor: "black", border: "none", borderRadius: "0" }}
     >
       <div className="flex items-center justify-between text-white">

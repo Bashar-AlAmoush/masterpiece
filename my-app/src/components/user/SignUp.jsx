@@ -63,8 +63,6 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
-  const [id, setId] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let done = true;
@@ -87,7 +85,6 @@ function SignUp() {
     }
 
     if (done) {
-      const data = { name, phone, email, password };
       console.log(name, phone, email, password);
 
       axios
@@ -122,20 +119,21 @@ function SignUp() {
     <>
       <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         <div class="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-          <div class="flex-1 bg-teal-600 text-center hidden lg:flex">
-            <img src={Signup} class="mx-auto" alt="Shopping image" />
-            <div class="hero-img xl:m-16 w-full bg-contain bg-center bg-no-repeat"></div>
-          </div>
+        <div class="flex-1 bg-teal-600 text-center hidden lg:flex">
+  <img src={Signup} class="mx-auto w-full" alt="Shopping image" />
+  <div class="hero-img xl:m-16 w-full bg-contain bg-center bg-no-repeat"></div>
+</div>
+
           <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
             <div></div>
             <div class="mt-12 flex flex-col items-center ">
-              <h1 class="text-2xl xl:text-3xl font-extrabold text-amber-500 ">
+              <h1 class="text-2xl xl:text-3xl font-extrabold text-red-500 ">
                 Sign Up to Join Us!
               </h1>
               <div class="w-full flex-1 mt-8">
                 <div class="flex flex-col items-center">
                   <button
-                    className="bg-black p-2 rounded-lg text-white hover:text-black hover:bg-amber-500"
+                    className="bg-black p-2 rounded-lg text-white hover:text-white hover:bg-red-500"
                     onClick={() => login()}
                   >
                     Sign Up with Google
@@ -292,7 +290,7 @@ function SignUp() {
                     <span className="text-red-500 text-sm mt-6">{error}</span>
                     <button
                       type="submit"
-                      class="mt-5 tracking-wide font-semibold bg-amber-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-amber-600 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      class="mt-5 tracking-wide font-semibold bg-red-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-red-700 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     >
                       <svg
                         class="w-6 h-6 -ml-2"

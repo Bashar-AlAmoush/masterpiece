@@ -41,6 +41,7 @@ const handleRemoveProduct = (index) => {
     const subtotal = cartData.reduce((total, product) => {
       return total + (product.price * product.count);
     }, 0);
+    localStorage.setItem('total', JSON.stringify(subtotal));
     return subtotal.toFixed(2);
   };
 
@@ -50,17 +51,18 @@ const handleRemoveProduct = (index) => {
     return (subtotal  + tax).toFixed(2);
   };
   const navigate = useNavigate(); 
+
   const handleCheckout = () => {
-    const auth=localStorage.getItem('auth')
-    if(auth){
+    const auth = localStorage.getItem('auth');
+    if (auth) {
+      window.scrollTo(0, 0); // Scroll to the top of the page
       navigate("/PaymentPage");
+    } else {
+      window.scrollTo(0, 0); // Scroll to the top of the page
+      navigate(`/signin?redirectPath=${encodeURIComponent('/Cart')}`);
     }
-    else{
-      toast.error("please login to confirm your order");
-    }
-   
-   
-  };
+  }
+  
 
   return (
     <>
