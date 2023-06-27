@@ -9,18 +9,14 @@ function ContactUs()
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // To passed as the data to be sent.
     const contactMessage = {
       name,
       email,
       phone,
       message,
     };
-
     try {
       const response = await axios.post(
         "http://localhost:5000/contacts",
@@ -215,22 +211,7 @@ function ContactUs()
                   </form>
 
                   <div>
-                    {/* <span className="absolute -top-10 -right-9 z-[-1]">
-                      <svg
-                        width={100}
-                        height={100}
-                        viewBox="0 0 100 100"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 100C0 44.7715 0 0 0 0C55.2285 0 100 44.7715 100 100C100 100 100 100 0 100Z"
-                          fill="#000000"
-                        />
-                      </svg>
-                    </span> */}
+                    
                     <span className="absolute -right-10 top-[90px] z-[-1]">
                       <svg
                         width={34}

@@ -8,10 +8,7 @@ import { mdiPaletteOutline } from '@mdi/js';
 import { useState, useEffect } from "react";
 
 function About() {
-
-
   const [aboutUsData, setAboutUsData] = useState({});
-
   useEffect(() => {
     const getAboutData = async () => {
       try {
@@ -22,7 +19,6 @@ function About() {
         console.error('Error fetching data:', error);
       }
     };
-
     getAboutData();
   }, []);
 
@@ -172,14 +168,14 @@ function About() {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://bimpos.com/sites/default/files/images/posts/5ffdc91e-ef5f-48d0-bba0-a33ac3121705.jpeg"
+                      src="https://img.freepik.com/free-photo/abstract-colorful-splash-3d-background-generative-ai-background_60438-2527.jpg?w=1060&t=st=1687773565~exp=1687774165~hmac=0a024fbebb387ee062c8c419c89ffacc7033ea5685a5e471dc85b88bcb979373"
                       alt="an image"
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/e14d758d746ac22472b25056ed2179de.jpg"
+                      src="https://img.freepik.com/free-photo/dirty-coloured-palette-paint_23-2148660898.jpg?w=996&t=st=1687773766~exp=1687774366~hmac=ac48d93f21d3601fc20c2d78e728a7e339e2eee351d8c5a05c8325978520bfdc"
                       alt=""
                       className="w-full rounded-2xl"
                     />
@@ -188,7 +184,7 @@ function About() {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2 ">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-3.jpg"
+                      src="https://img.freepik.com/free-photo/drawing-ideas-model-craftsman-handy-concept_53876-16315.jpg?w=740&t=st=1687774055~exp=1687774655~hmac=c21f117cd4907b1a079a3b2adbf9abfbc5c315368d0a1a8c2e3c072b5bddfb8b"
                       alt=""
                       className="w-full rounded-2xl"
                     />

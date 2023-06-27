@@ -5,11 +5,17 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 const pool = require("./db");
 const bcrypt = require("bcrypt");
+const path=require("path");
+const multer=require('multer');
 const nodemailer = require('nodemailer');
 // library for working with JSON Web Tokens (JWTs).
 const jwt = require("jsonwebtoken");
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 const secretKey = "ZhQrZ951";
+
+
+
 
 let generatedUserId
 
@@ -593,19 +599,37 @@ app.get("/deletedproducts", (req, res) => {
 });
 
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images"); // Specify the destination folder for saving the images
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    ); // Generate a unique filename
+  },
 
-app.post("/newproduct", async function (req, res) {
+
+});
+
+const upload = multer({
+  storage: storage,
+});
+
+app.post("/newproduct",upload.single('image') , async function (req, res) {
   try {
-    const name = req.body.name;
-    const category = req.body.category;
-    const price = req.body.price;
-    const description = req.body.description;
-    const photo = req.body.photo
+    // const name = req.body;
+    // const category = req.body;
+    // const price = req.body;
+    // const description = req.body;
+    const {name,category,price,description}=req.body 
 
+    const imagePath = req.file.path;
     
       const all_records = await pool.query(
         "INSERT INTO products (name,category, price, description,photo) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
-        [name, category, price, description, photo]
+        [name, category, price, description, imagePath]
       );
       res.json(all_records.rows);
     } 

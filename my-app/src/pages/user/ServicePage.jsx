@@ -11,7 +11,8 @@ function ServicePage({ setCurrentTable }) {
   console.log(category)
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
-  
+
+
 
   useEffect(() => {
     axios
@@ -19,6 +20,7 @@ function ServicePage({ setCurrentTable }) {
       .then((response) => {
         console.log(response.data);
         setProducts(response.data);
+        setFilterDataUsers(response.data);
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
@@ -133,32 +135,7 @@ function ServicePage({ setCurrentTable }) {
 
 
 
-      {/* <div className="flex justify-center mt-5 mb-5">
-        <div className="w-full md:w-10/12 shadow shadow-black p-5 rounded-lg bg-white border-solid border-2  transform transition duration-300 ">
-          <div className="flex justify-between items-center">
-            <label className="text-lg font-medium mr-2">Find Restaurant by Address</label>
-            <select
-              className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-yellow-500 border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance-none"
-              value={yourSelectedStateValueAddress}
-              onChange={(e) => setOptionAddress(e.target.value)}
-            >
-              <option value="">All Addresses</option>
-              <option value="Amman">Amman</option>
-              <option value="Zarqa">Zarqa</option>
-              <option value="Balqa">Balqa</option>
-              <option value="Madaba">Madaba</option>
-              <option value="Karak">Karak</option>
-              <option value="Tafilah">Tafilah</option>
-              <option value="Ma'an">Ma'an</option>
-              <option value="Aqaba">Aqaba</option>
-              <option value="Mafraq">Mafraq</option>
-              <option value="Jerash">Jerash</option>
-              <option value="Ajloun">Ajloun</option>
-              <option value="Irbid">Irbid</option>
-            </select>
-          </div>
-        </div>
-      </div> */}
+   
 
 <div className="flex justify-center mt-5 mb-5">
         <div className="w-full md:w-full mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300 ">
@@ -229,7 +206,7 @@ function ServicePage({ setCurrentTable }) {
 
 
       <div className="flex flex-wrap gap-10 justify-center my-16">
-        {Products
+        {FilterDataUsers
           .filter(
             (Products) =>
             Products.price.toLocaleLowerCase() === yourSelectedStateValueAddress.toLocaleLowerCase() ||
@@ -237,16 +214,16 @@ function ServicePage({ setCurrentTable }) {
           )
           .slice(startIndexUsers, endIndexUsers)
           .map((Products, index) => (
-
             <div className="card card-compact w-100 bg-base-100 shadow-xl">
-
+{console.log(Products.photo)}
   <button className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
    
    
   </button>
   <a href="#" className="group relative block overflow-hidden">
   <img
-         src={Products.photo}     alt=""
+
+         src={`http://localhost:5000/${Products.photo}`}     alt=""
   
         className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"style={{width: '100%', height: ''}}
   />

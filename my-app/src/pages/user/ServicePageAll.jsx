@@ -199,8 +199,7 @@ const ServicePageAll = () => {
 
   <a href="#" className="group relative block overflow-hidden">
   <img
-         src={product.photo}     alt=""
-  
+         src={`http://localhost:5000/${product.photo}`}   alt=""
         className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
   />
   </a>

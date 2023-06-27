@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import Icon from '@mdi/react';
 import { useNavigate } from 'react-router-dom';
-
+import { mdiCartOutline } from '@mdi/js';
 import { mdiPalette } from '@mdi/js';
 import {
   Avatar,
@@ -206,6 +206,12 @@ export default function Example() {
     } 
   }
 
+  function handlecart() {
+    if (SignStatus == "signUp") {
+      navigate("/cart");
+    } 
+  }
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -333,13 +339,27 @@ export default function Example() {
         </div>
         <div className="hidden gap-2 lg:flex">
           {SignStatus == "signUp" ? (
-            <Button
-              onClick={() => handleSign()}
-              size="sm"
-              className="bg-red-700 hover:shadow-lg-red-600"
-            >
-              Sign Up
-            </Button>
+            <>
+        <Button
+  onClick={() => handlecart()}
+  size="sm"
+  className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2 flex items-center"
+>
+  <Icon path={mdiCartOutline} size={0.8} className="mr-1" />
+  Cart
+</Button>
+
+<Button
+  onClick={() => handleSign()}
+  size="sm"
+  className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2"
+>
+  Sign Up
+</Button>
+
+
+</>
+
           ) : (
             <ProfileMenu />
           )}

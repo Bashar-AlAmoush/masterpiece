@@ -9,6 +9,7 @@ import { mdiHumanEdit } from '@mdi/js';
 import Swal from 'sweetalert2'
 import { mdiShieldCrownOutline } from '@mdi/js'
 import { mdiAccountOutline } from '@mdi/js';
+import { mdiAccountEdit } from '@mdi/js';
 const UsersInfo = () => {
 
   const [persons, setPersons] = useState([]);
@@ -132,11 +133,6 @@ const UsersInfo = () => {
               .catch((error) => console.log(error.message))
           })
           .catch((error) => console.log(error.message))
-      
-          // window.location.reload();
-
-
-
       } else
           Swal.fire(' Cancelled', '', 'error')
 
@@ -183,7 +179,7 @@ const handlerecover = (id,name) => {
         })
         .catch((error) => console.log(error.message))
     
-        // window.location.reload();
+   
 
 
 
@@ -243,7 +239,7 @@ if (role == "user"){
     
         Swal.fire(text2, '', 'success');
      
-        // window.location.reload();
+       
     } else
         Swal.fire(' Cancelled', '', 'error')
 
@@ -397,7 +393,9 @@ if (role == "user"){
                       <button onClick={() => handleUpdate(e.userid,e.type_id,e.username)}>
                         
                         
-                        {e.type_id == 0 ? <Icon color="blue" path={mdiHumanEdit} size={1} /> : <Icon color="blue" path={mdiHumanEdit} size={1} />}
+                        {/* {e.type_id == 0 ? <Icon color="blue" path={mdiHumanEdit} size={1} /> : <Icon color="blue" path={mdiHumanEdit} size={1} />} */}
+                        <Icon path={mdiAccountEdit}  color="blue" size={1} />
+
                       </button>
                     </td>
 
@@ -432,7 +430,7 @@ if (role == "user"){
 
         <div className="relative flex items-center justify-between pt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
-            Users Table
+          Deleted  Users Table
           </div>
         </div>
         <form>

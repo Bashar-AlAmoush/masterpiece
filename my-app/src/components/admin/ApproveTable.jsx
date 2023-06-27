@@ -14,7 +14,7 @@ const ApproveTable = () => {
 const [category, setCategory] = useState("");
 const [price, setPrice] = useState("");
 const [description, setDescription] = useState("");
-const [photo, setPhoto] = useState("");
+const [file, setFile] = useState(null);
 const [deletedproducts, setdeletedproducts] = useState([]);
   const [FilterDatadeletedproducts, setFilterDatadeletedproducts] = useState([]);
   useEffect(() => {
@@ -121,7 +121,7 @@ useEffect(() => {
           icon: 'warning'
       }
       ).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
+       
           if (result.isConfirmed) {
     
               Swal.fire(` ${name} has been removed `, '', 'success');
@@ -219,28 +219,28 @@ useEffect(() => {
         case "description":
           setDescription(value);
           break;
-        case "photo":
-          setPhoto(value);
-          break;
+     
         default:
           break;
       }
     };
-    
+  
+;
+    const files=new FormData();
+    files.append('image',file);
+    files.append('name',name);
+    files.append('category',category);
+    files.append('price',price);
+    files.append('description',description);
 
     const handleCreatePost = async () => {
     
-  console.log(name)
-  console.log(description)
-  console.log(price)
+  console.log(file)
+
+
+
   axios
-  .post("http://localhost:5000/newproduct", {
-    name: name,
-    category: category,
-    price: price,
-    description: description,
-    photo: photo,
-  })
+  .post("http://localhost:5000/newproduct",files)
   .then(function (response) {
       console.log(response.data);
       axios.get('http://localhost:5000/productsAll')
@@ -290,7 +290,7 @@ useEffect(() => {
       </div>
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded shadow-md z-50">
+          <div className="bg-white p-8 rounded shadow-md z-50" style={{width:"580px"}}>
             <h2 className="text-2xl font-bold mb-4">Add New Products </h2>
             <form>
               <div className="mb-4">
@@ -319,7 +319,9 @@ useEffect(() => {
                 <textarea
                   id="description"
                   name="description"
-                  maxLength={50}
+                  maxLength={400}
+                  rows={5}
+                  cols={5}
                   value={description}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -333,7 +335,7 @@ useEffect(() => {
                   price
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="price"
                   name="price"
                   value={price}
@@ -342,46 +344,54 @@ useEffect(() => {
                 />
               </div>
               <div className="mb-4">
-                <label
-                  htmlFor="category"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  category
-                </label>
-                <input
-                  type="text"
-                  id="category"
-                  name="category"
-                  value={category}
-                  onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
+  <label htmlFor="category" className="block text-gray-700 font-bold mb-2">
+    Category
+  </label>
+  <select
+    id="category"
+    name="category"
+    value={category}
+    onChange={handleInputChange}
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  >
+    <option value="">Select a category</option>
+    <option value="paints">paints</option>
+    <option value="paper">paper </option>
+    <option value="paints">paints</option>
+    <option value="drawing">drawing</option>
+    <option value="canvas">canvas</option>
+    <option value="tools">tools</option>
+    
+  </select>
+</div>
 
-              <div className="mb-4">
-                <label
-                  htmlFor="tags"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                 photo
-                </label>
-                <input
-                  type="text"
-                  id="photo"
-                  name="photo"
-                  value={photo}
-                  onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
+<div className="mb-4">
+  <label
+    htmlFor="photo"
+    className="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
+  >
+   photo 
+  </label>
+  <input
+    className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+    type="file"
+    id="photo"
+    name="photo"
+    onChange={(e) => {
+      setFile(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }}
+  />
+</div>
 
               <div className="flex items-center justify-between">
                 <button
                   type="button"
                   onClick={handleCreatePost}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  Create Post
+                            Add New Product
+
                 </button>
                 <button
                   type="button"

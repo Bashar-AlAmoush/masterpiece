@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 export default function Cart() {
     const [cartData, setCartData] = useState([]);
    
@@ -51,7 +51,14 @@ const handleRemoveProduct = (index) => {
   };
   const navigate = useNavigate(); 
   const handleCheckout = () => {
-    navigate("/PaymentPage");
+    const auth=localStorage.getItem('auth')
+    if(auth){
+      navigate("/PaymentPage");
+    }
+    else{
+      toast.error("please login to confirm your order");
+    }
+   
    
   };
 
@@ -68,7 +75,9 @@ const handleRemoveProduct = (index) => {
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <polyline points="15 6 9 12 15 18" />
                                         </svg>
+                                        <Link to="/">
                                         <p className="text-sm pl-2 leading-none">Back</p>
+                                        </Link>
                                     </div>
                                     <p className="text-5xl font-black leading-10 text-red-500 pt-3">Bag</p>
 
