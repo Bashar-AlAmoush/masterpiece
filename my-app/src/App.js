@@ -22,6 +22,7 @@ import NavListMenuD from './pages/admin/dashboard/NavDashboard'
 import MainDashboard from './pages/admin/MainDashboard';
 import ListUser from './pages/admin/ListUser'
 import ListRestaurant from './pages/admin/ListRestaurant';
+import ListSales from './pages/admin/ListSales';
 import Chat from './pages/admin/Chat';
 import EditAboutContact from './pages/admin/EditAboutContact';
 import AcceptTables from './pages/admin/AcceptTables';
@@ -89,6 +90,7 @@ useEffect(() => {
         <Route index element={<MainDashboard />} />
         <Route path="ListUser" element={<ListUser />} />
         <Route path="ListRestaurant" element={<ListRestaurant />} />
+        <Route path="ListSales" element={<ListSales />} />
         <Route path="Chat" element={<Chat />} />
         <Route path="EditAboutContact" element={<EditAboutContact />} />
         <Route path="AcceptTables" element={<AcceptTables />} />

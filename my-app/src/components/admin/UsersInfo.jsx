@@ -275,134 +275,77 @@ if (role == "user"){
         </form>
 
         <div className="mt-8 overflow-x-scroll xl:overflow-hidden " >
-          <table role="table" className="w-full">
-            <thead>
-              <tr role="row">
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">NAME</p>
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+              <tr>
+              <th scope="col" className="px-6 py-3">
+
+                  NAME
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">email</p>
+                <th scope="col" className="px-6 py-3">
+
+                  email
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">phone</p>
+                <th scope="col" className="px-6 py-3">
+
+                  phone
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">role</p>
+                <th scope="col" className="px-6 py-3">
+
+                 role
                 </th>
 
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-10 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">EDIT</p>
+                <th scope="col" className="px-6 py-3">
+
+                 EDIT
                 </th>
 
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">DELETE</p>
+                <th scope="col" className="px-6 py-3">
+
+                  DELETE
                 </th>
               </tr>
             </thead>
 
             {slicedArrayUsers.map((e) => {
               return (
-                <tbody role="rowgroup">
-                  <tr role="row">
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px] flex items-center"
-                      role="cell"
-                    >
-                      <div className="h-[30px] w-[30px] rounded-full">
-                        <img
-                          src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2244&q=80"
-                          className="h-full w-full rounded-full"
-                          alt=""
-                        />
-                      </div>
+                <tbody >
+      <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
+      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
 
-                      <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
+                      
+                   
+
                         {e.username}
-                      </p>
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="rounded-full text-xl">
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
+                     
                             {e.email}
-                          </p>
-                        </div>
-                      </div>
+                         
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                         {e.phone_number}
-                      </p>
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                         {e.type_id == 0 ?  <div className=" w-10 flex flex-col justify-center items-center" > <Icon path={mdiAccountOutline} size={1} />  <span>user</span> </div> : <div className=" w-10 flex flex-col justify-center items-center"> <Icon path={mdiShieldCrownOutline} size={1} />  <span>Admin</span> </div> }
-                      </p>
                     </td>
 
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                       <button onClick={() => handleUpdate(e.userid,e.type_id,e.username)}>
                         
                         
-                        {/* {e.type_id == 0 ? <Icon color="blue" path={mdiHumanEdit} size={1} /> : <Icon color="blue" path={mdiHumanEdit} size={1} />} */}
                         <Icon path={mdiAccountEdit}  color="blue" size={1} />
 
                       </button>
                     </td>
 
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                       <button onClick={() => handleDelete(e.userid,e.username)}>
                         <Icon color="red" path={mdiDelete} size={1} />
                       </button>
@@ -450,115 +393,62 @@ if (role == "user"){
           </div>
         </form>
         <div className="mt-8 overflow-x-scroll xl:overflow-hidden " >
-          <table role="table" className="w-full">
-            <thead>
-              <tr role="row">
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">NAME</p>
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr >
+              <th scope="col" className="px-6 py-3">
+
+                 NAME
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">email</p>
+                <th scope="col" className="px-6 py-3">
+
+                 email
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">phone</p>
+                <th scope="col" className="px-6 py-3">
+
+                phone
                 </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">role</p>
+                <th scope="col" className="px-6 py-3">
+
+                  role
                 </th>
 
              
 
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">Recover</p>
+                <th scope="col" className="px-6 py-3">
+
+                  Recover
                 </th>
               </tr>
             </thead>
 
             {slicedArraydeleteUsers.map((e) => {
               return (
-                <tbody role="rowgroup">
-                  <tr role="row">
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px] flex items-center"
-                      role="cell"
-                    >
-                      <div className="h-[30px] w-[30px] rounded-full">
-                        <img
-                          src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2244&q=80"
-                          className="h-full w-full rounded-full"
-                          alt=""
-                        />
-                      </div>
+                <tbody  >
+      <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
+      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
 
-                      <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
+                     
+
                         {e.username}
-                      </p>
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="rounded-full text-xl">
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                             {e.email}
-                          </p>
-                        </div>
-                      </div>
+                        
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                         {e.phone_number}
-                      </p>
                     </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+
                         {e.type_id == 0 ?  <div className=" w-10 flex flex-col justify-center items-center" > <Icon path={mdiAccountOutline} size={1} />  <span>user</span> </div> : <div className=" w-10 flex flex-col justify-center items-center"> <Icon path={mdiShieldCrownOutline} size={1} />  <span>Admin</span> </div> }
-                      </p>
                     </td>
 
                 
 
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
+                    <td className="px-6 py-4">
                       <button onClick={() => handlerecover(e.userid,e.username)}>
                         <Icon color="green" path={mdiRestore} size={1} />
                       </button>

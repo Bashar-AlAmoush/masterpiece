@@ -85,137 +85,82 @@ const handleButtonClick = (userid) => {
         </form>
 
         <div className="mt-8 overflow-x-scroll xl:overflow-hidden">
-          <table role="table" className="w-full">
-            <thead>
-              <tr role="row">
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">NAME</p>
-                </th>
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">email</p>
-                </th>
-               
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">phone number</p>
-                </th>
-
-                
-
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">details</p>
-                </th>
-              </tr>
-            </thead>
-
-            {slicedArrayUsers.map((e) => {
-              return (
-                <tbody role="rowgroup">
-                  <tr role="row">
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                     <div className="flex items-center gap-2">
-                        <div className="rounded-full text-xl">
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.username}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="rounded-full text-xl">
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.email}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.phone_number}
-                      </p>
-                    </td>
-                    <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-  <p className="text-sm font-bold text-navy-700 dark:text-white">
-   
-    <button  onClick={() => {
-    setShowPopup(true);
-    handleButtonClick(e.userid)}} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-6">
-   View Order
-    </button>
-
-  
-    {showPopup && (
-     
-      <div className="fixed inset-0 flex items-center justify-center z-50">
-    <div className="bg-white p-4 rounded-lg shadow-lg max-w-lg max-h-full w-full overflow-y-auto">
-        {orders.map((order) => (
-        <div key={order.id}>
         
-       
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" className="px-6 py-3">
+          Name
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Email
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Phone Number
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Detail
+        </th>
+      </tr>
+    </thead>
 
-<div className="mt-2 text-gray-700">
-  <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-    <img src={order.photo} alt="product-image" className="w-full rounded-lg sm:w-40" style={{ width: "100px" }} />
-    <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-      <div className="mt-4 flex flex-col space-y-2 sm:mt-0 sm:space-y-6 sm:space-x-6">
-        <p className="text-sm ms-6">Product Name: {order.name}</p>
-        <p className="text-sm">Price JD: {order.price}</p>
-        <p className="text-sm">Product Category: {order.category}</p>
-      </div>
-    </div>
-  </div>
-</div>
+    {slicedArrayUsers.map((e) => {
 
-</div>
-
-))}
-          <button onClick={() => setShowPopup(false) } className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-            Close
+  return (
+    <tbody key={e.userid}>
+      <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
+        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+          {e.username}
+        </td>
+        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+          {e.email}
+        </td>
+        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+          {e.phone_number}
+        </td>
+        <td className="px-6 py-4">
+          <button  className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => {
+  setShowPopup(true);
+  handleButtonClick(e.userid);
+}}>
+            View Order
           </button>
-        </div>
-      </div>
-    )}
-  </p>
-</td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
+          {showPopup && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                  <div className="bg-white p-4 rounded-lg shadow-lg max-w-lg max-h-full w-full overflow-y-auto">
+                    {orders.map((order) => (
+                      <div key={order.id}>
+                        <div className="mt-2 text-gray-700">
+                          <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                            <img src={order.photo} alt="product-image" className="w-full rounded-lg sm:w-40" style={{ width: "100px" }} />
+                            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                              <div className="mt-4 flex flex-col space-y-2 sm:mt-0 sm:space-y-6 sm:space-x-6">
+                                <p className="text-sm ms-6">Product Name: {order.name}</p>
+                                <p className="text-sm">Price JD: {order.price}</p>
+                                <p className="text-sm">Product Category: {order.category}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <button onClick={() => setShowPopup(false)} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+        </td>
+      </tr>
+    </tbody>
+  );
+})}
+
+  </table>
+</div>
+
+
 
 
           <div className="flex w-full justify-center mt-5 bg-white">

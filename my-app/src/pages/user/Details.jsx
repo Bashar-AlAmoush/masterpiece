@@ -51,6 +51,8 @@ function Details1() {
     }
     toast.success(`${product.name} has been added to your cart.`);
   };
+
+  
   const handleInputChange = (event) => {
     if (event.target.value > 10) {
       event.target.value = 10;

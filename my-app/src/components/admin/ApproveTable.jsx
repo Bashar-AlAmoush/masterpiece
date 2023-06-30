@@ -431,113 +431,59 @@ useEffect(() => {
 </form>
 
   <div className="mt-8 overflow-x-scroll xl:overflow-hidden">
-    <table role="table" className="w-full">
-      <thead>
-        <tr role="row">
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">NAME</p>
-          </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">Category</p>
-          </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">description</p>
-          </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">price</p>
-          </th>
+  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr >
+    <th scope="col" className="px-6 py-3">
 
-         
+        NAME
+      </th>
+      <th scope="col" className="px-6 py-3">
 
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">DELETE</p>
-          </th>
+       Category
+      </th>
+      <th scope="col" className="px-6 py-3">
 
-        </tr>
-      </thead>
-{
+    Description
+      </th>
+      <th scope="col" className="px-6 py-3">
 
-slicedArrayproducts.map((e)=>{
+       Price
+      </th>
+      <th scope="col" className="px-6 py-3">
 
-return(
-
-<tbody role="rowgroup">
-<tr role="row">
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <p className="text-sm font-bold text-navy-700 dark:text-white">
+        Delete
+      </th>
+    </tr>
+  </thead>
+  {slicedArrayproducts.map((e) => {
+    return (
+      <tbody key={e.userid}>
+      <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
+        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.name} 
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <div className="flex items-center gap-2">
-              <div className="rounded-full text-xl">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+          
                 {e.category}
-              </div>
-            </div>
+              
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <p className="text-sm font-bold text-navy-700 dark:text-white">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.description}
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-          <p className="text-sm font-bold text-navy-700 dark:text-white">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.price}
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-                     <button onClick={() => handleDelete(e.product_id,e.name)}>
-                      <Icon color="red" path={mdiDelete} size={1} />
-                    </button>
+          <td className="pt-[14px] pb-[18px] sm:text-[14px] text-center" role="cell">
+            <button onClick={() => handleDelete(e.product_id, e.name)}>
+              <Icon color="red" path={mdiDelete} size={1} />
+            </button>
           </td>
         </tr>
-       
       </tbody>
-
-
-
-
-)
-
-
-
-})
-
-}
-
-
-        
-    </table>
+    );
+  })}
+</table>
 
     <div className='flex w-full justify-center mt-5'>   
     {(
@@ -553,61 +499,30 @@ return(
 
 
   <div className="relative flex items-center justify-between pt-4">
-    <div className="text-xl font-bold text-navy-700 dark:text-white">
+    <div className="text-xl font-bold text-navy-700  dark:text-white">
     Deleted Products
     </div>
   </div>
   <div className="mt-8 overflow-x-scroll xl:overflow-hidden">
-    <table role="table" className="w-full">
-      <thead>
-        <tr role="row">
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">NAME</p>
+  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr >
+        <th scope="col" className="px-6 py-3">
+          Name
+        </th>
+        <th scope="col" className="px-6 py-3">
+            Category
           </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">Category</p>
+          <th scope="col" className="px-6 py-3">
+           description
           </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">description</p>
-          </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">price</p>
+          <th scope="col" className="px-6 py-3">
+           price
           </th>
 
          
 
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">Recover</p>
+          <th scope="col" className="px-6 py-3">Recover
           </th>
 
         </tr>
@@ -618,31 +533,23 @@ slicedArraydeletedproducts.map((e)=>{
 
 return(
 
-<tbody role="rowgroup">
-<tr role="row">
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <p className="text-sm font-bold text-navy-700 dark:text-white">
+  <tbody key={e.userid}>
+      <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
+      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.name} 
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <div className="flex items-center gap-2">
-              <div className="rounded-full text-xl">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+            
                 {e.category}
-              </div>
-            </div>
+             
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <p className="text-sm font-bold text-navy-700 dark:text-white">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.description}
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-          <p className="text-sm font-bold text-navy-700 dark:text-white">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.price}
-            </p>
           </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                      <button onClick={() => handlerecover(e.product_id,e.name)}>
                      <Icon path={mdiRestore} size={1}  color={"green"}/>
                     </button>

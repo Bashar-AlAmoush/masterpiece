@@ -5,6 +5,7 @@ import { mdiInformationOutline } from '@mdi/js';
 import { UserContext } from '../../../UserContext';
 import React,{useContext} from "react";
 import { mdiBrush } from '@mdi/js';
+import { mdiSaleOutline } from '@mdi/js';
 import { mdiCartCheck } from '@mdi/js';
 import {
     Card,
@@ -103,6 +104,15 @@ import Swal from 'sweetalert2'
             <Icon path={mdiCartCheck} size={1} />
             </ListItemPrefix>
             <a style={{color:'white'}}> Order list </a>
+          </ListItem>
+          </Link>
+
+          <Link to='/ListSales'>
+          <ListItem className="hover:bg-red-500">
+            <ListItemPrefix>
+            <Icon path={mdiSaleOutline} size={1} />
+            </ListItemPrefix>
+            <a style={{color:'white'}}> List Sales</a>
           </ListItem>
           </Link>
 
