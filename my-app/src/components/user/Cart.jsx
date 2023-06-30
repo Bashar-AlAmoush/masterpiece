@@ -39,16 +39,22 @@ const handleRemoveProduct = (index) => {
 
   const calculateSubtotal = () => {
     const subtotal = cartData.reduce((total, product) => {
-      return total + (product.price * product.count);
+      if(product.new_price>0){
+        return total + (product.new_price * product.count);
+      }
+      else{
+        return total + (product.price * product.count);
+      }
     }, 0);
-    localStorage.setItem('total', JSON.stringify(subtotal));
-    return subtotal.toFixed(2);
+    
+    return parseInt(subtotal).toFixed(2);
   };
 
   const calculateTotal = () => {
     const subtotal = parseFloat(calculateSubtotal());
     const tax = 2;
-    return (subtotal  + tax).toFixed(2);
+    localStorage.setItem('total', JSON.stringify(parseInt(subtotal+tax)));
+    return parseInt(subtotal  + tax).toFixed(2);
   };
   const navigate = useNavigate(); 
 
@@ -62,8 +68,6 @@ const handleRemoveProduct = (index) => {
       navigate(`/signin?redirectPath=${encodeURIComponent('/Cart')}`);
     }
   }
-  
-
   return (
     <>
      <ToastContainer />
@@ -86,12 +90,20 @@ const handleRemoveProduct = (index) => {
                                     {cartData.map((product, index) => (
   <div className="md:flex items-center mt-14 py-8 border-t border-gray-200 shadow-lg rounded-lg" key={index}>
     <div className="w-1/4">
-      <img src={product.photo} alt="" className="w-full h-full object-center object-cover" />
+
+   
+          
+      <img src={`http://localhost:5000/${product?.photo}`} alt="" className="w-full h-full object-center object-cover" />
+        
+
     </div>
     <div className="md:pl-3 md:w-3/4">
       <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">{product.category}</p>
       <div className="flex items-center justify-between w-full pt-1">
-        <p className="text-base font-black leading-none text-gray-800">{product.name}</p>
+   
+          <p className="text-base font-black leading-none text-gray-800"> {product.name}</p>
+        
+        
         <div className="relative mb-3" data-te-input-wrapper-init>
           <input
             type="number"
@@ -106,15 +118,17 @@ const handleRemoveProduct = (index) => {
       <p className="text-xs leading-3 text-gray-600 pt-2">{product.description}</p>
       <div className="flex items-center justify-between pt-5 pr-6">
         <div className="flex items-center">
-          <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" onClick={() => handleRemoveProduct(index)} >Remove</p>
+          <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" onClick={() => handleRemoveProduct(index)}>Remove</p>
         </div>
-        <p className="text-base font-black leading-none text-gray-800"> JD:{product.price}</p>
+        {product.new_price>0 ? (
+          <p className="text-base font-black leading-none text-gray-800">JD: {product.new_price}</p>
+        ) : (
+          <p className="text-base font-black leading-none text-gray-800">JD: {product.price}</p>
+        )}
       </div>
     </div>
   </div>
-))}
-                                  
-                                   
+))}               
                                 </div>
                                 <div className="md:w-1/3 xl:w-1/4 w-full bg-gray-100 h-full">
                                     <div className="flex flex-col md:h-screen px-14 py-20 justify-between overflow-y-auto">

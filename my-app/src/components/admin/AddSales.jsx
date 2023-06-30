@@ -210,69 +210,44 @@ function AddSales() {
         const { name, value } = event.target;
       
         switch (name) {
-          case "name":
-            setName(value);
+          case "new_price":
+            setnewPrice(value);
             break;
-          case "category":
-            setCategory(value);
-            break;
-          case "price":
-            setPrice(value);
-            break;
-            case "new_price":
-                setnewPrice(value);
-            break;
-          case "description":
-            setDescription(value);
-            break;
-       
           default:
             break;
         }
       };
-    
-  ;
-      const files=new FormData();
-      files.append('image',file);
-      files.append('name',name);
-      files.append('category',category);
-      files.append('old_price',price);
-      files.append('new_price',new_price);
-      files.append('description',description);
-  
-      const handleCreatePost = async () => {
+      const handleCreatePost = async (id) => {
+        try {
+          const response = await axios.put(
+            `http://localhost:5000/newsale/${id}`,
+            {new_price }
+          );
+          console.log("New sale created successfully:", response.data);
       
-    console.log(file)
-  
-  
-  
-    axios
-    .post("http://localhost:5000/newsale",files)
-    .then(function (response) {
-        console.log(response.data);
-        axios.get('http://localhost:5000/saleAll')
+          // Retrieve updated data after creating the sale
+          axios.get('http://localhost:5000/saleAll')
             .then((response) => {
               setproducts(response.data);
               setFilterDataproducts(response.data);
             })
             .catch((error) => console.log(error.message));
-  
-            axios.get('http://localhost:5000/deletedproducts')
+      
+          axios.get('http://localhost:5000/deletedproducts')
             .then((response) => {
               setdeletedproducts(response.data);
-              setFilterDatadeletedproducts(response.data)
-              console.log(response.data)
-                 
+              setFilterDatadeletedproducts(response.data);
+              console.log(response.data);
             })
-            .catch((error) => console.log(error.message))
-  
-      }
-    )
-    .catch((err) => console.log(err.message));
-    
+            .catch((error) => console.log(error.message));
+        } catch (error) {
+          console.log("Error creating new sale:", error.message);
+        }
+      
         setShowForm(false);
       };
-    
+      
+      
   
     return (
       
@@ -287,150 +262,6 @@ function AddSales() {
       <div className="text-xl font-bold text-navy-700 dark:text-white">
       All  products
       </div>
-  <div className="flex items-center justify-center mt-8">
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-6"
-          >
-            Add New Product
-          </button>
-        </div>
-        {showForm && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
-            <div className="bg-white p-8 rounded shadow-md z-50" style={{width:"580px"}}>
-              <h2 className="text-2xl font-bold mb-4">Add New Products </h2>
-              <form>
-                <div className="mb-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Name of products
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="description"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                  Description
-                  </label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    maxLength={400}
-                    rows={3}
-                    cols={5}
-                    value={description}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="price"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                   Old Price
-                  </label>
-                  <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    value={price}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="new_price"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    New Price
-                  </label>
-                  <input
-                    type="number"
-                    id="new_price"
-                    name="new_price"
-                    value={new_price}
-                    onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-
-                <div className="mb-4">
-    <label htmlFor="category" className="block text-gray-700 font-bold mb-2">
-      Category
-    </label>
-    <select
-      id="category"
-      name="category"
-      value={category}
-      onChange={handleInputChange}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    >
-      <option value="">Select a category</option>
-      <option value="paints">paints</option>
-      <option value="paper">paper </option>
-      <option value="paints">paints</option>
-      <option value="drawing">drawing</option>
-      <option value="canvas">canvas</option>
-      <option value="tools">tools</option>
-      
-    </select>
-  </div>
-  
-  <div className="mb-4">
-    <label
-      htmlFor="photo"
-      className="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
-    >
-     photo 
-    </label>
-    <input
-      className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-      type="file"
-      id="photo"
-      name="photo"
-      onChange={(e) => {
-        setFile(e.target.files[0]);
-        console.log(e.target.files[0]);
-      }}
-    />
-  </div>
-  
-                <div className="flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={handleCreatePost}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                              Add New Product
-  
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleCancel}
-                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-  
     
    
     </div>
@@ -475,6 +306,9 @@ function AddSales() {
         New price
       </th>
       <th scope="col" className="px-6 py-3">
+      Add Sales
+      </th>
+      <th scope="col" className="px-6 py-3">
         Delete
       </th>
     </tr>
@@ -486,7 +320,7 @@ function AddSales() {
         <tbody key={e.userid}>
       <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-              {e.sales_name}
+              {e.name}
           </td>
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
             
@@ -497,13 +331,99 @@ function AddSales() {
               {e.description}
           </td>
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-              {e.old_price}
+              {e.price}
           </td>
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.new_price}
           </td>
+
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-            <button onClick={() => handleDelete(e.sales_id, e.sales_name)}>
+          <button
+            onClick={() => setShowForm(true)}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-6"
+          >
+            Add Sales
+          </button>
+          {showForm && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+            <div className="bg-white p-8 rounded shadow-md z-50" style={{width:"580px"}}>
+              <h2 className="text-2xl font-bold mb-4">Add New Products </h2>
+              <form>
+                <div className="mb-4">
+                  <label
+                    htmlFor="name"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    Name of products
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name" 
+                    value={e.name}
+                disabled readonly
+                    className="shadow cursor-not-allowed   appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+              
+                <div className="mb-4">
+                  <label
+                    htmlFor="price"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                   Old Price
+                  </label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value={e.price} 
+                   disabled readonly
+                    className="shadow appearance-none border cursor-not-allowed   rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label
+                    htmlFor="new_price"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    New Price
+                  </label>
+                  <input
+                    type="number"
+                    id="new_price"
+                    name="new_price"
+                    value={new_price}
+                    onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                <button
+  type="button"
+  onClick={() => handleCreatePost(e.product_id)}
+  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+>
+  Add Sales
+</button>
+
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+          </td>
+          <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+            <button onClick={() => handleDelete(e.product_id, e.name)}>
               <Icon color="red" path={mdiDelete} size={1} />
             </button>
           </td>
@@ -600,7 +520,7 @@ function AddSales() {
     <tbody key={e.userid}>
       <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                {e.sales_name} 
+                {e.name} 
               
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
@@ -612,14 +532,14 @@ function AddSales() {
                 {e.description}
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                {e.old_price}
+                {e.price}
               
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 {e.new_price}
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                       <button onClick={() => handlerecover(e.sales_id,e.sales_name)}>
+                       <button onClick={() => handlerecover(e.product_id,e.name)}>
                        <Icon path={mdiRestore} size={1}  color={"green"}/>
                       </button>
             </td>

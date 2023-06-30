@@ -14,6 +14,7 @@ import ProfilePage from './pages/user/ProfilePage'
 import ServicePage from './pages/user/ServicePage';
 import ServicePageAll from './pages/user/ServicePageAll';
 import Details from './pages/user/Details';
+import SalesDetails from './pages/user/SalesDetails';
 import EditProfile from './pages/user/EditProfile';
 //----------------------------------------------------------------//
 //----------------------------admin------------------------------//
@@ -69,6 +70,7 @@ useEffect(() => {
              <Route path="ProfilePage"  element={<ProfilePage  />} />
              <Route path="ServicePageAll" element={<ServicePageAll />} />
              <Route path="/Details/:Product_id" element={<Details />} />
+             <Route path="/SalesDetails/:Product_id" element={<SalesDetails />} />
              <Route path="EditProfile" element={<EditProfile />} />
              <Route path="/Product/:category" element={<ServicePage />} />
         </Routes>

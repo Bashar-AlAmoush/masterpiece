@@ -30,8 +30,35 @@ const total=localStorage.getItem("total")
 
 const hndelorder=() =>{
   const data = JSON.parse(localStorage.getItem("cart")); 
+  
 data?.map((element)=>{
-  let orderdata = {
+if(element.new_price>0){
+
+let  orderdata1 = {
+    userid: person[0].userid,
+    category:element.category,
+    count : element.count,
+    description:element.description,
+    name:element.name,
+    photo:element.photo,
+    price : element.new_price ,
+    product_id : element.product_id,
+  };
+
+  axios
+  .post("http://localhost:5000/neworder", orderdata1)
+  .then((response) => {
+    
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error.message)
+  });
+}
+else{
+
+
+  let orderdata2 = {
     userid: person[0].userid,
     category:element.category,
     count : element.count,
@@ -39,17 +66,19 @@ data?.map((element)=>{
     name:element.name,
     photo:element.photo,
     price : element.price ,
-    product_id : element.product_id ,
+    product_id : element.product_id,
   };
-  axios
-    .post("http://localhost:5000/neworder", orderdata)
-    .then((response) => {
-      
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.message)
-    });
+
+axios
+.post("http://localhost:5000/neworder", orderdata2)
+.then((response) => {
+  
+  console.log(response.data);
+})
+.catch((error) => {
+  console.log(error.message)
+});
+}
   
 })
   

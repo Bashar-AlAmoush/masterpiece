@@ -152,8 +152,14 @@ const ProfilePage = () => {
 
 <p className="mt-2 text-gray-700">
 <div  class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
-                <img src={order.photo} 
-                 alt="product-image" class="w-full rounded-lg sm:w-40" style={{width:"100px"}} />
+            
+
+
+          <img src={`http://localhost:5000/${order?.photo}`} 
+          
+          alt="product-image" class="w-full rounded-lg sm:w-40" style={{width:"100px"}} />
+        
+
                 <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div class="mt-5 sm:mt-0">
                     <h2 class="text-lg font-bold text-gray-900"></h2>
@@ -162,8 +168,19 @@ const ProfilePage = () => {
                   <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                   
                     <div class="flex items-center space-x-4">
-                      <p class="text-sm">  {order.name} </p>
-                      <p class="text-sm">  {order.price}  </p>
+                     
+            
+          <p class="text-sm">{order.name}</p>
+        
+
+
+              {order.new_price>0 ? (
+           <p class="text-sm"> JD: {order.new_price} </p>
+        ) : (
+          <p class="text-sm">JD: {order.price}</p>
+        )}
+
+                   
                       <p class="text-sm">  {order.category}  </p>
                     
                     </div>
@@ -189,8 +206,11 @@ const ProfilePage = () => {
 
 <p className="mt-2 text-gray-700">
 <div  class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
-                <img src={order.photo} 
-                 alt="product-image" class="w-full rounded-lg sm:w-40" style={{width:"100px"}} />
+
+          <img src={`http://localhost:5000/${order?.photo}`} 
+          
+          alt="product-image" class="w-full rounded-lg sm:w-40" style={{width:"100px"}} />
+        
                 <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div class="mt-5 sm:mt-0">
                     <h2 class="text-lg font-bold text-gray-900"></h2>
@@ -199,8 +219,18 @@ const ProfilePage = () => {
                   <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                   
                     <div class="flex items-center space-x-4">
-                      <p class="text-sm">  {order.name} </p>
-                      <p class="text-sm">  {order.price}  </p>
+
+               
+          <p class="text-sm">  {order.name}</p>
+        
+        
+
+
+                      {prevOrders.new_price>0? (
+           <p class="text-sm"> JD: {order.new_price} </p>
+        ) : (
+          <p class="text-sm">JD: {order.price}</p>
+        )}
                       <p class="text-sm">  {order.category}  </p>
                    
                     </div>
