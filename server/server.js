@@ -385,6 +385,36 @@ app.put("/product/:id", async (req, res) => {
 })
 
 
+app.put("/sales/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const table_status = await pool.query(
+      "UPDATE products SET disflag ='2 'WHERE product_id = $1",
+      [ id]
+    );
+    res.json(table_status.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+})
+
+
+app.get("/sales/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const table_status = await pool.query(
+      "select * from products WHERE product_id = $1",
+      [ id]
+    );
+    res.json(table_status.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+})
+
+
+
+
 app.put("/recoverproduct/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -398,6 +428,19 @@ app.put("/recoverproduct/:id", async (req, res) => {
   }
 })
 
+
+app.put("/recoversales/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const table_status = await pool.query(
+      "UPDATE products SET disflag = 1 WHERE product_id = $1",
+      [ id]
+    );
+    res.json(table_status.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+})
 
 
 // ---------------- issa --------------------//
@@ -586,8 +629,35 @@ app.get("/productsAll", (req, res) => {
 
 
 
+app.get("/saleAll", (req, res) => {
+  pool.query("SELECT * FROM products where disflag =1 ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
+
 app.get("/deletedproducts", (req, res) => {
   pool.query("SELECT * FROM products where flags =1 ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
+app.get("/deletedsales", (req, res) => {
+  pool.query("SELECT * FROM products where disflag =2 ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -619,10 +689,6 @@ const upload = multer({
 
 app.post("/newproduct",upload.single('image') , async function (req, res) {
   try {
-    // const name = req.body;
-    // const category = req.body;
-    // const price = req.body;
-    // const description = req.body;
     const {name,category,price,description}=req.body 
 
     const imagePath = req.file.path;
@@ -640,6 +706,23 @@ app.post("/newproduct",upload.single('image') , async function (req, res) {
   }
 });
 
+
+
+app.put("/newsale/:id", async function (req, res) {
+  try {
+    const { new_price } = req.body;
+    const { id } = req.params;
+
+    const all_records = await pool.query(
+      "UPDATE products SET new_price = $1, disflag = 1 WHERE product_id = $2 RETURNING *",
+      [new_price, id]
+    );
+
+    res.json(all_records.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 
 // Start the server
