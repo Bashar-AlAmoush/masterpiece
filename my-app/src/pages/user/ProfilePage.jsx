@@ -57,7 +57,7 @@ const ProfilePage = () => {
         <div className="text-center my-4">
           <img
             className="h-32 w-32 rounded-full border-4 border-white mx-auto my-4"
-            src="https://randomuser.me/api/portraits/women/21.jpg"
+            src="https://cdn-icons-png.flaticon.com/512/1165/1165821.png"
             alt=""
           />
            {user.length !== 0 &&
@@ -70,7 +70,7 @@ const ProfilePage = () => {
         <div className="flex gap-2 px-2  justify-center ">
         <div className="space-x-8 flex justify-center mt-32 md:mt-0 md:justify-center">
         
-        <Link to="/EditProfile" className="text-white py-2 px-4 uppercase rounded bg-red-500 hover:bg-red-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+        <Link to="/EditProfile" onClick={()=>window.scrollTo(0, 0)} className="text-white py-2 px-4 uppercase rounded bg-red-500 hover:bg-red-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
             Edit Profile
         </Link>
 
@@ -145,7 +145,7 @@ const ProfilePage = () => {
       </div>
       <div id="tab1" className={`tabcontent p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
       <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
-      <div className="mt-2 text-gray-700 max-h-96 overflow-y-auto"> 
+      <div className="mt-2 text-gray-700  overflow-y-auto" style={{height:"31rem"}}> 
       {orders?.map((order) => {
                            return(
                             <>
@@ -199,7 +199,7 @@ const ProfilePage = () => {
       </div>
       <div id="tab2" className={`tabcontent p-4 overflow-y overflow-x-hidden ${activeTab === 'tab2' ? '' : 'hidden'}`}>
       <h2 className="text-lg font-bold text-gray-800">previous orders</h2>
-      <div className="mt-2 text-gray-700 max-h-96 overflow-y-auto">
+      <div className="mt-2 text-gray-700  overflow-y-auto" style={{height:"31rem"}} >
   {prevOrders?.map((order) => {
                            return(
                             <>

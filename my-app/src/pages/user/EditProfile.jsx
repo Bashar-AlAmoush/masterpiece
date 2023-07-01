@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 const EditProfile = () => {
+  const navigate = useNavigate("/");
+  const [person, setPerson] = useState([]);
 
-  // const [person, setPerson] = useState([]);
 
-  // useEffect(() => {
-  //     axios.get('http://localhost:5000/recordpId')
-  //     .then((response) => {
-  //         setPerson(response.data);
-  //         console.log(response.data)
-  //     })
-  //     .catch((error) => console.log(error.message))
-  // }, []);
 
   const [user, setUser] = useState({})
   const [id, setId] = useState({})
@@ -26,25 +20,34 @@ const EditProfile = () => {
   const [Password, setPassword] = useState("")
 
   useEffect(() => {
-      axios.get('http://localhost:5000/recordpId')
-      .then((response) => {
-  
-        setUser(response.data[0])
+   
+      axios.get('http://localhost:5000/getId')
+      .then(function (response) {
+    
+          setId(response.data[0].userid)
+          console.log(response.data[0].userid)
+
+               let x = response.data[0].userid
+          axios.get(`http://localhost:5000/user/${x}`)
+          .then(function (response) {
+              console.log(response.data);
+              setUser(response.data[0])
         setId(response.data[0].userid)
 
         setUsername(response.data[0].username)
         setEmail(response.data[0].email)
         setPhoneNumber(response.data[0].phone_number)
         setPassword(response.data[0].password)
-
-
-
-
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+         
       })
-      .catch((error) => console.log(error.message))
-
-  }, []
-
+      .catch(function (error) {
+          console.log(error);
+      });
+  }, [id]
   )
   function handleSubmit(event) {
     event.preventDefault();
@@ -61,7 +64,7 @@ const EditProfile = () => {
           title:
             "Your details has been updated successfully",
         });
-
+        navigate("/ProfilePage");
 
       })
       .catch(function (error) {

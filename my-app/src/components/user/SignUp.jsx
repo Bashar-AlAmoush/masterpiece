@@ -45,6 +45,7 @@ function SignUp() {
             .then(function (response) {
               if (response.data != "taken") {
                 console.log(response.data);
+                window.scrollTo(0, 0);
                 navigate("/SignIn");
               } else {
                 console.log("Email is already Used");
@@ -310,6 +311,7 @@ function SignUp() {
                       You already have an account!{" "}
                       <Link
                         to="/signIn"
+                        onClick={()=>window.scrollTo(0, 0)}
                         className={`font-bold text-black transition hover:text-500/75`}
                       >
                         Sign In

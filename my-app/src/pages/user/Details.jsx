@@ -79,7 +79,7 @@ function Details1() {
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-red-500">
+                  <Link to="/" onClick={()=>window.scrollTo(0, 0)} className="text-red-500">
                     Home
                   </Link>
                   <svg
@@ -98,7 +98,7 @@ function Details1() {
                   </svg>
                 </li>
                 <li className="flex items-center">
-                  <Link to="/" className="text-red-500">
+                  <Link to="/ServicePageAll" onClick={()=>window.scrollTo(0, 0)} className="text-red-500">
                   EQUIPMENT
                   </Link>
                   <svg
