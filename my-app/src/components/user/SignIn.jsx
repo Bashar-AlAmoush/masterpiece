@@ -5,7 +5,7 @@ import axios from "axios";
 import { UserContext } from '../../UserContext';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 
-function SignIn() {
+function SignIn({Refresh,setRefresh}) {
   const [ user, setUser ] = useState([]);
   // Sign in with Google
   const navigate = useNavigate(); 
@@ -116,7 +116,7 @@ function SignIn() {
          
           const queryParams = new URLSearchParams(window.location.search);
           const redirectPath = queryParams.get('redirectPath') || '/';
-          
+          setRefresh(!Refresh)
           navigate(redirectPath);
         } else {
           console.log("not passed");

@@ -13,11 +13,9 @@ function AddSales() {
     const [FilterDataproducts, setFilterDataproducts] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
+    const [id, setid] = useState("");
   const [price, setPrice] = useState("");
   const [new_price, setnewPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
   const [deletedproducts, setdeletedproducts] = useState([]);
     const [FilterDatadeletedproducts, setFilterDatadeletedproducts] = useState([]);
     useEffect(() => {
@@ -225,7 +223,7 @@ function AddSales() {
           );
           console.log("New sale created successfully:", response.data);
       
-          // Retrieve updated data after creating the sale
+          
           axios.get('http://localhost:5000/saleAll')
             .then((response) => {
               setproducts(response.data);
@@ -339,15 +337,15 @@ function AddSales() {
 
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
           <button
-            onClick={() => setShowForm(true)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-6"
+            onClick={() => ( setShowForm(true),setName(e.name) ,setPrice(e.price) ,setid(e.product_id) )}
+            className="font-medium text-red-600 dark:text-red-500 hover:underline"
           >
             Add Sales
           </button>
           {showForm && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
             <div className="bg-white p-8 rounded shadow-md z-50" style={{width:"580px"}}>
-              <h2 className="text-2xl font-bold mb-4">Add New Products </h2>
+              <h2 className="text-2xl font-bold mb-4">Add New Sales </h2>
               <form>
                 <div className="mb-4">
                   <label
@@ -360,7 +358,7 @@ function AddSales() {
                     type="text"
                     id="name"
                     name="name" 
-                    value={e.name}
+                    value={name}
                 disabled readonly
                     className="shadow cursor-not-allowed   appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
@@ -377,7 +375,7 @@ function AddSales() {
                     type="number"
                     id="price"
                     name="price"
-                    value={e.price} 
+                    value={price} 
                    disabled readonly
                     className="shadow appearance-none border cursor-not-allowed   rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
@@ -402,7 +400,7 @@ function AddSales() {
                 <div className="flex items-center justify-between">
                 <button
   type="button"
-  onClick={() => handleCreatePost(e.product_id)}
+  onClick={() => handleCreatePost(id)}
   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 >
   Add Sales

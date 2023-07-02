@@ -11,7 +11,6 @@ import chalk from '../../images/chalk.jpg'
 import Easels from '../../images/Easels.jpg'
 import PaintPalette from '../../images/Paint Palette.jpg'
 import watercolour from '../../images/watercolour.jpg'
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import axios from 'axios'
 import React, { useEffect } from 'react'
@@ -42,10 +41,7 @@ function Home() {
   useEffect(() => {
     axios.get('http://localhost:5000/saleAll')
     .then((response) => {
-      setproducts(response.data);
-  
-      console.log(response.data)
-         
+      setproducts(response.data);  
     })
     .catch((error) => console.log(error.message))
 }, []);

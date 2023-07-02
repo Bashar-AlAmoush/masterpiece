@@ -29,96 +29,101 @@ import EditAboutContact from './pages/admin/EditAboutContact';
 import AcceptTables from './pages/admin/AcceptTables';
 //---------------------------------------------------------------//
 
-import React, { useEffect, useState ,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from './UserContext';
 
 function App() {
 
-const { routs,updateRouts } = useContext(UserContext)
-const [hideRouterUser, setHideRouterUser] = useState(false );
-const [hideRouterAdmin, setHideRouterAdmin] = useState( true);
-useEffect(() => {
+  const { routs, updateRouts } = useContext(UserContext)
+  const [hideRouterUser, setHideRouterUser] = useState(false);
+  const [hideRouterAdmin, setHideRouterAdmin] = useState(true);
+  const [roles, setrole] = useState({
+    user: false,
+  });
+  const [Refresh, setRefresh] = useState(false)
+  useEffect(() => {
+    if (localStorage.roles != null) {
+      let roles = JSON.parse(localStorage.roles)
+      let status = localStorage.SignStatus
+      setHideRouterUser(roles[0])
+      setHideRouterAdmin(roles[1])
+      updateRouts(roles)
+     
+    }
 
-  if(localStorage.roles != null){
-    let roles = JSON.parse(localStorage.roles)
-    let status = localStorage.SignStatus
-    setHideRouterUser(roles[0])
-    setHideRouterAdmin(roles[1])
-    updateRouts(roles)
-   }
-}, []);
+  }, [Refresh]);
 
-
+  console.log(roles)
 
 
   //-----------------------------User Router-------------------------------//
   const AppRouterUser = () => {
-    const  [currentTable , setCurrentTable] = useState({})
+    const [currentTable, setCurrentTable] = useState({})
 
     return (
-      
+
       <Router>
-       <NavListMenu />
+        <NavListMenu />
         <Routes>
-             <Route index element={<Home />} />
-             <Route path="About" element={<About />} />
-             <Route path='ContactUs' element={<ContactUs/>}/>
-             <Route path="SignIn" element={<SignIn />} />
-             <Route path="SignUp" element={<SignUp />} />
-             <Route path="Cart" element={<Cart />} />
-             <Route path="PaymentPage" element={<PaymentPage />} />
-             <Route path="ProfilePage"  element={<ProfilePage  />} />
-             <Route path="ServicePageAll" element={<ServicePageAll />} />
-             <Route path="/Details/:Product_id" element={<Details />} />
-             <Route path="/SalesDetails/:Product_id" element={<SalesDetails />} />
-             <Route path="EditProfile" element={<EditProfile />} />
-             <Route path="/Product/:category" element={<ServicePage />} />
+          <Route index element={<Home />} />
+          <Route path="About" element={<About />} />
+          <Route path='ContactUs' element={<ContactUs />} />
+          <Route path="SignIn" element={<SignIn setRefresh={setRefresh} Refresh={Refresh}/>} />
+          <Route path="SignUp" element={<SignUp />} />
+          <Route path="Cart" element={<Cart />} />
+          <Route path="PaymentPage" element={<PaymentPage />} />
+          <Route path="ProfilePage" element={<ProfilePage />} />
+          <Route path="ServicePageAll" element={<ServicePageAll />} />
+          <Route path="/Details/:Product_id" element={<Details />} />
+          <Route path="/SalesDetails/:Product_id" element={<SalesDetails />} />
+          <Route path="EditProfile" element={<EditProfile />} />
+          <Route path="/Product/:category" element={<ServicePage />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
-     
+
     );
   };
 
-//----------------------------Admin Router------------------------------//
+  //----------------------------Admin Router------------------------------//
   const AppRouterAdmin = () => {
     return (
-      
+
       <Router>
         <Sidebar />
-       <div style={{width:"100%"}}>
-       <NavListMenuD/>
-        <Routes>        
-        <Route index element={<MainDashboard />} />
-        <Route path="ListUser" element={<ListUser />} />
-        <Route path="ListRestaurant" element={<ListRestaurant />} />
-        <Route path="ListSales" element={<ListSales />} />
-        <Route path="Chat" element={<Chat />} />
-        <Route path="EditAboutContact" element={<EditAboutContact />} />
-        <Route path="AcceptTables" element={<AcceptTables />} />
-        </Routes>
+        <div style={{ width: "100%" }}>
+          <NavListMenuD />
+          <Routes>
+            <Route index element={<MainDashboard />} />
+            <Route path="ListUser" element={<ListUser />} />
+            <Route path="ListRestaurant" element={<ListRestaurant />} />
+            <Route path="ListSales" element={<ListSales />} />
+            <Route path="Chat" element={<Chat />} />
+            <Route path="EditAboutContact" element={<EditAboutContact />} />
+            <Route path="AcceptTables" element={<AcceptTables />} />
+          </Routes>
         </div>
       </Router>
-     
+
     );
   };
 
   return (
- <>
- 
-    {hideRouterUser ? null : (
-      <>
-        <AppRouterUser />
-      </>
-    )}
-   {hideRouterAdmin ? null : (
-      <>
-        <div className='flex'>
-        <AppRouterAdmin />
-        </div>
-      </>
-    )}
- </>
+    <>
+
+      {hideRouterUser ? null : (
+        <>
+          <AppRouterUser />
+        </>
+      )}
+      {hideRouterAdmin ? null : (
+        <>
+          <div className='flex'>
+            <AppRouterAdmin />
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
