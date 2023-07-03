@@ -14,6 +14,7 @@ import watercolour from '../../images/watercolour.jpg'
 import "pure-react-carousel/dist/react-carousel.es.css";
 import axios from 'axios'
 import React, { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 function Home() {
 
   //This useState will hold the currently selected food type.
@@ -37,14 +38,87 @@ function Home() {
   }
 
 
+  const [id, setId] = useState();
+  const [wishlist, setwishlist] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/saleAll')
-    .then((response) => {
-      setproducts(response.data);  
+    axios
+      .get(`http://localhost:5000/saleAll`)
+      .then((response) => {
+        setproducts(response.data); 
+      
+        axios
+          .get('http://localhost:5000/getId')
+          .then(function (response) {
+            setId(response.data[0].userid);
+            console.log(response.data[0].userid);
+            axios
+            
+            .get(`http://localhost:5000/getuserwishlist/${response.data[0].userid}`)
+           .then(function (response) {
+            setwishlist(response.data);
+              console.log(response.data);
+            })
+           .catch(function (error) {
+              console.log(error);
+        });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        
+      })
+      .catch((error) => console.log(error.message));
+  }, []);
+
+const addTowishlist = (product) => {
+  console.log(id);
+  console.log(product);
+
+  const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
+
+  if (existingProduct) {
+    const updatedCart = wishlist.map((item) => {
+      if (item.product_id=== product.product_id) {
+        
+              axios
+              .get(`http://localhost:5000/getusercart/${id}`)
+              .then(function (response) {
+                setwishlist(response.data);
+                console.log(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      }
+      return item;
+    });
+    setwishlist(updatedCart);
+  } else {
+    axios.post('http://localhost:5000/addTowishlist', {
+      user_id: id,
+      product: product,
     })
-    .catch((error) => console.log(error.message))
-}, []);
+    .then((response) => {
+      toast.success(`${product.name} has been added to your cart.`);
+      axios
+      .get(`http://localhost:5000/getusercart/${id}`)
+      .then(function (response) {
+        setwishlist(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+     })
+    .catch((error) => {
+     console.error('Error adding to cart:', error);
+    });
+   
+  }
+};
+
 
   return (
     <>
@@ -307,7 +381,7 @@ function Home() {
     Buy Now
 </Button>
 
-<Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text" onClick={() => handleTypesales(pro.product_id)}>
+<Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text" onClick={() => addTowishlist(pro)}>
    Add To Wishlist
 </Button>
           
