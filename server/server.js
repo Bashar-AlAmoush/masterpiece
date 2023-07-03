@@ -182,36 +182,6 @@ app.post("/recordp", async function (req, res) {
 
 
 let generatedId;
-app.post("/restaurants", async function (req, res) {
-  try {
-    const name = "";
-    const phone = "";
-    const email = req.body.email;
-    const password = "aaa";
-    const all_records = await pool.query(
-      "INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5,$6) RETURNING userid",
-      [name, phone, email, password, 2, 1]
-    );
-
-    generatedId = all_records.rows[0].userid;
-
-    // res.json(all_records.rows);
-
-    const restaurant_name = email;
-    const contact_number = "";
-    const user_id = generatedId;
-    const all_records0 = await pool.query(
-      "INSERT INTO restaurant (restaurant_name ,contact_number, user_id) VALUES($1, $2, $3) RETURNING *",
-      [restaurant_name, contact_number, user_id]
-    );
-
-    const all = { user: all_records.rows, restaurant: all_records0.rows };
-    res.json(all);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
-
 // Get All reporters
 app.get("/reporters", async function (req, res) {
   try {
@@ -270,12 +240,131 @@ app.post("/contacts", async function (req, res) {
 
 // -------------razan res ----------------//
 
+
+app.post("/addToCart", async function (req, res) {
+  try {
+    const id = req.body.user_id;
+    const quantity = req.body.quantity;
+    const product_id = req.body.product.product_id;
+    const name = req.body.product.name;
+    const category = req.body.product.category;
+    const price = req.body.product.price;
+    const photo = req.body.product.photo;
+    const description = req.body.product.description;
+    const addcart = await pool.query(
+      "INSERT INTO cart (user_id,product_id, category, description ,price,name,photo,quantity) VALUES($1, $2, $3 , $4 ,$5,$6,$7,$8) RETURNING *",
+      [id, product_id, category, description, price,name,photo,quantity]
+    );
+    res.json(addcart.rows);
+  } catch (err) {
+    console.log(err.message);
+   }
+});
+
+
+
+app.post("/addTowishlist", async function (req, res) {
+  try {
+    const id = req.body.user_id;
+    const product_id = req.body.product.product_id;
+    const name = req.body.product.name;
+    const category = req.body.product.category;
+    const price = req.body.product.price;
+    const photo = req.body.product.photo;
+    const description = req.body.product.description;
+    const addTowishlist = await pool.query(
+      "INSERT INTO wishlist (user_id,product_id, category, description ,price,name,photo) VALUES($1, $2, $3 , $4 ,$5,$6,$7) RETURNING *",
+      [id, product_id, category, description, price,name,photo]
+    );
+    res.json(addTowishlist.rows);
+  } catch (err) {
+    console.log(err.message);
+   }
+});
+
+
+app.post("/addsaleToCart", async function (req, res) {
+  try {
+    const id = req.body.user_id;
+    const quantity = req.body.quantity;
+    const product_id = req.body.product.product_id;
+    const name = req.body.product.name;
+    const category = req.body.product.category;
+    const price = req.body.product.new_price;
+    const photo = req.body.product.photo;
+    const description = req.body.product.description;
+    const addcart = await pool.query(
+      "INSERT INTO cart (user_id,product_id, category, description ,price,name,photo,quantity) VALUES($1, $2, $3 , $4 ,$5,$6,$7,$8) RETURNING *",
+      [id, product_id, category, description, price,name,photo,quantity]
+    );
+    res.json(addcart.rows);
+  } catch (err) {
+    console.log(err.message);
+   }
+});
+
+
+app.put("/updatequa/", async function (req, res) {
+  try {
+    const id = req.body.user_id;
+    const product_id = req.body.product_id;
+    const quantity = req.body.quantity;
+    const record = await pool.query(
+      "UPDATE cart set quantity=$1 WHERE user_id =$2 and product_id=$3 ",
+      [ quantity,id,product_id]
+    );
+    res.send("Updated Successfully");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+app.delete("/deletecartdata", async function (req, res) {
+  try {
+    const cartId = req.body.product.cart_id;
+    console.log(req.body.product.cart_id);
+    const record = await pool.query(
+      "DELETE FROM cart WHERE cart_id= $1",
+      [cartId]
+    );
+    res.send("Deleted Successfully");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+app.get("/getusercart/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM cart WHERE user_id = $1", [ id ]);
+    res.json(record.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+app.get("/getuserwishlist/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM wishlist WHERE user_id = $1", [ id ]);
+    res.json(record.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
 // in home page of the user when I try to get the restaurants based on the food type from the restaurant table and render them in another page
 app.get("/ServicePage/:category", (req, res) => {
   const { category } = req.params; // Updated variable name
 
   pool.query(
-    "SELECT * FROM products WHERE category = $1",
+    "SELECT * FROM products WHERE category = $1 AND flags = 0 and (disflag=0  or disflag= 2 )   ",
     [category],
     (error, results) => {
       if (error) {
@@ -337,37 +426,6 @@ app.put("/aboutus", async (req, res) => {
   }
 });
 
-///----------------------------- amani -----------------------//
-// Add a new restaurant
-app.post("/restaurant", async function (req, res) {
-  try {
-    const {
-      restaurant_name,
-      address,
-      contact_number,
-      type_food,
-      des,
-      img,
-      food_image,
-    } = req.body;
-    const newRecord = await pool.query(
-      "INSERT INTO restaurant (restaurant_name, address, contact_number, type_food, des, img, food_image) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [
-        restaurant_name,
-        address,
-        contact_number,
-        type_food,
-        des,
-        img,
-        food_image,
-      ]
-    );
-
-    res.json(newRecord.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
 
 
 
@@ -616,7 +674,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0 ", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and (disflag=0  or disflag= 2 )", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -630,7 +688,7 @@ app.get("/productsAll", (req, res) => {
 
 
 app.get("/saleAll", (req, res) => {
-  pool.query("SELECT * FROM products where disflag =1 ", (error, results) => {
+  pool.query("SELECT * FROM products where disflag=1 ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
