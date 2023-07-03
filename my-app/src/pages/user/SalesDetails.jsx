@@ -11,51 +11,120 @@ import 'react-toastify/dist/ReactToastify.css';
 function SalesDetails() {
     const [Products, setProducts] = useState([]);
     const  Product = useParams();
+     const [id, setId] = useState();
+       const [cart, setCart] = useState([]);
+        const [quantity, setQuantity] = useState(1);
   
-    useEffect(() => {
-      axios
-        .get(`http://localhost:5000/sales/${Product.Product_id}`)
-        .then((response) => {
-          setProducts(response.data);
-        })
-        .catch((error) => console.log(error.message));
-    }, [Product]);
-  
-    const addToCart = (product) => {
-     
-      const existingCart = localStorage.getItem('cart');
-    
-      if (existingCart) {
-   
-        const cartData = JSON.parse(existingCart);
-    
-        
-        const productIndex = cartData.findIndex((item) => item.product_id === product.product_id);
-    
-        if (productIndex !== -1) {
-          
-          cartData[productIndex].count += 1;
-        } else {
-         
-          cartData.push({ ...product, count: 1 });
-        }
-    
-    
-        localStorage.setItem('cart', JSON.stringify(cartData));
-      } else {
+      useEffect(() => {
+    axios
+      .get(`http://localhost:5000/Prod/${Product.Product_id}`)
+      .then((response) => {
+        setProducts(response.data);
       
-        const cartData = [{ ...product, count: 1 }];
-    
+        axios
+          .get('http://localhost:5000/getId')
+          .then(function (response) {
+            setId(response.data[0].userid);
+            console.log(response.data[0].userid);
+            axios
+            
+            .get(`http://localhost:5000/getusercart/${response.data[0].userid}`)
+           .then(function (response) {
+             setCart(response.data);
+              console.log(response.data);
+            })
+           .catch(function (error) {
+              console.log(error);
+        });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         
-        localStorage.setItem('cart', JSON.stringify(cartData));
-      }
-      toast.success(`${product.name} has been added to your cart.`);
-    };
-    const handleInputChange = (event) => {
-      if (event.target.value > 10) {
-        event.target.value = 10;
-      }
-    };
+      })
+      .catch((error) => console.log(error.message));
+  }, [Product]);
+
+  
+   const addToCart = (product) => {
+    console.log(id);
+    console.log(product);
+
+    const existingProduct = cart.find((item) => item.product_id === product.product_id);
+
+    if (existingProduct) {
+      const updatedCart = cart.map((item) => {
+        if (item.product_id=== product.product_id) {
+            setQuantity( item.quantity + quantity)
+
+            axios.put('http://localhost:5000/updatequa',{ 
+              user_id: id,
+            product_id: product.product_id,
+            quantity: quantity,})
+            .then((response) => {
+                console.log(response.data); 
+
+                axios
+                .get(`http://localhost:5000/getusercart/${id}`)
+                .then(function (response) {
+                  setCart(response.data);
+                  console.log(response.data);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                
+            })
+            .catch((error) => console.log(error.message))
+
+
+        }
+        return item;
+      });
+      setCart(updatedCart);
+      toast.success(`Quantity of ${product.name} has been updated in your cart.`);
+    } else {
+      axios.post('http://localhost:5000/addsaleToCart', {
+        user_id: id,
+        product: product,
+        quantity: quantity,
+      })
+      .then((response) => {
+        toast.success(`${product.name} has been added to your cart.`);
+        axios
+        .get(`http://localhost:5000/getusercart/${id}`)
+        .then(function (response) {
+          setCart(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       })
+      .catch((error) => {
+       console.error('Error adding to cart:', error);
+      });
+     
+    }
+
+   
+  };
+
+
+
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+
+    if (value < 1) {
+      value = 1;
+    } else if (value > 10) {
+      value = 10;
+    }
+
+    setQuantity(value);
+  };
   
     return (
       <>
@@ -132,60 +201,41 @@ function SalesDetails() {
   
         <>
      
-    <div className="relative mx-auto max-w-screen-xl px-4 py-8">
-      <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-          <img
-            alt="Les Paul"
-            src={`http://localhost:5000/${Products[0]?.photo}`} 
-            className="aspect-square w-full rounded-xl object-cover"
-          />
-        </div>
-        <div className="sticky ">
-          <div className="mt-8 flex justify-between">
-            <div className="max-w-[35ch] space-y-2">
-              <h1 className="text-xl font-bold sm:text-2xl">
-            {  Products[0]?.name}
-              </h1>
+     <section className="container mx-auto py-16 px-4">
+        {Products.map((product) => (
+          <div className="flex flex-wrap" key={product.id}>
+            <div className="w-full md:w-1/2">
+              <img src={`http://localhost:5000/${Products[0]?.photo}`} alt={product.name} className="rounded-lg" />
             </div>
-            <p className="text-lg font-bold"> JD:{Products[0]?.new_price}</p>
-          </div>
-          <div className="mt-4">
-            <div className="prose max-w-none">
-              <p>
-              {  Products[0]?.description}
-              </p>
-            </div>
-          </div>
-          <form className="mt-8">
-            <div className="mt-8 flex gap-4">
-            <div>
-          <label htmlFor="quantity" className="sr-only">
-            Qty
-          </label>
-          <input
-            type="number"
-            id="quantity"
-            min={1}
-            defaultValue={1}
-            className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-            onChange={handleInputChange}
-          />
-        </div>
-  
-  
+            <div className="w-full md:w-1/2 md:pl-10">
+              <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
+              <p className="text-xl mb-4">{product.description}</p>
+              <p className="text-2xl mb-4">{product.new_price}</p>
+              <div className="flex items-center mb-8">
+                <label htmlFor="quantity" className="mr-4">
+                  Quantity:
+                </label>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  min="1"
+                  max="10"
+                  value={quantity}
+                  onChange={handleInputChange}
+                  className="border border-gray-400 px-2 py-1 w-16 rounded"
+                />
+              </div>
               <button
-    type="button" 
-    className="block rounded bg-red-500 px-5 py-3 text-xs font-medium text-white hover:bg-red-700"
-    onClick={() => addToCart(Products[0])} 
-  >
-    Add to Cart
-  </button>
+                className="bg-red-500 text-white px-6 py-2 rounded font-bold text-lg"
+                onClick={() => addToCart(product)}
+              >
+                Add to Cart
+              </button>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          </div>
+        ))}
+      </section>
   </>
   
   

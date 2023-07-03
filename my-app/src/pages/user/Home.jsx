@@ -303,9 +303,13 @@ function Home() {
                       <br />
                       <span class="tracking-wider text-lg text-red-600">JD: {pro.new_price}</span>
                     </p>
-                    <Button className="border  border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text" onClick={() => handleTypesales(pro.product_id)} >
-                    Buy Now
-            </Button>
+                    <Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff] mr-4" variant="text" onClick={() => handleTypesales(pro.product_id)}>
+    Buy Now
+</Button>
+
+<Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text" onClick={() => handleTypesales(pro.product_id)}>
+   Add To Wishlist
+</Button>
           
                   </div>
                   

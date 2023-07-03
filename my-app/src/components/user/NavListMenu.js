@@ -224,6 +224,10 @@ export default function Example() {
       icon: ShoppingCartIcon,
     },
     {
+      label: "Wishlist",
+      icon: PowerIcon,
+    },
+    {
       label: "Sign Out",
       icon: PowerIcon,
     },
@@ -248,6 +252,9 @@ export default function Example() {
         navigate("/ProfilePage");
       } else if (label === "Cart") {
         navigate("/Cart");
+      }
+      else if (label === "Wishlist") {
+        navigate("/Wishlist");
       }
     };
     return (

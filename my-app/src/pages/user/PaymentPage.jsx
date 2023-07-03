@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 function PaymentPage() {
   const [person, setPerson] = useState([]);
+  const [cartData, setCartData] = useState([]);
   const navigate = useNavigate();
 const total=localStorage.getItem("total")
   useEffect(() => {
@@ -18,7 +19,19 @@ const total=localStorage.getItem("total")
       .get("http://localhost:5000/getId")
       .then((response) => {
         setPerson(response.data);
-        console.log(response.data);
+        axios
+          .get(`http://localhost:5000/getusercart/${response.data[0].userid}`)
+          .then(function (response) {
+            setCartData( response.data);
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+
       })
       .catch((error) => console.log(error.message));
   }, []);
@@ -29,39 +42,12 @@ const total=localStorage.getItem("total")
   const [cvc, setCvc] = useState("");
 
 const hndelorder=() =>{
-  const data = JSON.parse(localStorage.getItem("cart")); 
   
-data?.map((element)=>{
-if(element.new_price>0){
-
-let  orderdata1 = {
+  cartData?.map((element)=>{
+  let orderdata = {
     userid: person[0].userid,
     category:element.category,
-    count : element.count,
-    description:element.description,
-    name:element.name,
-    photo:element.photo,
-    price : element.new_price ,
-    product_id : element.product_id,
-  };
-
-  axios
-  .post("http://localhost:5000/neworder", orderdata1)
-  .then((response) => {
-    
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.log(error.message)
-  });
-}
-else{
-
-
-  let orderdata2 = {
-    userid: person[0].userid,
-    category:element.category,
-    count : element.count,
+    count : element.quantity,
     description:element.description,
     name:element.name,
     photo:element.photo,
@@ -70,7 +56,7 @@ else{
   };
 
 axios
-.post("http://localhost:5000/neworder", orderdata2)
+.post("http://localhost:5000/neworder", orderdata)
 .then((response) => {
   
   console.log(response.data);
@@ -78,7 +64,7 @@ axios
 .catch((error) => {
   console.log(error.message)
 });
-}
+
   
 })
   

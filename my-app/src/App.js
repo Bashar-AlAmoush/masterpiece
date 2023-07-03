@@ -6,6 +6,7 @@ import Footer from "./components/user/Footer"
 import SignIn from './components/user/SignIn';
 import SignUp from './components/user/SignUp';
 import Cart from './components/user/Cart';
+import Wishlist from './components/user/Wishlist';
 import PaymentPage from './pages/user/PaymentPage';
 import Home from "./pages/user/Home"
 import About from "./pages/user/About"
@@ -71,6 +72,7 @@ function App() {
           <Route path="SignIn" element={<SignIn setRefresh={setRefresh} Refresh={Refresh}/>} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Cart" element={<Cart />} />
+          <Route path="Wishlist" element={<Wishlist/>} />
           <Route path="PaymentPage" element={<PaymentPage />} />
           <Route path="ProfilePage" element={<ProfilePage />} />
           <Route path="ServicePageAll" element={<ServicePageAll />} />
