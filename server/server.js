@@ -334,6 +334,24 @@ app.delete("/deletecartdata", async function (req, res) {
 });
 
 
+app.delete("/deletewishlistdata", async function (req, res) {
+  try {
+    const cartId = req.body.product.wishlist_id;
+    const record = await pool.query(
+      "DELETE FROM wishlist WHERE wishlist_id= $1",
+      [cartId]
+    );
+    res.send("Deleted Successfully");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
+
+
 
 app.get("/getusercart/:id", async function (req, res) {
   try {
