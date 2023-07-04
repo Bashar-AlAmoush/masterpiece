@@ -16,7 +16,7 @@ import {
   Menu,
   MenuHandler,
   MenuList,
-  MenuItem,
+  MenuItem
 } from "@material-tailwind/react";
 import {
   LifebuoyIcon,
@@ -33,6 +33,7 @@ import {
   PuzzlePieceIcon,
   ShoppingCartIcon,
   HomeIcon,
+  HeartIcon
 } from "@heroicons/react/24/outline";
 import logo from "../../images/logo.png";
 
@@ -225,7 +226,7 @@ export default function Example() {
     },
     {
       label: "Wishlist",
-      icon: PowerIcon,
+      icon: HeartIcon,
     },
     {
       label: "Sign Out",

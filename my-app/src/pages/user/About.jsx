@@ -4,7 +4,6 @@ import axios from "axios";
 import Icon from '@mdi/react';
 import { mdiBrush } from '@mdi/js';
 import { mdiPaletteOutline } from '@mdi/js';
-
 import { useState, useEffect } from "react";
 
 function About() {
@@ -21,13 +20,9 @@ function About() {
     };
     getAboutData();
   }, []);
-
-
-
-
   return (
     <>
-      {/* Hero section in about us */}
+
       <div
         className="bg-cover bg-center h-screen shadow"
         style={{
@@ -39,7 +34,6 @@ function About() {
         <div className="flex items-center justify-center h-full bg-black bg-opacity-50">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-white mb-4">About Us</h1>
-
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
@@ -67,10 +61,6 @@ function About() {
           </div>
         </div>
       </div>
-      {/* End hero section */}
-
-      {/* features section */}
-
       <div className="py-16 bg-white overflow-hidden m-2 shadow">
         <div className="container m-auto px-6 space-y-8 text-gray-500 md:px-12">
           <div>
@@ -153,11 +143,6 @@ function About() {
           </div>
         </div>
       </div>
-      {/* End features */}
-
-
-
-      {/* ====== About Section Start */}
       <section
         className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
       >
@@ -184,7 +169,7 @@ function About() {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2 ">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://img.freepik.com/free-photo/drawing-ideas-model-craftsman-handy-concept_53876-16315.jpg?w=740&t=st=1687774055~exp=1687774655~hmac=c21f117cd4907b1a079a3b2adbf9abfbc5c315368d0a1a8c2e3c072b5bddfb8b"
+                      src="https://images.pexels.com/photos/3893650/pexels-photo-3893650.jpeg?auto=compress&cs=tinysrgb&w=600"
                       alt=""
                       className="w-full rounded-2xl"
                     />
@@ -773,13 +758,11 @@ function About() {
                 <p className="text-body-color mb-8 text-base">
                   {aboutUsData.about_us}
                 </p>
-
               </div>
             </div>
           </div>
         </div>
       </section>
-   
     </>
   );
 }

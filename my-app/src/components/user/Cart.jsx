@@ -199,7 +199,6 @@ import axios from 'axios';
 export default function Cart() {
   const [cartData, setCartData] = useState([]);
   const [id, setId] = useState();
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios
@@ -222,15 +221,16 @@ export default function Cart() {
       });
   }, [cartData]);
 
-  const handleCountChange = (event, index) => {
+  const handleCountChange = (event, productId) => {
     const { value } = event.target;
 
     setCartData((prevCartData) => {
-      const updatedCartData = [...prevCartData];
-      updatedCartData[index] = {
-        ...updatedCartData[index],
-        quantity: value
-      };
+      const updatedCartData = prevCartData.map((product) => {
+        if (product.product_id === productId) {
+          return { ...product, quantity: value };
+        }
+        return product;
+      });
 
       return updatedCartData;
     });
@@ -267,12 +267,16 @@ export default function Cart() {
     toast.error(`Product "${removedProduct.name}" has been removed from the cart.`);
   };
   
-
   const calculateSubtotal = () => {
     const subtotal = cartData.reduce((total, product) => {
-      const productPrice = product.new_price > 0 ? parseFloat(product.new_price) : parseFloat(product.price);
+      const productPrice = parseFloat(product.new_price) || parseFloat(product.price);
       const productCount = parseInt(product.quantity);
-      return total + productPrice * productCount;
+  
+      if (!isNaN(productPrice) && !isNaN(productCount)) {
+        return total + productPrice * productCount;
+      } else {
+        return total;
+      }
     }, 0);
   
     return subtotal.toFixed(2);
@@ -281,10 +285,9 @@ export default function Cart() {
   const calculateTotal = () => {
     const subtotal = parseFloat(calculateSubtotal());
     const tax = 2;
-    const total = subtotal + tax;
+    const total = isNaN(subtotal) ? 0 : subtotal + tax;
     localStorage.setItem('total', JSON.stringify(total));
-    return total.toFixed(2);
-  };
+    return total.toFixed(2);}
   
 
   const navigate = useNavigate();
@@ -334,8 +337,9 @@ export default function Cart() {
                             className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                             id={`exampleFormControlInputNumber_${index}`}
                             placeholder="Number"
+                            min={1}
                             value={product.quantity}
-                            onChange={(e) => handleCountChange(e, index)}
+                            onChange={(event) => handleCountChange(event, product.product_id)}
                           />
                         </div>
                       </div>
@@ -368,7 +372,7 @@ export default function Cart() {
                     </div>
                     <div className="flex items-center justify-between pt-6 pb-10">
                       <p className="text-gray-600 text-2xl font-black">Total:</p>
-                      <p className="text-red-500 text-3xl font-black">JD: {calculateTotal()}</p>
+                      <p className="text-red-500 text-2xl font-black">JD: {calculateTotal()} </p>
                     </div>
                   </div>
                   <div className="pb-4">

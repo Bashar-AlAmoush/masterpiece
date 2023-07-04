@@ -81,12 +81,13 @@ const addTowishlist = (product) => {
   if (existingProduct) {
     const updatedCart = wishlist.map((item) => {
       if (item.product_id=== product.product_id) {
-        
+        toast.success(`Product "${item.name}" has been add from the wishlist.`);
               axios
               .get(`http://localhost:5000/getusercart/${id}`)
               .then(function (response) {
                 setwishlist(response.data);
                 console.log(response.data);
+              
               })
               .catch(function (error) {
                 console.log(error);
@@ -96,12 +97,14 @@ const addTowishlist = (product) => {
     });
     setwishlist(updatedCart);
   } else {
+    toast.success(`${product.name} has been added to your wishlist`);
     axios.post('http://localhost:5000/addTowishlist', {
       user_id: id,
       product: product,
-    })
+    })  
+    
     .then((response) => {
-      toast.success(`${product.name} has been added to your cart.`);
+   
       axios
       .get(`http://localhost:5000/getusercart/${id}`)
       .then(function (response) {

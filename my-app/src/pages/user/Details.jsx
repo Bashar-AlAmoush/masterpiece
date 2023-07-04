@@ -415,6 +415,7 @@ function Details1() {
   const [Products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const Product = useParams();
+  const [wishlist, setwishlist] = useState([]);
 
   const [id, setId] = useState();
   const [cart, setCart] = useState([]);
@@ -528,6 +529,60 @@ console.log(cart)
     setQuantity(value);
   };
 
+
+  const addTowishlist = (product) => {
+    console.log(id);
+    console.log(product);
+  
+    const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
+  
+    if (existingProduct) {
+      const updatedCart = wishlist.map((item) => {
+        if (item.product_id=== product.product_id) {
+          toast.success(`Product "${item.name}" has been add from the wishlist.`);
+                axios
+                .get(`http://localhost:5000/getusercart/${id}`)
+                .then(function (response) {
+                  setwishlist(response.data);
+                  console.log(response.data);
+                
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+        }
+        return item;
+      });
+      setwishlist(updatedCart);
+    } else {
+      toast.success(`${product.name} has been added to your wishlist`);
+      axios.post('http://localhost:5000/addTowishlist', {
+        user_id: id,
+        product: product,
+      })  
+      
+      .then((response) => {
+     
+        axios
+        .get(`http://localhost:5000/getusercart/${id}`)
+        .then(function (response) {
+          setwishlist(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       })
+      .catch((error) => {
+       console.error('Error adding to cart:', error);
+      });
+     
+    }
+  };
+
+
+
+
   return (
     <>
       <ToastContainer />
@@ -572,20 +627,7 @@ console.log(cart)
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </li>
-                <li className="flex items-center">
-                  <Link to="/Products" onClick={() => window.scrollTo(0, 0)} className="text-red-500">
-                    Equipment-List
-                  </Link>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mx-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </li>
+            
                 <li className="flex items-center text-gray-400">
                   <span>Details</span>
                 </li>
@@ -625,6 +667,12 @@ console.log(cart)
                 onClick={() => addToCart(product)}
               >
                 Add to Cart
+              </button>
+              <button
+                className="bg-red-500 text-white px-6 ms-8 py-2 rounded font-bold text-lg"
+                onClick={() => addTowishlist(product)}
+              >
+                Add to Wishlist
               </button>
             </div>
           </div>

@@ -1,20 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
-import React, { useState, useContext, useEffect } from 'react'
-import { Carousel, Typography, Button } from "@material-tailwind/react";
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { UserContext } from '../../UserContext';
-import { HashLink } from 'react-router-hash-link'
 import Details from '../../images/Details.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function SalesDetails() {
-    const [Products, setProducts] = useState([]);
-    const  Product = useParams();
+     const [Products, setProducts] = useState([]);
+     const  Product = useParams();
      const [id, setId] = useState();
-       const [cart, setCart] = useState([]);
-        const [quantity, setQuantity] = useState(1);
-  
+     const [cart, setCart] = useState([]);
+     const [quantity, setQuantity] = useState(1);
       useEffect(() => {
     axios
       .get(`http://localhost:5000/Prod/${Product.Product_id}`)
@@ -48,11 +44,7 @@ function SalesDetails() {
 
   
    const addToCart = (product) => {
-    console.log(id);
-    console.log(product);
-
     const existingProduct = cart.find((item) => item.product_id === product.product_id);
-
     if (existingProduct) {
       const updatedCart = cart.map((item) => {
         if (item.product_id=== product.product_id) {
@@ -63,19 +55,16 @@ function SalesDetails() {
             product_id: product.product_id,
             quantity: quantity,})
             .then((response) => {
-                console.log(response.data); 
+                
 
                 axios
                 .get(`http://localhost:5000/getusercart/${id}`)
                 .then(function (response) {
                   setCart(response.data);
-                  console.log(response.data);
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
-
-                
             })
             .catch((error) => console.log(error.message))
 
@@ -97,7 +86,6 @@ function SalesDetails() {
         .get(`http://localhost:5000/getusercart/${id}`)
         .then(function (response) {
           setCart(response.data);
-          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -126,6 +114,25 @@ function SalesDetails() {
     setQuantity(value);
   };
   
+
+  const addTowishlist = (product) => {
+    
+      toast.success(`${product.name} has been added to your wishlist`);
+      axios.post('http://localhost:5000/addTowishlist', {
+        user_id: id,
+        product: product,
+      }) 
+      .then((response) => {
+       })
+      .catch((error) => {
+       console.error('Error adding to cart:', error);
+      });
+  };
+
+
+  
+
+
     return (
       <>
          <ToastContainer />
@@ -137,12 +144,9 @@ function SalesDetails() {
             height: "400px",
           }}
         >
-           
-  
           <div className="flex items-center justify-center h-full bg-black bg-opacity-50">
             <div className="text-center">
               <h1 className="text-4xl font-bold text-white mb-4">Details</h1>
-  
               <nav className="text-white mb-8">
                 <ol className="list-none p-0 inline-flex">
                   <li className="flex items-center">
@@ -197,10 +201,7 @@ function SalesDetails() {
               alt=""
             />
           </div>
-          
-  
         <>
-     
      <section className="container mx-auto py-16 px-4">
         {Products.map((product) => (
           <div className="flex flex-wrap" key={product.id}>
@@ -232,18 +233,21 @@ function SalesDetails() {
               >
                 Add to Cart
               </button>
+
+              <button
+                className="bg-red-500 text-white px-6 ms-8 py-2 rounded font-bold text-lg"
+                onClick={() => addTowishlist(product)}
+              >
+                Add to Wishlist
+              </button>
+
             </div>
           </div>
         ))}
       </section>
   </>
-  
-  
-  
       </>
       </>
-  
     )
 }
-
 export default SalesDetails
