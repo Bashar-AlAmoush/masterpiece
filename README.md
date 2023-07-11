@@ -17,6 +17,6 @@
 
 - [Trello](https://trello.com/b/nVGUPRoO/masterpiece)
 
-- [Figma] (https://www.figma.com/file/a8ANQqGO2DVaw9RuxQS0n8/Masterpiece?type=design&node-id=0%3A1&mode=design&t=sC9f13xdfU2SYqj4-1)
+- [Figma](https://www.figma.com/file/a8ANQqGO2DVaw9RuxQS0n8/Masterpiece?type=design&node-id=0%3A1&mode=design&t=sC9f13xdfU2SYqj4-1)
 
-- [presentation] (https://my.visme.co/editor/NExHTGZoUmF4R2VCVWR5cDN2S0hVQT09OjoUlDMBqT5iV04rSIspZT7Q/photos)
+- [presentation](https://my.visme.co/editor/NExHTGZoUmF4R2VCVWR5cDN2S0hVQT09OjoUlDMBqT5iV04rSIspZT7Q/photos)
