@@ -125,7 +125,9 @@ const addTowishlist = (product) => {
 
   return (
     <>
-      <section className="relative  flex flex-col items-center justify-center text-center text-white " style={{ height: "550px" }}>
+       <ToastContainer />
+      <section className="relative  flex flex-col items-center justify-center text-center text-white " style={{ height: "550px" }}
+      >
         <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
           <video
             className="min-w-full min-h-full absolute object-cover"
@@ -138,8 +140,8 @@ const addTowishlist = (product) => {
         </div>
         <div className="video-content space-y-2 z-10 pb-5" style={{ height: "55vh" }}>
           <h1 className="font-bold text-5xl uppercase text-red-500">Welcome to Masterpiece</h1>
-          <h3 className="font-bold text-2xl capitalize">Unleash your creativity with our cutting-edge art supplies  </h3>
-          <div class="rounded-md shadow mt-10">
+          <h5 className="font-bold text-2xl capitalize">Unleash your creativity with our cutting-edge art supplies  </h5>
+          <div class=" mt-10">
             <HashLink smooth={true} to="#food">
               <button class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded mt-5">
               Shop Now
@@ -211,7 +213,7 @@ const addTowishlist = (product) => {
 
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
               <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                {/* canvas card */}
+           
                 <img
                   className="w-full h-64 object-cover object-center"
                   src={canvas}
@@ -235,7 +237,7 @@ const addTowishlist = (product) => {
 
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
               <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                {/* chalk card */}
+                
                 <img
                   className="w-full h-64 object-cover object-center"
                   src={chalk}
@@ -259,7 +261,7 @@ const addTowishlist = (product) => {
 
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
               <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                {/* Italian Food card */}
+               
                 <img
                   className="w-full h-64 object-cover object-center"
                   src={Easels}
@@ -283,7 +285,7 @@ const addTowishlist = (product) => {
 
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
               <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                {/* Indian Food card */}
+               
                 <img
                   className="w-full h-64 object-cover object-center"
                   src={PaintPalette}
@@ -307,7 +309,7 @@ const addTowishlist = (product) => {
 
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
               <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                {/* American Food card */}
+             
                 <img
                   className="w-full h-64 object-cover object-center"
                   src={watercolour}
