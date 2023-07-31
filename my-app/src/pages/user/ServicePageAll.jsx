@@ -148,46 +148,45 @@ const ServicePageAll = () => {
               }}
             />
           </div>
-          <div className="flex items-center justify-between mt-4">
-            <p className="font-medium">Filters</p>
-          </div>
-          <div className="flex justify-between">
-            <div className="grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 ">
-              <select
-                className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-red-500 border-2 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mr-5"
-                value={yourSelectedStateValueType}
-                onChange={(e) => setOptionType(e.target.value)}
-              >
-                <option value="">All Type</option>
-                <option value="paints">Paints</option>
-                <option value="paper">Paper</option>
-                <option value="drawing">Drawing</option>
-                <option value="canvas">Canvas</option>
-                <option value="tools">Tools</option>
-                <option value="canvas">canvas</option>
-              </select>
+          
+          <div className="flex justify-around"> 
+  <div className="grid grid-cols-2  md:grid-cols-3 xl:grid-cols-2 gap-1 mt-4">
+    <select
+      className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-red-500 border-2 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mr-5"
+      value={yourSelectedStateValueType}
+      onChange={(e) => setOptionType(e.target.value)}
+    >
+      <option value="">All Type</option>
+      <option value="paints">Paints</option>
+      <option value="paper">Paper</option>
+      <option value="drawing">Drawing</option>
+      <option value="canvas">Canvas</option>
+      <option value="tools">Tools</option>
+      <option value="canvas">canvas</option>
+    </select>
 
-              <select
-                className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-red-500 border-2 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none"
-                value={yourSelectedStateprice}
-                onChange={(e) =>setOptionprice(e.target.value)}>
-                <option value="">All Price</option>
-                <option value="4.99">jD 0.00-Jd 4.99</option>
-                <option value="9.99">jD 5.00-Jd 9.99</option>
-                <option value="14.99">jD 10.00-Jd 14.99</option>
-                <option value="19.99">jD 15.00-Jd 19.99</option>
-                <option value="24.99">jD 20.00-Jd 24.99</option>
-                <option value="29..99">jD 24.00-Jd 29.99</option>
-                
-              </select>
-            </div>
-            <button
-              className=" w-20 h-10 bg-red-500 px-4 py-2  text-white text-sm font-medium rounded-md"
-              onClick={handleFind}
-            >
-              Find
-            </button>
-          </div>
+    <select
+      className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-red-500 border-2 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none"
+      value={yourSelectedStateprice}
+      onChange={(e) => setOptionprice(e.target.value)}
+    >
+      <option value="">All Price</option>
+      <option value="4.99">jD 0.00-Jd 4.99</option>
+      <option value="9.99">jD 5.00-Jd 9.99</option>
+      <option value="14.99">jD 10.00-Jd 14.99</option>
+      <option value="19.99">jD 15.00-Jd 19.99</option>
+      <option value="24.99">jD 20.00-Jd 24.99</option>
+      <option value="29..99">jD 24.00-Jd 29.99</option>
+    </select>
+  </div>
+  <button
+    className="w-20 h-10 mt-6 bg-red-500 px-4 py-2  text-white text-sm font-medium rounded-md"
+    onClick={handleFind}
+  >
+    Find
+  </button>
+</div>
+
         </div>
       </div>
 
