@@ -6,6 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -136,7 +137,6 @@ axios
           title: 'Payment Successful',
           icon: 'success',
         }).then(() => {
-          // Redirect to home page
           window.scrollTo(0, 0);
           navigate("/");
         });

@@ -7,7 +7,6 @@ import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 
 function SignIn({Refresh,setRefresh}) {
   const [ user, setUser ] = useState([]);
-  // Sign in with Google
   const navigate = useNavigate(); 
 
   const [ user0, setUser0 ] = useState([]);

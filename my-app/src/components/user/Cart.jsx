@@ -46,7 +46,6 @@ export default function Cart() {
       axios.post(`http://localhost:5000/countdata/${productId}`, { value: value })
         .then((response) => {
           console.log(response)
-          
         })
         .catch((error) => {
          

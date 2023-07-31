@@ -34,6 +34,7 @@ const ServicePageAll = () => {
   const [yourSelectedStateValueType, setOptionType] = useState("");
   const [yourSelectedStateprice, setOptionprice] = useState("");
   //-----------------------search------------------------//
+  
   const [searchTermUsers, setSearchTermUsers] = useState("");
 
   const [currentPageUsers, setCurrentPageUsers] = useState(1);

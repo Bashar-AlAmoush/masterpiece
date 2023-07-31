@@ -9,7 +9,6 @@ function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     axios.get('http://localhost:5000/getId')
       .then(function (response) {

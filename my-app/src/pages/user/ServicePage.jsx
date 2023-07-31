@@ -4,16 +4,14 @@ import Pagination from "@mui/material/Pagination";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import service from '../../images/service.jpg'
 
+
+
 function ServicePage({ setCurrentTable }) {
-  
   const [Products, setProducts] = useState([]);
   const { category } = useParams();
   console.log(category)
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
-
-
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/ServicePage/${category}`)
@@ -27,7 +25,6 @@ function ServicePage({ setCurrentTable }) {
   }, [category]);
 
 
-  // This is for the filter "filter the restaurants based on its location"
   const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
@@ -39,9 +36,6 @@ function ServicePage({ setCurrentTable }) {
     const totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
     setCurrentPageUsers(1);
   }, [Products]);
-
-
-  // The gah=genation of the page
   const itemsPerPage = 6;
   const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
   const endIndexUsers = startIndexUsers + itemsPerPage;
@@ -53,14 +47,12 @@ function ServicePage({ setCurrentTable }) {
   const navigate = useNavigate();
 
 
-  // Go to the details of each restaurant by id 
   function handleRes(Products) {
     let product_id = Products.product_id;
     console.log(product_id);
     navigate(`/Details/${product_id}`);
 
   }
-  //This function is work as filter the restaurants based on their name and update the searchTermUsers state whenever the user types in the search input field.
   const filterDataByNameUsers = (searchTermUsers) => {
     const filteredDataUsers = Products?.filter((item) =>
       item.name.toLowerCase().includes(searchTermUsers.toLowerCase())
@@ -70,7 +62,6 @@ function ServicePage({ setCurrentTable }) {
     console.log(searchTermUsers);
   };
 
-  // Handle the restaurants tables 
   function handleTable(element) {
     setCurrentTable(element)
 
@@ -172,12 +163,12 @@ function ServicePage({ setCurrentTable }) {
                 onChange={(e) => setOptionType(e.target.value)}
               >
                 <option value="">All Type</option>
-                <option value="arabian">Paints</option>
-                <option value="italian">Paper</option>
-                <option value="asian">Drawing</option>
-                <option value="mexican">Canvas</option>
-                <option value="indian">Tools</option>
-                <option value="american">brush</option>
+                <option value="Paints">Paints</option>
+                <option value="Paper">Paper</option>
+                <option value="Drawing">Drawing</option>
+                <option value="Canvas">Canvas</option>
+                <option value="Tools">Tools</option>
+                <option value="brush">brush</option>
               </select>
 
               <select
@@ -185,12 +176,12 @@ function ServicePage({ setCurrentTable }) {
                 value={yourSelectedStateValueAddress}
                 onChange={(e) => setOptionAddress(e.target.value)}>
                 <option value="">All Price</option>
-                <option value="amman">jD 0.00-Jd 4.99</option>
-                <option value="zarqa">jD 5.00-Jd 9.99</option>
-                <option value="balqa">jD 10.00-Jd 14.99</option>
-                <option value="madaba">jD 15.00-Jd 14\9.99</option>
-                <option value="karak">jD 20.00-Jd 24.99</option>
-                <option value="tafilah">jD 24.00-Jd 29.99</option>
+                <option value="4.99">jD 0.00-Jd 4.99</option>
+                <option value="9.99">jD 5.00-Jd 9.99</option>
+                <option value="14.99">jD 10.00-Jd 14.99</option>
+                <option value="19.99">jD 15.00-Jd 19.99</option>
+                <option value="24.99">jD 20.00-Jd 24.99</option>
+                <option value="29.99">jD 24.00-Jd 29.99</option>
                 
               </select>
             </div>

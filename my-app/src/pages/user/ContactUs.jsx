@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
 function ContactUs() 
 {
   const [name, setName] = useState("");
@@ -24,21 +23,24 @@ function ContactUs()
       );
 
       if (response.status === 200) {
-        Swal.fire("Success", "Message sent successfully!", "success");
+        toast.success(`Message sent successfully!`);
 
         setName("");
         setEmail("");
         setPhone("");
         setMessage("");
       } else {
-        Swal.fire("Error", "Failed to send message.", "error");
+        toast.error(`Failed to send message.`);
+
       }
     } catch (error) {
-      Swal.fire("Error", "An error occurred during form submission.", "error");
+      toast.error(`An error occurred during form submission.`);
     }
   };
 
   return (
+    <>
+           <ToastContainer />
     <div>
       <div
         className="bg-cover bg-center h-screen"
@@ -1010,6 +1012,7 @@ function ContactUs()
         </section>
       </div>
     </div>
+    </>
   );
 }
 

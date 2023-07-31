@@ -16,15 +16,10 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 function Home() {
-
-  //This useState will hold the currently selected food type.
   const [category, setcategory] = useState('');
   const navigate = useNavigate();
   const [products, setproducts] = useState([]);
 
-
-  
- 
   function handleTypeSelection(categoryy) {
     setcategory(category);
     window.scrollTo(0, 0)
