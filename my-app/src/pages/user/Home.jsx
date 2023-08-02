@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useState } from "react";
 import video from '../../images/video.mp4'
 import { HashLink } from "react-router-hash-link";
@@ -145,10 +145,11 @@ const addTowishlist = (product) => {
           </div>
         </div>
       </section>
+      <hr className="w-48 h-1 mx-auto my-4 bg-gray-600 border-0 rounded md:my-10 dark:bg-gray-700"/>
 
 
-      <section className="bg-white dark:bg-gray-900 shadow-lg">
-        <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+      <section className="bg-white dark:bg-gray-900 shadow-lg mb-20">
+        <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-4 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
             Unleash Your Creativity
@@ -176,223 +177,217 @@ const addTowishlist = (product) => {
 
 
       <div className="bg-white mt-10 shadow-lg">
-        <section id="food">
-          <br />
-          <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
-            What Type Of Supplier you need?
-          </h2>
-          <div className="flex flex-wrap mb-10 mx-20">
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative rounded-lg overflow-hidden">
-                {/* canvas card */}
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={brush}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-black opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    Drawing
-                    </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("drawing")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-           
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={canvas}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    canvas
-                                        </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("canvas")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-                
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={chalk}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    paints
-                    </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("paints")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-               
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={Easels}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    paper
-                    </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("paper")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-               
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={PaintPalette}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    Paint Tools
-                    </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("tools")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-              <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
-             
-                <img
-                  className="w-full h-64 object-cover object-center"
-                  src={watercolour}
-                  alt="vegetables" />
-                <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
-                    paints
-                    </h2>
-                    <button
-                      className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
-                      onClick={() => handleTypeSelection("paints")}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <section id="food" className="py-16 bg-gray-100">
+  <div className="container mx-auto">
+    <h2 className="text-4xl mb-8 tracking-tight font-extrabold text-black text-center capitalize">
+      What Type Of Supplier do you need?
+    </h2>
+    <div className="flex flex-wrap justify-center -mx-4">
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={brush}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-black opacity-60 rounded-t-lg"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Drawing
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("drawing")}
+              >
+                View More
+              </button>
             </div>
           </div>
-        </section>
-        <div className="flex justify-center">
-
-          <HashLink smooth={true} to="ServicePageAll#">
-            <Button className="border mb-10 border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text">
-              Show All EQUIPMENT
-            </Button>
-          </HashLink>
-
         </div>
-      
+      </div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={canvas}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Canvas
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("canvas")}
+              >
+                View More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={chalk}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Paints
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("paints")}
+              >
+                View More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={Easels}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Paper
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("paper")}
+              >
+                View More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={PaintPalette}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Paint Tools
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("tools")}
+              >
+                View More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+        <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
+          <img
+            className="w-full h-64 object-cover object-center rounded-t-lg"
+            src={watercolour}
+            alt="vegetables"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-60"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-2xl lg:text-4xl font-semibold text-white uppercase">
+                Watercolors
+              </h2>
+              <button
+                className="text-sm button-shop font-medium mt-4 text-white px-6 py-3 rounded-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transform hover:scale-105 transition-all duration-300"
+                onClick={() => handleTypeSelection("watercolors")}
+              >
+                View More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="flex justify-center mt-10">
+    <HashLink smooth={true} to="ServicePageAll#">
+      <Button className="border mb-10 border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white" variant="text">
+        Show All EQUIPMENT
+      </Button>
+    </HashLink>
+  </div>
+</section>
+<hr className="w-48 h-1 mx-auto my-4 bg-gray-600 border-0 rounded md:my-10 dark:bg-gray-700"/>
         <section>
-        <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8 ">
-          <header>
-            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
-              latest offers
-            </h2>
-          </header>
+        <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
+  <header className="text-center mb-8">
+    <h2 className="text-4xl font-extrabold text-black capitalize">Latest Offers</h2>
+  </header>
 
-          <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((pro) => (
+  <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {products.map((pro) => (
+      <li key={pro.product_id} className="rounded-lg overflow-hidden shadow-md bg-white w-full">
+        <img
+          src={`http://localhost:5000/${pro.photo}`}
+          alt={pro.name}
+          className="h-[250px] sm:h-[300px] w-full object-cover transition duration-500 group-hover:scale-105"
+        />
 
-              <li >
-               
-                   <img
-                   src={`http://localhost:5000/${pro.photo}`}  
-                    alt=""
-                    class="h-[250px] rounded-3xl	 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[300px]"
-                  />
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 h-12 overflow-hidden">{pro.name}</h3>
+          <p className="text-sm text-gray-600 mb-2 h-20 overflow-hidden">{pro.description}</p>
 
-                  <div class="relative pt-3 bg-white"  >
-                    <h3
-                      class="text-sm text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
-                     {pro.name}
+          <div className="flex items-center mb-2">
+            <span className="text-rose-600 line-through font-semibold mr-2">JD: {pro.price}</span>
+            <span className="text-red-600 font-semibold">JD: {pro.new_price}</span>
+          </div>
 
-                    </h3>
-                    <h3
-                      class="text-sm text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
-                      Description : {pro.description}
+          <div className="space-x-2 flex flex-wrap">
+            <Button
+              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-24"
+              variant="text"
+              onClick={() => handleTypesales(pro.product_id)}
+            >
+              Buy Now
+            </Button>
 
-                    </h3>
-
-                    <p class="mt-2">
-                      <span class="sr-only"> Regular Price </span>
-
-                      <span class="tracking-wider text-lg text-rose-600	 line-through">JD: {pro.price} </span>
-                      <br />
-                      <span class="tracking-wider text-lg text-red-600">JD: {pro.new_price}</span>
-                    </p>
-                    <Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff] mr-4" variant="text" onClick={() => handleTypesales(pro.product_id)}>
-    Buy Now
-</Button>
-
-<Button className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-[#ffffff]" variant="text" onClick={() => addTowishlist(pro)}>
-   Add To Wishlist
-</Button>
-          
-                  </div>
-                  
-                
-              </li>
-            ))}
-          </ul>
-
+            <Button
+              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-24"
+              variant="text"
+              onClick={() => addTowishlist(pro)}
+            >
+              Add To Wishlist
+            </Button>
+          </div>
         </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+
+
+
       
       </section>
  
