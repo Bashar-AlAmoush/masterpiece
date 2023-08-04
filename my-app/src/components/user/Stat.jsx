@@ -7,7 +7,6 @@ function Stat() {
 
     const [countuser, setCountsuer] = useState(null);
     const [countproduct, setCountproduct] = useState(null);
-    const [countSales, setCountSales] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
 
     const getdata=()=>{
@@ -35,13 +34,13 @@ function Stat() {
         axios
         .get('http://localhost:5000/salescount')
         .then(function (response) {
-            setCountSales(response.data);
+            calculatePrice(response.data);            
         })
         .catch(function (error) {
           console.log(error);
         })
 
-        calculatePrice()
+        
 
 
     }
@@ -49,17 +48,17 @@ function Stat() {
 
 
     useEffect(() => {
-        getdata()
-      }, [totalPrice]);
+        getdata();
+        
+      }, []);
 
 
 
 
-      const calculatePrice = () => {
-        const total = countSales?.reduce((acc, sale) => acc + parseFloat(sale.price), 0);
+      const calculatePrice = (salesData) => {
+        const total = salesData.reduce((acc, sale) => acc + parseFloat(sale.price), 0);
         setTotalPrice(total);
       };
-
 
 
 
@@ -75,13 +74,12 @@ function Stat() {
 
     <div className="mx-auto max-w-3xl text-center">
       <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-        Trusted by eCommerce Businesses
+      Welcome to Masterpiece Statistics
       </h2>
 
       <p className="mt-4 text-gray-500 sm:text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione dolores
-        laborum labore provident impedit esse recusandae facere libero harum
-        sequi.
+      Explore the insights and data that drive our eCommerce business.
+
       </p>
     </div>
 

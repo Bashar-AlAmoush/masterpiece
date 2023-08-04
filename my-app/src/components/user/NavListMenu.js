@@ -37,156 +37,18 @@ import {
 } from "@heroicons/react/24/outline";
 import logo from "../../images/logo.png";
 
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-</svg>
 
-const navListMenuItems = [
-  {
-    color: "blue",
-    icon: FlagIcon,
-    title: "About us",
-    description: "Learn about our story and our mission statement.",
-    path: "./About",
-  },
-  {
-    color: "orange",
-    icon: ChatBubbleOvalLeftIcon,
-    title: "Contact Us",
-    description: "News and writings, press releases, and resources",
-    path: "./ContactUs",
-  },
 
-  {
-    color: "purple",
-    icon: RocketLaunchIcon,
-    title: "User Profile",
-    description: "Checkout your profile",
-    path: "./UserProfile",
-  },
-  {
-    color: "teal",
-    icon: FaceSmileIcon,
-    title: "Admin",
-    description: "Add you recipes",
-    path: "./Admin",
-  },
-  {
-    color: "cyan",
-    icon: PuzzlePieceIcon,
-    title: "recipes",
-    description: "What I can cook",
-    path: "./Recipes",
-  },
-];
 
-function NavListMenu() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  
-  const renderItems = navListMenuItems.map(
-    ({ icon, title, description, color, path }, key) => (
-      <Link to={path} key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div className={`rounded-lg p-5 `}>
-            {React.createElement(icon, {
-              strokeWidth: 2,
-              className: "h-6 w-6",
-            })}
-          </div>
-          <div>
-            <Typography
-              variant="h6"
-              
-              className="flex items-center text-sm"
-            >
-              {title}
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              {description}
-            </Typography>
-          </div>
-        </MenuItem>
-      </Link>
-    )
-  );
 
-  return (
-    <React.Fragment>
-      <div className="block lg:hidden">
-        <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
-      </div>
-    </React.Fragment>
-  );
-}
+export default function NavbarComponent() {
 
-function NavList() {
-  return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        
-        className="font-normal"
-      >
-        <Link to="/">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
-            <HomeIcon className="h-[18px] w-[18px] text-red-600" />
-            Home
-          </ListItem>
-        </Link>
-      </Typography>
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-        <Link to="/ServicePageAll">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
-         
-          <Icon path={mdiPaletteOutline}  color={'red'}  size={1} />
 
-          EQUIPMENT
-          </ListItem>
-        </Link>
-      </Typography>
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-        <Link to="/About">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400  focus:text-red-600">
-            <CubeTransparentIcon className="h-[18px] w-[18px] text-red-600" />
-            About Us
-          </ListItem>
-        </Link>
 
-      </Typography>
-      <NavListMenu />
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-        <Link to="/ContactUs">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black  hover:text-red-400  focus:text-red-600">
-            <UserCircleIcon className="h-[18px] w-[18px] text-red-600" />
-            Contact Us
-          </ListItem>
-        </Link>
-      </Typography>
-    </List>
-  );
-}
 
-export default function Example() {
+
+
+
   const [openNav, setOpenNav] = React.useState(false);
   const { SignStatus, updateSignStatus } = useContext(UserContext);
 
@@ -208,31 +70,14 @@ export default function Example() {
     } 
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
 
-  const profileMenuItems = [
-    {
-      label: "Profile",
-      icon: LifebuoyIcon,
-    },
-    {
-      label: "Cart" ,
-      icon: ShoppingCartIcon,
-    },
-    {
-      label: "Wishlist",
-      icon: HeartIcon,
-    },
-    {
-      label: "Sign Out",
-      icon: PowerIcon,
-    },
-  ];
+
   const navigate = useNavigate();
   function ProfileMenu() {
     const { SignStatus, updateSignStatus } = useContext(UserContext);
@@ -322,72 +167,217 @@ export default function Example() {
     );
   }
 
-  return (
-    <Navbar
-      className="w-full sticky top-0 z-20"
-      style={{ backgroundColor: "black", border: "none", borderRadius: "0" }}
-    >
-      <div className="flex items-center justify-between text-white">
-        <Typography
-          as="a"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-        >
+
+
+  const navListMenuItems = [
+    {
+      color: "blue",
+      icon: FlagIcon,
+      title: "About us",
+      description: "Learn about our story and our mission statement.",
+      path: "./About",
+    },
+    {
+      color: "orange",
+      icon: ChatBubbleOvalLeftIcon,
+      title: "Contact Us",
+      description: "News and writings, press releases, and resources",
+      path: "./ContactUs",
+    },
+  
+    {
+      color: "purple",
+      icon: RocketLaunchIcon,
+      title: "User Profile",
+      description: "Checkout your profile",
+      path: "./UserProfile",
+    },
+    
+   
+  ];
+  
+  function NavListMenu() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    
+    const renderItems = navListMenuItems.map(
+      ({ icon, title, description, color, path }, key) => (
+        <Link to={path} key={key}>
+          <MenuItem className="flex items-center gap-3 rounded-lg">
+            <div className={`rounded-lg p-5 `}>
+              {React.createElement(icon, {
+                strokeWidth: 2,
+                className: "h-6 w-6",
+              })}
+            </div>
+            <div>
+              <Typography
+                variant="h6"
+                
+                className="flex items-center text-sm"
+              >
+                {title}
+              </Typography>
+              <Typography variant="small" color="gray" className="font-normal">
+                {description}
+              </Typography>
+            </div>
+          </MenuItem>
+        </Link>
+      )
+    );
+  
+    return (
+      <>
+        <div className="block lg:hidden">
+          <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
+        </div>
+      </>
+    );
+  }
+  
+  function NavList() {
+    return (
+      <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+        
           <Link to="/">
-            <img src={logo} alt="logo"  style={{height:"50px",width:"150px"}} />
+            <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
+              <HomeIcon className="h-[18px] w-[18px] text-red-600" />
+              Home
+            </ListItem>
           </Link>
-        </Typography>
-        <div className="hidden lg:block">
-          <NavList />
-        </div>
-        <div className="hidden gap-2 lg:flex">
-          {SignStatus == "signUp" ? (
-            <>
-        <Button
-  onClick={() => handlecart()}
-  size="sm"
-  className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2 flex items-center"
->
-  <Icon path={mdiCartOutline} size={0.8} className="mr-1" />
-  Cart
-</Button>
+    
+       
+          <Link to="/ServicePageAll">
+            <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
+           
+            <Icon path={mdiPaletteOutline}  color={'red'}  size={1} />
+  
+            EQUIPMENT
+            </ListItem>
+          </Link>
+          <Link to="/Painting">
+            <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
+           
+            <Icon path={mdiPaletteOutline}  color={'red'}  size={1} />
+  
+            Painting
+            </ListItem>
+          </Link>
+        
+          <Link to="/About">
+            <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400  focus:text-red-600">
+              <CubeTransparentIcon className="h-[18px] w-[18px] text-red-600" />
+              About Us
+            </ListItem>
+          </Link>
+  
+        
+        <NavListMenu />
+        
+          <Link to="/ContactUs">
+            <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black  hover:text-red-400  focus:text-red-600">
+              <UserCircleIcon className="h-[18px] w-[18px] text-red-600" />
+              Contact Us
+            </ListItem>
+          </Link>
+       
+      </List>
+    );
+  }
+  
+  const profileMenuItems = [
+    {
+      label: "Profile",
+      icon: LifebuoyIcon,
+    },
+    {
+      label: "Cart" ,
+      icon: ShoppingCartIcon,
+    },
+    {
+      label: "Wishlist",
+      icon: HeartIcon,
+    },
+    {
+      label: "Sign Out",
+      icon: PowerIcon,
+    },
+  ];
 
-<Button
-  onClick={() => handleSign()}
-  size="sm"
-  className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2"
->
-  Sign Up
-</Button>
 
 
-</>
 
-          ) : (
-            <ProfileMenu />
-          )}
-        </div>
-        <IconButton
-          variant="text"
-          color="blue-gray"
-          className="lg:hidden bg-red-700"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
+
+
+  return (
+
+    <Navbar
+    className="w-full sticky top-0 z-20"
+    style={{ backgroundColor: "black", border: "none", borderRadius: "0" }}
+  >
+    <div className="flex items-center justify-between text-white">
+      <Link to="/">
+        <img
+          src={logo}
+          alt="logo"
+          style={{ height: "50px", width: "150px" }}
+        />
+      </Link>
+      <div className="hidden lg:block">
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="bg-red-700" fullWidth>
-            Sign In
-          </Button>
-        </div>
-      </Collapse>
-    </Navbar>
+      </div>
+      <div className={`hidden gap-2 lg:flex ${openNav ? "ml-auto" : ""}`}>
+        {SignStatus === "signUp" ? (
+          <>
+            <Button
+              onClick={handleSign}
+              size="sm"
+              className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2"
+            >
+              Sign Up
+            </Button>
+          </>
+        ) : (
+          <ProfileMenu />
+        )}
+      </div>
+      <IconButton
+        variant="text"
+        color="blue-gray"
+        className="lg:hidden bg-red-700"
+        onClick={() => setOpenNav(!openNav)}
+      >
+        {openNav ? (
+          <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+        ) : (
+          <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+        )}
+      </IconButton>
+    </div>
+    <Collapse open={openNav}>
+    <div className="grid grid-cols-2 gap-4">
+  <NavList />
+
+  {SignStatus === "signUp" ? (
+    <>
+      <Button
+        onClick={handleSign}
+        size="sm"
+        className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2 rounded-md text-white"
+      >
+        Sign Up
+      </Button>
+    </>
+  ) : (
+    <div className="flex items-center gap-2 ml-auto">
+      <ProfileMenu />
+    </div>
+  )}
+</div>
+
+
+    </Collapse>
+  </Navbar>
+  
   );
 }
