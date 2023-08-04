@@ -125,6 +125,14 @@ function Painting() {
         </div>
       </div>
 
+      <div className="flex justify-end mt-7  me-11 ">
+  <div className="h-14 w-28 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white">
+    Save changes
+  </div>
+</div>
+
+
+
 <div className="flex flex-col md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 mt-5 mb-5">
   <div className="w-full md:w-6/12 md:flex-1 mx-4 md:mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300">
     <div className="relative flex items-center">
@@ -188,11 +196,7 @@ function Painting() {
   </div>
 </div>
 
-      <div className="flex justify-end">
-  <div className="h-14 w-28 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200">
-    Save changes
-  </div>
-</div>
+    
 
 
 <div className="flex flex-wrap gap-10 justify-center my-16">
