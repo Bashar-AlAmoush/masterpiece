@@ -121,9 +121,3 @@ const EditAboutContact = () => {
 }
 
 export default EditAboutContact
-
-
-// {
-//   "about_title": "Make your customers happy by giving the best services",
-//   "about_us": "At Ma6a3mkom , we are passionate about connecting food enthusiasts with their favorite dining experiences. Our platform aims to make the process of reserving a table at top restaurants seamless and convenient. We understand the importance of savoring memorable moments with loved ones, and our mission is to enhance the dining experience by providing a user-friendly and efficient reservation service.And our mission is to empower food lovers by offering a hassle-free and reliable platform for restaurant reservations. We strive to bring together diners and restaurants, creating a win-win situation for both parties. With a focus on customer satisfaction, we are dedicated to providing exceptional service, innovative features, and a wide range of culinary options. Our goal is to make every dining occasion special, ensuring that our users can easily discover, book, and enjoy exceptional dining experiences at their preferred restaurants."
-// }

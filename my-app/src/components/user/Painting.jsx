@@ -4,6 +4,7 @@ import painting from '../../images/Painting.jpg';
 import {  useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
+import './scrollbar.css';
 
 
 function Painting() {
@@ -11,7 +12,18 @@ function Painting() {
 
   const [Products, setProducts] = useState([]);
   const { category } = useParams();
-  console.log(category);
+  const [showForm, setShowForm] = useState(false);
+
+
+
+  const [name, setName] = useState("");
+const [categoryy, setCategory] = useState("");
+const [price, setPrice] = useState("");
+const [description, setDescription] = useState("");
+const [file, setFile] = useState(null);
+
+
+
 
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
@@ -82,6 +94,69 @@ function Painting() {
 
 
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+  
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "category":
+        setCategory(value);
+        break;
+      case "price":
+        setPrice(value);
+        break;
+      case "description":
+        setDescription(value);
+        break;
+   
+      default:
+        break;
+    }
+  };
+
+;
+  const files=new FormData();
+  files.append('image',file);
+  files.append('name',name);
+  files.append('category',category);
+  files.append('price',price);
+  files.append('description',description);
+
+  const handleCreatePost = async () => {
+  
+console.log(file)
+
+
+
+axios
+.post("http://localhost:5000/newproduct",files)
+.then(function (response) {
+
+
+    // console.log(response.data);
+    // axios.get('http://localhost:5000/productsAll')
+    //     .then((response) => {
+    //       setproducts(response.data);
+    //       setFilterDataproducts(response.data);
+    //     })
+    //     .catch((error) => console.log(error.message));
+
+       
+
+  }
+)
+.catch((err) => console.log(err.message));
+
+    setShowForm(false);
+  };
+
+  const handleCancel = () => {
+    setShowForm(false);
+  };
+
+
 
   return (
 
@@ -126,10 +201,129 @@ function Painting() {
       </div>
 
       <div className="flex justify-end mt-7  me-11 ">
-  <div className="h-14 w-28 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white">
-    Save changes
+  <div className="h-14 w-28 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white" onClick={() => setShowForm(true)}  >
+  Add A Drawings
   </div>
 </div>
+
+{showForm && (
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+    <div className="bg-white p-8 rounded shadow-md z-50 scrollbar" style={{ width: "580px", maxHeight: "80vh", overflowY: "auto" }}>
+            <h2 className="text-2xl font-bold mb-4">Add New Drawings </h2>
+            <form>
+              <div className="mb-4">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Name of products
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="description"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                description
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  maxLength={400}
+                  rows={5}
+                  cols={5}
+                  value={description}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="price"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  price
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={price}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+  <label htmlFor="category" className="block text-gray-700 font-bold mb-2">
+    Category
+  </label>
+  <select
+    id="category"
+    name="category"
+    value={category}
+    onChange={handleInputChange}
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  >
+    <option value="">Select a category</option>
+    <option value="paints">paints</option>
+    <option value="paper">paper </option>
+    <option value="paints">paints</option>
+    <option value="drawing">drawing</option>
+    <option value="canvas">canvas</option>
+    <option value="tools">tools</option>
+    
+  </select>
+</div>
+
+<div className="mb-4">
+  <label
+    htmlFor="photo"
+    className="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
+  >
+   photo 
+  </label>
+  <input
+    className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+    type="file"
+    id="photo"
+    name="photo"
+    onChange={(e) => {
+      setFile(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }}
+  />
+</div>
+
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={handleCreatePost}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                            Add New Drawings
+
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
 
 
 

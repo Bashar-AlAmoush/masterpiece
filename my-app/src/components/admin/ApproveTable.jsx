@@ -2,7 +2,7 @@ import Icon from '@mdi/react';
 import { mdiDelete } from "@mdi/js";
 import React, { useEffect, useState } from 'react'
 import { mdiRestore } from '@mdi/js';
-
+import './scrollbar.css';
 import axios from 'axios'
 import Swal from 'sweetalert2'
  import Pagination from "@mui/material/Pagination";
@@ -203,6 +203,9 @@ useEffect(() => {
     const handleCancel = () => {
       setShowForm(false);
     };
+
+
+
     const handleInputChange = (event) => {
       const { name, value } = event.target;
     
@@ -289,8 +292,8 @@ useEffect(() => {
         </button>
       </div>
       {showForm && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded shadow-md z-50" style={{width:"580px"}}>
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+    <div className="bg-white p-8 rounded shadow-md z-50 scrollbar" style={{ width: "580px", maxHeight: "80vh", overflowY: "auto" }}>
             <h2 className="text-2xl font-bold mb-4">Add New Products </h2>
             <form>
               <div className="mb-4">
