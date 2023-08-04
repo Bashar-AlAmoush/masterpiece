@@ -65,6 +65,9 @@ const Footer = () => {
               <p className="mb-4">
                 <Link to="/ServicePageAll" className="text-white ">EQUIPMENT</Link>
               </p>
+              <p className="mb-4">
+                <Link to="/Painting" className="text-white ">Painting</Link>
+              </p>
               <p>
                 <Link to="/ContactUs" className="text-white ">Contact</Link>
               </p>

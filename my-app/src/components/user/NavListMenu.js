@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import Icon from '@mdi/react';
 import { useNavigate } from 'react-router-dom';
-import { mdiCartOutline } from '@mdi/js';
 import { mdiPaletteOutline } from '@mdi/js';
+import { mdiDraw } from '@mdi/js';
+
 import {
   Navbar,
   Collapse,
@@ -29,8 +30,7 @@ import {
   FlagIcon,
   ChatBubbleOvalLeftIcon,
   RocketLaunchIcon,
-  FaceSmileIcon,
-  PuzzlePieceIcon,
+  
   ShoppingCartIcon,
   HomeIcon,
   HeartIcon
@@ -257,9 +257,7 @@ export default function NavbarComponent() {
           </Link>
           <Link to="/Painting">
             <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-red-400 focus:text-red-600">
-           
-            <Icon path={mdiPaletteOutline}  color={'red'}  size={1} />
-  
+            <Icon path={mdiDraw}  color={'red'}  size={1} />
             Painting
             </ListItem>
           </Link>

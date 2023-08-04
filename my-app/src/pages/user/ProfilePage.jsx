@@ -55,13 +55,13 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="h-screen bg-gray-200 ">
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 ms:1/3">
+      <div className="min-h-screen bg-gray-200 flex flex-col">
+        <div className="flex flex-col md:flex-row flex-1">
+          <div className="w-full md:w-1/2">
             {/* <!-- Left side content --> */}
-            <div className="h-screen bg-gray-200   pt-8">
+            <div className="h-full bg-gray-200 pt-8">
               <div>
-                <div className="w-full ms-8 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+              <div className="w-full md:w-3/4 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
                   <div className="border-b px-4 pb-6">
                     <div className="text-center my-4">
                       <img
@@ -75,7 +75,7 @@ const ProfilePage = () => {
                         </div>
                       )}
                     </div>
-                    <div className="flex gap-2 px-2  justify-center ">
+                    <div className="flex gap-2 px-2 justify-center">
                       <div className="space-x-8 flex justify-center mt-32 md:mt-0 md:justify-center">
                         <Link
                           to="/EditProfile"

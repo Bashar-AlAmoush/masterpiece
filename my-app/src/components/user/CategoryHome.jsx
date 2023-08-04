@@ -24,7 +24,7 @@ function CategoryHome() {
   return (
     <>
     
-    <section id="food" className="py-16 bg-gray-100">
+    <section id="product" className="py-16 bg-gray-100">
   <div className="container mx-auto">
     <h2 className="text-4xl mb-8 tracking-tight font-extrabold text-black text-center capitalize">
       What Type Of Supplier do you need?
