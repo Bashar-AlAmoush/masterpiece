@@ -61,12 +61,6 @@ function ServicePage({ setCurrentTable }) {
     setCurrentPageUsers(1);
     console.log(searchTermUsers);
   };
-
-  function handleTable(element) {
-    setCurrentTable(element)
-
-  }
-
   function handleFind() {
     console.log(Products[0].category.toLowerCase());
     const filteredDataUsers = Products?.filter((item) =>
@@ -205,38 +199,32 @@ function ServicePage({ setCurrentTable }) {
           )
           .slice(startIndexUsers, endIndexUsers)
           .map((Products, index) => (
-            <div className="card card-compact w-100 bg-base-100 shadow-xl">
-{console.log(Products.photo)}
-  <button className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
-   
-   
-  </button>
-  <a href="#" className="group relative block overflow-hidden">
-  <img
+            <div className="card card-compact w-3/12 bg-base-100 shadow-xl">
 
-         src={`http://localhost:5000/${Products.photo}`}     alt=""
-  
-        className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"style={{width: '100%', height: ''}}
-  />
-  </a>
-  <div className="relative border border-gray-100 bg-white p-6">
-   
-    <h3 className="mt-4 text-lg font-medium text-gray-900">{Products.name}</h3>
-    <p className="mt-1.5 text-sm text-gray-700">{Products.description}</p>
-    <p className="mt-1.5 text-sm text-gray-700">{Products.price}</p>
-    <form className="mt-4">
-    <button
-                        onClick={() => {
-                          handleRes(Products);
-                        }}
-                        className="btn buttonNav border-none bg-red-500 px-8 py-3 text-black mr-4"
-                      >
-                        View Details 
-                      </button>
-    </form>
-  </div>
-
-</div>
+            <a href="#" className="group relative block overflow-hidden">
+            <img
+                   src={`http://localhost:5000/${Products.photo}`}   alt=""
+                  className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+            />
+            </a>
+            <div className="relative border border-gray-100 bg-white p-6">
+              <h3 className="mt-4 text-lg font-medium text-gray-900">{Products.name}</h3>
+              <p className="mt-1.5 text-sm text-gray-700">{Products.description}</p>
+              <p className="mt-1.5 text-sm text-gray-700">{Products.price}</p>
+              <form className="mt-4">
+              <button
+                                  onClick={() => {
+                                    handleRes(Products);
+                                  }}
+                                  className="btn buttonNav border-none bg-red-500 px-8 py-3 text-black mr-4"
+                                >
+                                  View Details 
+                                </button>
+              </form>
+            </div>
+          
+          </div>
+          
           ))}
       </div>
 

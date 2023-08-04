@@ -20,8 +20,6 @@ const ServicePageAll = () => {
         console.error(error);
       });
   }, []);
-
-  const [selectedResId, setSelectedResId] = useState("");
   const navigate = useNavigate();
   
   function handleRes(Products) {
