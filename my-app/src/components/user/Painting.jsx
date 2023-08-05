@@ -5,31 +5,24 @@ import {  useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import './scrollbar.css';
-
-
 function Painting() {
-
-
   const [Products, setProducts] = useState([]);
   const { category } = useParams();
   const [showForm, setShowForm] = useState(false);
-
-
-
+  const [userid, setUserid] = useState("");
   const [name, setName] = useState("");
 const [categoryy, setCategory] = useState("");
 const [price, setPrice] = useState("");
 const [description, setDescription] = useState("");
 const [file, setFile] = useState(null);
 
-
-
-
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
+
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/productsAll`)
+      .get(`http://localhost:5000/DrawingAll`)
       .then((response) => {
         console.log(response.data);
         setProducts(response.data);
@@ -37,6 +30,14 @@ const [file, setFile] = useState(null);
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
+
+
+      axios
+    .get('http://localhost:5000/getId')
+    .then(function (response) {
+      setUserid(response.data[0].userid)})
+      .catch(function (error){console.log("Error", error)});
+
   }, [category]);
 
 
@@ -120,9 +121,10 @@ const [file, setFile] = useState(null);
   const files=new FormData();
   files.append('image',file);
   files.append('name',name);
-  files.append('category',category);
+  files.append('category',categoryy);
   files.append('price',price);
   files.append('description',description);
+  files.append('userid',userid);
 
   const handleCreatePost = async () => {
   
@@ -131,17 +133,20 @@ console.log(file)
 
 
 axios
-.post("http://localhost:5000/newproduct",files)
+.post("http://localhost:5000/newDrawing",files)
 .then(function (response) {
 
 
-    // console.log(response.data);
-    // axios.get('http://localhost:5000/productsAll')
-    //     .then((response) => {
-    //       setproducts(response.data);
-    //       setFilterDataproducts(response.data);
-    //     })
-    //     .catch((error) => console.log(error.message));
+    console.log(response.data);
+    axios
+    .get(`http://localhost:5000/DrawingAll`)
+    .then((response) => {
+      console.log(response.data);
+      setProducts(response.data);
+      setFilterDataUsers(response.data);
+      console.log(response.data);
+    })
+    .catch((error) => console.log(error.message));
 
        
 
@@ -201,7 +206,7 @@ axios
       </div>
 
       <div className="flex justify-end mt-7  me-11 ">
-  <div className="h-14 w-28 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white" onClick={() => setShowForm(true)}  >
+  <div className="h-14 w-36 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white" onClick={() => setShowForm(true)}  >
   Add A Drawings
   </div>
 </div>
@@ -216,7 +221,7 @@ axios
                   htmlFor="name"
                   className="block text-gray-700 font-bold mb-2"
                 >
-                  Name of products
+                  Name of Drawing
                 </label>
                 <input
                   type="text"
@@ -273,12 +278,12 @@ axios
     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   >
     <option value="">Select a category</option>
-    <option value="paints">paints</option>
-    <option value="paper">paper </option>
-    <option value="paints">paints</option>
-    <option value="drawing">drawing</option>
-    <option value="canvas">canvas</option>
-    <option value="tools">tools</option>
+    <option value="Illustrations">Illustrations</option>
+    <option value="Cartoons">Cartoons </option>
+    <option value="Portraits">Portraits</option>
+    <option value="LandscapeDrawings">Landscape Drawings</option>
+    <option value="Realism">Realism</option>
+    <option value="Anime">Anime/Manga</option>
     
   </select>
 </div>
@@ -359,12 +364,12 @@ axios
       onChange={(e) => setOptionType(e.target.value)}
     >
        <option value="">All Type</option>
-      <option value="paints">Paints</option>
-      <option value="paper">Paper</option>
-      <option value="drawing">Drawing</option>
-      <option value="canvas">Canvas</option>
-      <option value="tools">Tools</option>
-      <option value="canvas">canvas</option>
+      <option value="Illustrations">Illustrations</option>
+      <option value="Cartoons">Cartoons</option>
+      <option value="Portraits">Portraits</option>
+      <option value="LandscapeDrawings">Landscape Drawings</option>
+      <option value="Realism">Realism</option>
+      <option value="Anime">Anime/Manga</option>
     </select>
 
     <select
