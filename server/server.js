@@ -181,8 +181,6 @@ app.post("/recordp", async function (req, res) {
 });
 
 
-let generatedId;
-// Get All reporters
 app.get("/reporters", async function (req, res) {
   try {
     const all_records = await pool.query("SELECT * FROM contacts");
@@ -192,7 +190,6 @@ app.get("/reporters", async function (req, res) {
   }
 });
 
-// Update a Specific Record
 app.put("/aboutEdit/:about_id", async function (req, res) {
   try {
     const { about_id } = req.params;
@@ -221,6 +218,9 @@ app.put("/contactus00/:about_id", async function (req, res) {
     console.log(err.message);
   }
 });
+
+
+
 app.post("/contacts", async function (req, res) {
   try {
     console.log(req.body);
@@ -238,7 +238,6 @@ app.post("/contacts", async function (req, res) {
   }
 });
 
-// -------------razan res ----------------//
 
 
 app.post("/addToCart", async function (req, res) {
@@ -259,6 +258,22 @@ app.post("/addToCart", async function (req, res) {
   } catch (err) {
     console.log(err.message);
    }
+});
+
+app.post("/countdata/:product_id", async function (req, res) {
+  try {
+    const {product_id } = req.params;
+    const { value } = req.body;
+
+    const user = await pool.query(
+      "UPDATE cart SET quantity  = $1  WHERE product_id = $2   ",
+      [value, product_id]
+    );
+    res.json(user.rows);
+   
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 
@@ -356,7 +371,7 @@ app.delete("/deletewishlistdata", async function (req, res) {
 app.get("/getusercart/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const record = await pool.query("SELECT * FROM cart WHERE user_id = $1", [ id ]);
+    const record = await pool.query("SELECT * FROM cart WHERE user_id = $1  ORDER BY name ASC ", [ id ]);
     res.json(record.rows);
   } catch (err) {
     console.log(err.message);
@@ -518,8 +533,6 @@ app.put("/recoversales/:id", async (req, res) => {
   }
 })
 
-
-// ---------------- issa --------------------//
 // Add a new payment
 app.post("/payment", async function (req, res) {
   console.log(req.body);
@@ -784,6 +797,28 @@ app.post("/newproduct",upload.single('image') , async function (req, res) {
 
 
 
+
+
+app.post("/newDrawing",upload.single('image') , async function (req, res) {
+  try {
+    const {name,category,price,description,userid}=req.body 
+    const imagePath = req.file.path;
+      const all_records = await pool.query(
+        "INSERT INTO products (name,category, price, description,photo,user_id) VALUES($1, $2, $3 , $4 , $5,$6) RETURNING *",
+        [name, category, price, description, imagePath,userid]
+      );
+      res.json(all_records.rows);
+    } 
+      
+    
+   catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
 app.put("/newsale/:id", async function (req, res) {
   try {
     const { new_price } = req.body;
@@ -799,6 +834,67 @@ app.put("/newsale/:id", async function (req, res) {
     console.log(err.message);
   }
 });
+
+
+
+
+app.get("/usercount", (req, res) => {
+  pool.query("SELECT count(userid) FROM users ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+app.get("/Productcount", (req, res) => {
+  pool.query("SELECT count(product_id) FROM products ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
+app.get("/salescount", (req, res) => {
+  pool.query("SELECT price FROM orders ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results.rows);
+    }
+  });
+});
+
+
+
+app.get("/DrawingAll", (req, res) => {
+  pool.query(
+    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL) AND (disflag = 0 OR disflag = 2)",
+    (error, results) => {
+      if (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.json(results.rows);
+      }
+    }
+  );
+});
+
+
+
+
+
+
 
 
 // Start the server
