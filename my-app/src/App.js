@@ -15,6 +15,7 @@ import ProfilePage from './pages/user/ProfilePage'
 import ServicePage from './pages/user/ServicePage';
 import ServicePageAll from './pages/user/ServicePageAll';
 import Details from './pages/user/Details';
+import Page404 from './pages/user/Page404';
 import SalesDetails from './pages/user/SalesDetails';
 import EditProfile from './pages/user/EditProfile';
 import Painting from './components/user/Painting';
@@ -82,6 +83,7 @@ function App() {
           <Route path="EditProfile" element={<EditProfile />} />
           <Route path="Painting" element={<Painting/>} />
           <Route path="/Product/:category" element={<ServicePage />} />
+          <Route path="*" element={<Page404/>} />
         </Routes>
         <Footer />
       </Router>
