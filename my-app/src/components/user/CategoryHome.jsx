@@ -29,7 +29,7 @@ function CategoryHome() {
     <h2 className="text-4xl mb-8 tracking-tight font-extrabold text-black text-center capitalize">
       What Type Of Supplier do you need?
     </h2>
-    <div className="flex flex-wrap justify-center -mx-4">
+    <div className="flex flex-wrap justify-center mx-4">
       <div className="w-full sm:w-1/2 md:w-1/3 p-4">
         <div className="relative rounded-lg overflow-hidden shadow-lg transition-transform duration-100 transform hover:scale-105">
           <img
