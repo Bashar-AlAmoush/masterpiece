@@ -247,7 +247,7 @@ console.log(cart)
               <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
               <p className="text-xl mb-4">{product.description}</p>
               <p className="text-2xl mb-4"> JD : {product.price}</p>
-       {! product.user_id &&(<div className="flex items-center mb-8 ">
+       {!product.user_id &&(<div className="flex items-center mb-8 ">
                 <label htmlFor="quantity" className="mr-4">
                   Quantity:
                 </label>

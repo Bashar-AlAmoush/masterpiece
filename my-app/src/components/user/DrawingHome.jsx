@@ -142,7 +142,7 @@ function DrawingHome() {
                               <div className="text-sm mt-3">
                                 <p className="font-medium text-white">{pro.description}</p>
                                 <p className="mt-1 text-gray-300">JD: {pro.price}</p>
-                                <p  className="mt-1 text-gray-300"> By  :{users?.find(user=> user.userid === pro.user_id).username}</p>
+                                <p  className="mt-1 text-gray-300"> By  :{users?.find(user=> user.userid === pro.user_id)?.username}</p>
 
 
                                 <button

@@ -6,6 +6,7 @@ const ProfilePage = () => {
   const [id, setId] = useState();
   const [orders, setOrders] = useState([]);
   const [prevOrders, setPrevOrders] = useState([]);
+  const [Drawings, setDrawings] = useState([]);
   const [user, setUser] = useState([]);
   const [activeTab, setActiveTab] = useState('tab1');
 
@@ -46,6 +47,18 @@ const ProfilePage = () => {
           .catch(function (error) {
             console.log(error);
           });
+
+
+          axios
+          .get(`http://localhost:5000/getuserDrawings/${x}`)
+          .then(function (response) {
+            setDrawings(response.data);
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
       })
       .catch(function (error) {
         console.log(error);
@@ -148,51 +161,116 @@ const ProfilePage = () => {
                 >
                   Previous Orders
                 </button>
+
+                <button
+                  className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tr-lg focus:outline-none ${
+                    activeTab === 'tab2' ? 'active:bg-gray-200' : ''
+                  }`}
+                  onClick={() => openTab('tab3')}
+                >
+                  User Drawings
+                </button>
+
               </div>
               <div id="tab1" className={`tabcontent p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
-                <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
-                <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
-                  {orders && orders.length > 0 ? (
-                    orders.map((order, index) => (
-                      <p className="mt-2 text-gray-700" key={index}>
-                        <div className="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex">
-                          <div>
-                            <p className="font-bold">{order.name}</p>
-                            <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
-                          </div>
-                          <div className="mt-4 sm:mt-0 sm:ml-4">
-                            <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
-                          </div>
-                        </div>
-                      </p>
-                    ))
-                  ) : (
-                    <p>No items in cart.</p>
-                  )}
-                </div>
-              </div>
+  <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
+  <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
+    {orders && orders.length > 0 ? (
+      orders.map((order, index) => (
+        <div className="mt-2 text-gray-700" key={index}>
+        <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
+          <div>
+            <p className="font-bold">{order.name}</p>
+            <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
+
+            <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
+          </div>
+          <div className="mt-4 sm:mt-0 sm:ml-4">
+            <img
+              src={`http://localhost:5000/${order.photo}`}
+             
+             
+             alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
+            <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
+           
+          </div>
+        </div>
+      </div>
+      ))
+    ) : (
+      <p>No items in cart.</p>
+    )}
+  </div>
+</div>
+
               <div id="tab2" className={`tabcontent p-4 ${activeTab === 'tab2' ? '' : 'hidden'}`}>
                 <h2 className="text-lg font-bold text-gray-800">Previous Orders</h2>
                 <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
-                  {prevOrders && prevOrders.length > 0 ? (
-                    prevOrders.map((order, index) => (
-                      <p className="mt-2 text-gray-700" key={index}>
-                        <div className="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex">
-                          <div>
-                            <p className="font-bold">{order.name}</p>
-                            <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
-                          </div>
-                          <div className="mt-4 sm:mt-0 sm:ml-4">
-                            <p className="font-bold text-gray-600">Quantity: {order.count}</p>
-                          </div>
+                  {prevOrders && prevOrders?.length > 0 ? (
+                    prevOrders?.map((order, index) => (
+                      <div className="mt-2 text-gray-700" key={index}>
+                      <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
+                        <div>
+                          <p className="font-bold">{order.name}</p>
+                          <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
+            
+                          <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
                         </div>
-                      </p>
+                        <div className="mt-4 sm:mt-0 sm:ml-4">
+                          <img
+                            src={`http://localhost:5000/${order.photo}`}
+                           
+                           
+                           alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
+                          <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
+                         
+                        </div>
+                      </div>
+                    </div>
                     ))
                   ) : (
                     <p>No previous orders.</p>
                   )}
                 </div>
               </div>
+
+              
+
+
+
+             
+
+              <div id="tab3" className={`tabcontent p-4 ${activeTab === 'tab3' ? '' : 'hidden'}`}>
+  <h2 className="text-lg font-bold text-gray-800">User Drawings</h2>
+  <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
+    {Drawings && Drawings.length > 0 ? (
+      Drawings.map((order, index) => (
+        <div className="mt-2 text-gray-700" key={index}>
+          <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
+            <div>
+              <p className="font-bold">{order.name}</p>
+              <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
+
+              <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
+            </div>
+            <div className="mt-4 sm:mt-0 sm:ml-4">
+              <img
+                src={`http://localhost:5000/${order.photo}`}
+               
+               
+               alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
+              <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
+             
+            </div>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p> There is no Drawings for the user.</p>
+    )}
+  </div>
+</div>
+
             </div>
           </div>
         </div>

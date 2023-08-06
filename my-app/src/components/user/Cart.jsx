@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function Cart() {
   const [cartData, setCartData] = useState([]);
   const [id, setId] = useState();
+  const category=["Paints","paper","drawing","canvas","tools"]
 
   useEffect(() => {
     axios
@@ -150,17 +151,41 @@ export default function Cart() {
                       <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">{product.category}</p>
                       <div className="flex items-center justify-between w-full pt-1">
                         <p className="text-base font-black leading-none text-gray-800"> {product.name}</p>
-                        <div className="relative mb-3" data-te-input-wrapper-init>
-                          <input
-                            type="number"
-                            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                            id={`exampleFormControlInputNumber_${index}`}
-                            placeholder="Number"
-                            min={1}
-                            value={product.quantity}
-                            onChange={(event) => handleCountChange(event, product.product_id)}
-                          />
-                        </div>
+                        {category.includes(product.category)  && ( <div>
+    <label htmlFor="Quantity" className="sr-only">
+      {" "}
+      Quantity{" "}
+    </label>
+    <div className="flex items-center gap-1">
+      <button
+        type="button"
+        className="h-10 w-10 leading-10 text-gray-600 transition hover:opacity-75"
+        onChange={(event) => handleCountChange(event, product.product_id)} 
+      >
+        −
+      </button>
+      <input
+      min={1}
+        type="number"
+        id="Quantity"
+        defaultValue={1}
+        className="h-10 w-24 rounded border-gray-200 sm:text-sm"
+        value={product.quantity}
+        onChange={(event) => handleCountChange(event, product.product_id)}
+      />
+      <button
+        type="button"
+        className="h-10 w-10 leading-10 text-gray-600 transition hover:opacity-75"
+        onChange={(event) => handleCountChange(event, product.product_id)}
+      >
+        +
+      </button>
+    </div>
+  </div>)}
+ 
+
+
+
                       </div>
                       <p className="text-xs leading-3 text-gray-600 pt-2">{product.description}</p>
                       <div className="flex items-center justify-between pt-5 pr-6">
