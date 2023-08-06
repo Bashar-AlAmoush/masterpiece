@@ -205,8 +205,8 @@ axios
         </div>
       </div>
 
-      <div className="flex justify-end mt-7  me-11 ">
-  <div className="h-14 w-36 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-white" onClick={() => setShowForm(true)}  >
+      <div className="flex justify-center mt-7">
+  <div className="h-12 w-36 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 text-center  hover:text-white" onClick={() => setShowForm(true)}  >
   Add A Drawings
   </div>
 </div>
@@ -419,7 +419,7 @@ axios
         <div className="relative p-4">
           <h3 className="mt-4 text-lg font-medium text-gray-900">{Products.name}</h3>
           <p className="mt-1.5 text-sm text-gray-700">{Products.description}</p>
-          <p className="mt-1.5 text-sm text-gray-700">{Products.price}</p>
+          <p className="mt-1.5 text-sm text-gray-700"> JD : {Products.price}</p>
           <form className="mt-4">
             <a
   href="#_"

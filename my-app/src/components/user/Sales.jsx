@@ -130,7 +130,7 @@ function Sales() {
 
           <div className="space-x-2 flex flex-wrap">
             <Button
-              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-24"
+              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-20 h-11"
               variant="text"
               onClick={() => handleTypesales(pro.product_id)}
             >
@@ -138,7 +138,7 @@ function Sales() {
             </Button>
 
             <Button
-              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-24"
+              className="border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded w-20 h-11 "
               variant="text"
               onClick={() => addTowishlist(pro)}
             >
