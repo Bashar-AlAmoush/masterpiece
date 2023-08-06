@@ -705,7 +705,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0  and (disflag=0  or disflag= 2 )", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and (disflag=0  or disflag= 2 )", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -804,8 +804,8 @@ app.post("/newDrawing",upload.single('image') , async function (req, res) {
     const {name,category,price,description,userid}=req.body 
     const imagePath = req.file.path;
       const all_records = await pool.query(
-        "INSERT INTO products (name,category, price, description,photo,user_id) VALUES($1, $2, $3 , $4 , $5,$6) RETURNING *",
-        [name, category, price, description, imagePath,userid]
+        "INSERT INTO products (name,category, price, description,photo,user_id ,flags) VALUES($1, $2, $3 , $4 , $5,$6, $7) RETURNING *",
+        [name, category, price, description, imagePath,userid,1]
       );
       res.json(all_records.rows);
     } 
@@ -851,7 +851,7 @@ app.get("/usercount", (req, res) => {
 });
 
 app.get("/Productcount", (req, res) => {
-  pool.query("SELECT count(product_id) FROM products ", (error, results) => {
+  pool.query("SELECT count(product_id) FROM products where user_id is null ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -861,6 +861,22 @@ app.get("/Productcount", (req, res) => {
     }
   });
 });
+
+
+
+app.get("/drawingscount", (req, res) => {
+  pool.query("SELECT COUNT(*) FROM products WHERE user_id IS NOT NULL", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
 
 
 app.get("/salescount", (req, res) => {
@@ -876,9 +892,26 @@ app.get("/salescount", (req, res) => {
 
 
 
+app.get("/DrawingAllHome", (req, res) => {
+  pool.query(
+    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL) LIMIT 3 ",
+    (error, results) => {
+      if (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.json(results.rows);
+      }
+    }
+  );
+});
+
+
+
+
 app.get("/DrawingAll", (req, res) => {
   pool.query(
-    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL) AND (disflag = 0 OR disflag = 2)",
+    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL)",
     (error, results) => {
       if (error) {
         console.log(error.message);
@@ -894,6 +927,35 @@ app.get("/DrawingAll", (req, res) => {
 
 
 
+
+
+app.get("/ALLusers", (req, res) => {
+  pool.query(
+    "SELECT * FROM users where type_id=0 ",
+    (error, results) => {
+      if (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.json(results.rows);
+      }
+    }
+  );
+});
+
+
+
+
+
+app.get("/getuserDrawings/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM Products WHERE user_id = $1  ORDER BY name ASC  ", [ id ]);
+    res.json(record.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 
 
