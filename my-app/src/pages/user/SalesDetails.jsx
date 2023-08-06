@@ -11,6 +11,7 @@ function SalesDetails() {
      const [id, setId] = useState();
      const [cart, setCart] = useState([]);
      const [quantity, setQuantity] = useState(1);
+     const [wishlist, setwishlist] = useState([]);
       useEffect(() => {
     axios
       .get(`http://localhost:5000/Prod/${Product.Product_id}`)
@@ -45,6 +46,7 @@ function SalesDetails() {
   
    const addToCart = (product) => {
     const existingProduct = cart.find((item) => item.product_id === product.product_id);
+    if(id){
     if (existingProduct) {
       const updatedCart = cart.map((item) => {
         if (item.product_id=== product.product_id) {
@@ -96,7 +98,12 @@ function SalesDetails() {
       });
      
     }
+  }
+  else{
 
+    toast.error(`please login to have you own  cart`);
+
+  }
    
   };
 
@@ -115,18 +122,73 @@ function SalesDetails() {
   };
   
 
-  const addTowishlist = (product) => {
+  // const addTowishlist = (product) => {
     
+  //     toast.success(`${product.name} has been added to your wishlist`);
+  //     axios.post('http://localhost:5000/addTowishlist', {
+  //       user_id: id,
+  //       product: product,
+  //     }) 
+  //     .then((response) => {
+  //      })
+  //     .catch((error) => {
+  //      console.error('Error adding to cart:', error);
+  //     });
+  // };
+
+
+  const addTowishlist = (product) => {
+    console.log(id);
+    console.log(product);
+  
+    const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
+  if(id){
+    if (existingProduct) {
+      const updatedCart = wishlist.map((item) => {
+        if (item.product_id=== product.product_id) {
+          toast.success(`Product "${item.name}" has been add from the wishlist.`);
+                axios
+                .get(`http://localhost:5000/getusercart/${id}`)
+                .then(function (response) {
+                  setwishlist(response.data);
+                  console.log(response.data);
+                
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+        }
+        return item;
+      });
+      setwishlist(updatedCart);
+    } else {
       toast.success(`${product.name} has been added to your wishlist`);
       axios.post('http://localhost:5000/addTowishlist', {
         user_id: id,
         product: product,
-      }) 
+      })  
+      
       .then((response) => {
+     
+        axios
+        .get(`http://localhost:5000/getusercart/${id}`)
+        .then(function (response) {
+          setwishlist(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
        })
       .catch((error) => {
        console.error('Error adding to cart:', error);
       });
+     
+    }
+  }
+  else{
+    toast.error(`please login to have you own Wishlist  `);
+  }
   };
 
 

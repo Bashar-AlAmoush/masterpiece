@@ -50,7 +50,7 @@ function Details1() {
     console.log(product);
 
     const existingProduct = cart.find((item) => item.product_id === product.product_id);
-
+if(id){
     if (existingProduct) {
       const updatedCart = cart.map((item) => {
         if (item.product_id=== product.product_id) {
@@ -106,7 +106,13 @@ function Details1() {
       });
      
     }
+  }
+  else{
+    toast.error(`please login to have you own  cart`);
 
+
+
+  }
    
   };
 console.log(cart)
@@ -129,7 +135,7 @@ console.log(cart)
     console.log(product);
   
     const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
-  
+  if(id){
     if (existingProduct) {
       const updatedCart = wishlist.map((item) => {
         if (item.product_id=== product.product_id) {
@@ -172,11 +178,11 @@ console.log(cart)
       });
      
     }
+  }
+  else{
+    toast.error(`please login to have you own Wishlist  `);
+  }
   };
-
-
-
-
   return (
     <>
       <ToastContainer />
@@ -240,8 +246,8 @@ console.log(cart)
             <div className="w-full md:w-1/2 md:pl-10">
               <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
               <p className="text-xl mb-4">{product.description}</p>
-              <p className="text-2xl mb-4">{product.price}</p>
-              <div className="flex items-center mb-8">
+              <p className="text-2xl mb-4"> JD : {product.price}</p>
+       {! product.user_id &&(<div className="flex items-center mb-8 ">
                 <label htmlFor="quantity" className="mr-4">
                   Quantity:
                 </label>
@@ -255,7 +261,7 @@ console.log(cart)
                   onChange={handleInputChange}
                   className="border border-gray-400 px-2 py-1 w-16 rounded"
                 />
-              </div>
+              </div>) }
               <button
                 className="bg-red-500 text-white px-6 py-2 rounded font-bold text-lg"
                 onClick={() => addToCart(product)}

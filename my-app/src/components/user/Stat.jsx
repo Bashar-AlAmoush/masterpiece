@@ -7,6 +7,7 @@ function Stat() {
 
     const [countuser, setCountsuer] = useState(null);
     const [countproduct, setCountproduct] = useState(null);
+    const [countdrawings, setCountdrawings] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
 
     const getdata=()=>{
@@ -29,6 +30,18 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         });
+
+
+
+        axios
+        .get('http://localhost:5000/drawingscount')
+        .then(function (response) {
+            setCountdrawings(response.data[0]);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
 
 
         axios
@@ -62,64 +75,74 @@ function Stat() {
 
 
 
-
+console.log(countdrawings)
 
   return (
    <>
     
     <section className="bg-white">
-
   <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-  <hr className="w-48 h-1 mx-auto my-4 bg-gray-600 border-0 rounded md:my-10 dark:bg-gray-700"/>
+    <hr className="w-48 h-1 mx-auto my-4 bg-gray-600 border-0 rounded md:my-10 dark:bg-gray-700"/>
 
     <div className="mx-auto max-w-3xl text-center">
       <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-      Welcome to Masterpiece Statistics
+        Welcome to Masterpiece Statistics
       </h2>
-
       <p className="mt-4 text-gray-500 sm:text-xl">
-      Explore the insights and data that drive our eCommerce business.
-
+        Explore the insights and data that drive our eCommerce business.
       </p>
     </div>
 
     <div className="mt-8 sm:mt-12">
-      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div
-          className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center"
-        >
+      <dl className="flex flex-cols-1 justify-center gap-32 sm:grid-cols-3">
+        <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
           <dt className="order-last text-lg font-medium text-gray-500">
             Total Sales
           </dt>
-
-          <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
-            ${totalPrice}
-          </dd>
+          <div className="flex items-center justify-center">
+            <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+              ${totalPrice}
+            </dd>
+          </div>
         </div>
 
-        <div
-          className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center"
-        >
+        <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
           <dt className="order-last text-lg font-medium text-gray-500">
-          Total Proudct 
+            Total Drawings
           </dt>
-
-          <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">{countproduct?.count}</dd>
+          <div className="flex items-center justify-center">
+            <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+              {countdrawings?.count}
+            </dd>
+          </div>
         </div>
 
-        <div
-          className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center"
-        >
+        <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
+          <dt className="order-last text-lg font-medium text-gray-500">
+            Total Products
+          </dt>
+          <div className="flex items-center justify-center">
+            <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+              {countproduct?.count}
+            </dd>
+          </div>
+        </div>
+
+        <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
           <dt className="order-last text-lg font-medium text-gray-500">
             Total Users
           </dt>
-
-          <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">{countuser?.count}</dd>
+          <div className="flex items-center justify-center">
+            <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+              {countuser?.count}
+            </dd>
+          </div>
         </div>
       </dl>
     </div>
   </div>
-  </section> 
+</section>
+
    
 
 
