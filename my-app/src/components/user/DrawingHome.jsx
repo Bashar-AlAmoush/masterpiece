@@ -80,16 +80,42 @@ function DrawingHome() {
                  
                   <div className="flex justify-between mt-4">
                 <button
-                  className="px-4 py-2 bg-gray-800 text-white rounded-md"
+                  className="px-4 py-2 bg-red-500 text-white rounded-md"
                   onClick={goToPrevSlide}
                 >
-                  Previous
+                   <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-5 w-5 rtl:rotate-180"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
                 </button>
                 <button
-                  className="px-4 py-2 bg-gray-800 text-white rounded-md"
+                  className="px-4 py-2 bg-red-500 text-white rounded-md"
                   onClick={goToNextSlide}
                 >
-                  Next
+                 <svg
+              class="h-5 w-5 rtl:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg> 
                 </button>
               </div>
                 </div>
@@ -116,7 +142,7 @@ function DrawingHome() {
                               <div className="text-sm mt-3">
                                 <p className="font-medium text-white">{pro.description}</p>
                                 <p className="mt-1 text-gray-300">JD: {pro.price}</p>
-                                <p  className="mt-1 text-gray-300"> By  :{users.find(user=> user.userid === pro.user_id).username}</p>
+                                <p  className="mt-1 text-gray-300"> By  :{users?.find(user=> user.userid === pro.user_id).username}</p>
 
 
                                 <button

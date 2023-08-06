@@ -127,7 +127,7 @@ function ServicePage({ setCurrentTable }) {
 
 
 
-<div className="flex flex-col md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 mt-5 mb-5">
+{/* <div className="flex flex-col md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 mt-5 mb-5">
   <div className="w-full md:w-6/12 md:flex-1 mx-4 md:mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300">
     <div className="relative flex items-center">
       <svg
@@ -176,7 +176,83 @@ function ServicePage({ setCurrentTable }) {
       Find
     </button>
   </div>
+</div> */}
+
+<div className="flex flex-col gap-3 px-5 md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 ">
+<form 
+className="w-full"
+> 
+    <label
+      htmlFor="default-search"
+      className=" text-sm font-medium text-gray-900 sr-only dark:text-white"
+    >
+      Search
+    </label>
+    <div className="relative">
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <svg
+          className="w-4 h-4 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="search"
+        id="default-search"
+        className="block w-full h-12   pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search Mockups, Logos..."
+        required=""
+        value={searchTermUsers}
+        onChange={(e) => {
+          setSearchTermUsers(e.target.value);
+          filterDataByNameUsers(e.target.value);
+        }}
+      />
+    </div>
+  </form>
+
+
+  
+
+  <div 
+  className="w-full md:w-6/12 flex flex-col md:flex-row items-center md:items-stretch gap-2 md:gap-4 "
+  >
+
+    <select
+      className="px-4 py-3 w-full md:w-48 rounded-md bg-gray-100 border border-red-500 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mb-2 md:mb-0"
+      value={yourSelectedStateValueAddress}
+      onChange={(e) => setOptionAddress(e.target.value)}
+    >
+    <option value="">All Price</option>
+      <option value="4.99">jD 0.00-Jd 4.99</option>
+      <option value="9.99">jD 5.00-Jd 9.99</option>
+      <option value="14.99">jD 10.00-Jd 14.99</option>
+      <option value="19.99">jD 15.00-Jd 19.99</option>
+      <option value="24.99">jD 20.00-Jd 24.99</option>
+      <option value="29..99">jD 24.00-Jd 29.99</option>
+    </select>
+
+    <button
+      className="w-full  md:w-20 h-12 mt-2 md:mt-0 bg-red-500 text-white text-sm font-medium rounded-md"
+      onClick={handleFind}
+    >
+      Find
+    </button>
+  </div>
 </div>
+
+
+
 
 
 

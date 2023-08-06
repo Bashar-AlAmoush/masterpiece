@@ -206,7 +206,7 @@ axios
       </div>
 
       <div className="flex justify-center mt-7">
-  <div className="h-12 w-36 border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 text-center  hover:text-white" onClick={() => setShowForm(true)}  >
+  <div className="h-12 w-36 border-2 my-4 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 text-center  hover:text-white" onClick={() => setShowForm(true)}  >
   Add A Drawings
   </div>
 </div>
@@ -328,26 +328,40 @@ axios
           </div>
         </div>
       )}
-
-
-
-
-<div className="flex flex-col md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 mt-5 mb-5">
-  <div className="w-full md:w-6/12 md:flex-1 mx-4 md:mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300">
-    <div className="relative flex items-center">
-      <svg
-        className="w-4 h-4 fill-current text-primary-gray-dark ml-2"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-       <path d="M15.8898 15.0493L11.8588 11.0182C11.7869 10.9463 11.6932 10.9088 11.5932 10.9088H11.2713C12.3431 9.74952 12.9994 8.20272 12.9994 6.49968C12.9994 2.90923 10.0901 0 6.49968 0C2.90923 0 0 2.90923 0 6.49968C0 10.0901 2.90923 12.9994 6.49968 12.9994C8.20272 12.9994 9.74952 12.3431 10.9088 11.2744V11.5932C10.9088 11.6932 10.9495 11.7869 11.0182 11.8588L15.0493 15.8898C15.1961 16.0367 15.4336 16.0367 15.5805 15.8898L15.8898 15.5805C16.0367 15.4336 16.0367 15.1961 15.8898 15.0493ZM6.49968 11.9994C3.45921 11.9994 0.999951 9.54016 0.999951 6.49968C0.999951 3.45921 3.45921 0.999951 6.49968 0.999951C9.54016 0.999951 11.9994 3.45921 11.9994 6.49968C11.9994 9.54016 9.54016 11.9994 6.49968 11.9994Z" />
-
-      </svg>
+<div className="flex flex-col gap-3 px-5 md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 ">
+<form 
+className="w-full"
+> 
+    <label
+      htmlFor="default-search"
+      className=" text-sm font-medium text-gray-900 sr-only dark:text-white"
+    >
+      Search
+    </label>
+    <div className="relative">
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <svg
+          className="w-4 h-4 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
       <input
-        type="text"
-        placeholder="Search by listing, location, bedroom number..."
-        className="px-8 py-3 w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+        type="search"
+        id="default-search"
+        className="block w-full h-12   pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search Mockups, Logos..."
+        required=""
         value={searchTermUsers}
         onChange={(e) => {
           setSearchTermUsers(e.target.value);
@@ -355,28 +369,33 @@ axios
         }}
       />
     </div>
-  </div>
+  </form>
 
-  <div className="w-full md:w-6/12 flex flex-col md:flex-row items-center md:items-stretch gap-2 md:gap-4 mt-4">
+
+  
+
+  <div 
+  className="w-full md:w-6/12 flex flex-col md:flex-row items-center md:items-stretch gap-2 md:gap-4 "
+  >
     <select
       className="px-4 py-3 w-full md:w-48 rounded-md bg-gray-100 border border-red-500 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mb-2 md:mb-0"
       value={yourSelectedStateValueType}
       onChange={(e) => setOptionType(e.target.value)}
     >
-       <option value="">All Type</option>
+     <option value="">All Type</option>
       <option value="Illustrations">Illustrations</option>
       <option value="Cartoons">Cartoons</option>
       <option value="Portraits">Portraits</option>
       <option value="LandscapeDrawings">Landscape Drawings</option>
       <option value="Realism">Realism</option>
-      <option value="Anime">Anime/Manga</option>
+      <option value="Anime">Anime/Manga</option> 
     </select>
 
     <select
       className="px-4 py-3 w-full md:w-48 rounded-md bg-gray-100 border border-red-500 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mb-2 md:mb-0"
       value={yourSelectedStateValueAddress}
       onChange={(e) => setOptionAddress(e.target.value)}
-    >
+       >
     <option value="">All Price</option>
       <option value="4.99">jD 0.00-Jd 4.99</option>
       <option value="9.99">jD 5.00-Jd 9.99</option>
@@ -387,14 +406,13 @@ axios
     </select>
 
     <button
-      className="w-full md:w-20 h-10 mt-2 md:mt-0 bg-red-500 text-white text-sm font-medium rounded-md"
+      className="w-full  md:w-20 h-12 mt-2 md:mt-0 bg-red-500 text-white text-sm font-medium rounded-md"
       onClick={handleFind}
     >
       Find
     </button>
   </div>
 </div>
-
     
 
 
