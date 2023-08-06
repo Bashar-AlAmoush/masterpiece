@@ -7,6 +7,8 @@ import axios from 'axios';
 function DrawingHome() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
 
   function handleTypeSales(product_id) {
     window.scrollTo(0, 0);
@@ -15,12 +17,22 @@ function DrawingHome() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/DrawingAll`)
+      .get(`http://localhost:5000/DrawingAllHome`)
       .then((response) => {
         setProducts(response.data);
       })
       .catch((error) => console.log(error.message));
   }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/ALLusers`)
+      .then((response) => {
+        setUsers(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => console.log(error.message));
+  }, []);
+
 
   useEffect(() => {
     const swiper = new Swiper('.swiper-container', {
@@ -41,6 +53,19 @@ function DrawingHome() {
     const swiper = document.querySelector('.swiper-container').swiper;
     swiper.slideNext();
   };
+
+  // const userdata=(userid)=>{
+  //   axios
+  //   .get(`http://localhost:5000/user/${userid}`)
+  //   .then(function (response) {
+  //     setUser(response.data);
+  //     console.log(response.data)
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+    
+  // }
 
   return (
     <>
@@ -119,13 +144,13 @@ function DrawingHome() {
                     </a>
                   </div>
                 </div>
-                <div className="mx-0 max-w-xl flex items-center me-3 rounded-2xl bg-red-500">
+                <div className="mx-0 max-w-xl flex items-center me-3 rounded-2xl">
                   <div className="swiper-container flex-col flex  self-center">
                     <div className="swiper-wrapper">
 
-                      {products.map((pro) => (
+                      {products.map((pro,index) => (
 
-                        <div className="swiper-slide">
+                        <div key={index}  className="swiper-slide">
                           <blockquote className="text-left bg-gray-800 rounded-lg p-5">
                             <div className="relative h-60 sm:h-72 md:h-80">
                               <div className="relative h-full">
@@ -143,7 +168,7 @@ function DrawingHome() {
                               <div className="text-sm mt-3">
                                 <p className="font-medium text-white">{pro.description}</p>
                                 <p className="mt-1 text-gray-300">JD: {pro.price}</p>
-                                <p className="mt-1 text-gray-300">&mdash; {pro.user_id}</p>
+                                <p  className="mt-1 text-gray-300">&mdash; {users.find(user=> user.userid === pro.user_id).username}</p>
                               </div>
                             </div>
                           </blockquote>

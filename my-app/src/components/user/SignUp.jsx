@@ -114,21 +114,21 @@ function SignUp() {
   const [passwordValid, setPasswordValid] = useState(false);
   return (
     <>
-      <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-        <div class="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div class="flex-1 bg-teal-600 text-center hidden lg:flex">
-  <img src={Signup} class="mx-auto w-full" alt="Shopping image" />
-  <div class="hero-img xl:m-16 w-full bg-contain bg-center bg-no-repeat"></div>
+      <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+        <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+        <div className="flex-1 bg-teal-600 text-center hidden lg:flex">
+  <img src={Signup} className="mx-auto w-full" alt="Shopping image" />
+  <div className="hero-img xl:m-16 w-full bg-contain bg-center bg-no-repeat"></div>
 </div>
 
-          <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
+          <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
             <div></div>
-            <div class="mt-12 flex flex-col items-center ">
-              <h1 class="text-2xl xl:text-3xl font-extrabold text-red-500 ">
+            <div className="mt-12 flex flex-col items-center ">
+              <h1 className="text-2xl xl:text-3xl font-extrabold text-red-500 ">
                 Sign Up to Join Us!
               </h1>
-              <div class="w-full flex-1 mt-8">
-                <div class="flex flex-col items-center">
+              <div className="w-full flex-1 mt-8">
+                <div className="flex flex-col items-center">
                   <button
                     className="bg-black p-2 rounded-lg text-white hover:text-white hover:bg-red-500"
                     onClick={() => login()}
@@ -171,14 +171,14 @@ function SignUp() {
                   </h4>
                 </div>
 
-                <div class="my-12 border-b text-center">
-                  <div class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                <div className="my-12 border-b text-center">
+                  <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                     Or sign Up with e-mail
                   </div>
                 </div>
                 <form onSubmit={handleSubmit}>
-                  <div class="mx-auto max-w-xs">
-                    <div class="mb-3">
+                  <div className="mx-auto max-w-xs">
+                    <div className="mb-3">
                       <label
                         for="name"
                         className={`block mb-2 text-sm font-medium text-700 dark:text-500 `}
@@ -197,7 +197,7 @@ function SignUp() {
                         }}
                       />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label
                         for="phone"
                         className={`block mb-2 text-sm font-medium text-700 dark:text-500 `}
@@ -216,7 +216,7 @@ function SignUp() {
                         }}
                       />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label
                         for="email"
                         className={`block mb-2 text-sm font-medium text-700 dark:text-500 `}
@@ -235,7 +235,7 @@ function SignUp() {
                         }}
                       />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label
                         for="password"
                         className={`text-700 dark:text-500 block mb-2 text-sm font-medium`}
@@ -287,10 +287,10 @@ function SignUp() {
                     <span className="text-red-500 text-sm mt-6">{error}</span>
                     <button
                       type="submit"
-                      class="mt-5 tracking-wide font-semibold bg-red-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-red-700 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      className="mt-5 tracking-wide font-semibold bg-red-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-red-700 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     >
                       <svg
-                        class="w-6 h-6 -ml-2"
+                        className="w-6 h-6 -ml-2"
                         fill="none"
                         stroke="currentColor"
                         stroke-width="2"
@@ -301,7 +301,7 @@ function SignUp() {
                         <circle cx="8.5" cy="7" r="4" />
                         <path d="M20 8v6M23 11h-6" />
                       </svg>
-                      <span class="ml-3 ">Sign Up</span>
+                      <span className="ml-3 ">Sign Up</span>
                     </button>
                     <p className={`mt-2 text-sm text-red-700 dark:text-500`}>
                       You already have an account!{" "}
