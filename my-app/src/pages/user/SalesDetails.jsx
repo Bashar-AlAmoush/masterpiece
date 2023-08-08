@@ -121,22 +121,6 @@ function SalesDetails() {
     setQuantity(value);
   };
   
-
-  // const addTowishlist = (product) => {
-    
-  //     toast.success(`${product.name} has been added to your wishlist`);
-  //     axios.post('http://localhost:5000/addTowishlist', {
-  //       user_id: id,
-  //       product: product,
-  //     }) 
-  //     .then((response) => {
-  //      })
-  //     .catch((error) => {
-  //      console.error('Error adding to cart:', error);
-  //     });
-  // };
-
-
   const addTowishlist = (product) => {
     console.log(id);
     console.log(product);
@@ -266,9 +250,9 @@ function SalesDetails() {
         <>
      <section className="container mx-auto py-16 px-4">
         {Products.map((product) => (
-          <div className="flex flex-wrap" key={product.id}>
-            <div className="w-full md:w-1/2">
-              <img src={`http://localhost:5000/${Products[0]?.photo}`} alt={product.name} className="rounded-lg" />
+    <div className="flex flex-wrap items-center" key={product.id}>
+      <div className="w-80 md:w-1/2 mb-4 md:mb-0  ">
+              <img src={`http://localhost:5000/${Products[0]?.photo}`} alt={product.name}  className="rounded-lg mx-auto h-72  "/>
             </div>
             <div className="w-full md:w-1/2 md:pl-10">
               <h2 className="text-3xl font-bold mb-4">{product.name}</h2>

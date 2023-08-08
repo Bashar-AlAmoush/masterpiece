@@ -238,46 +238,51 @@ console.log(cart)
       </div>
 
       <section className="container mx-auto py-16 px-4">
-        {Products.map((product) => (
-          <div className="flex flex-wrap" key={product.id}>
-            <div className="w-full md:w-1/2">
-              <img src={`http://localhost:5000/${Products[0]?.photo}`} alt={product.name} className="rounded-lg" />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-10">
-              <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
-              <p className="text-xl mb-4">{product.description}</p>
-              <p className="text-2xl mb-4"> JD : {product.price}</p>
-       {!product.user_id &&(<div className="flex items-center mb-8 ">
-                <label htmlFor="quantity" className="mr-4">
-                  Quantity:
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  min="1"
-                  max="10"
-                  value={quantity}
-                  onChange={handleInputChange}
-                  className="border border-gray-400 px-2 py-1 w-16 rounded"
-                />
-              </div>) }
-              <button
-                className="bg-red-500 text-white px-6 py-2 rounded font-bold text-lg"
-                onClick={() => addToCart(product)}
-              >
-                Add to Cart
-              </button>
-              <button
-                className="bg-red-500 text-white px-6 ms-8 py-2 rounded font-bold text-lg"
-                onClick={() => addTowishlist(product)}
-              >
-                Add to Wishlist
-              </button>
-            </div>
+  {Products.map((product) => (
+    <div className="flex flex-wrap items-center" key={product.id}>
+      <div className="w-80 md:w-1/2 mb-4 md:mb-0  ">
+        <img src={`http://localhost:5000/${Products[0]?.photo}`} alt={product.name} className="rounded-lg mx-auto h-72  " />
+      </div>
+      <div className="w-full md:w-1/2 md:pl-10">
+        <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
+        <p className="text-xl mb-4">{product.description}</p>
+        <p className="text-2xl mb-4"> JD : {product.price}</p>
+        {!product.user_id && (
+          <div className="flex items-center mb-8">
+            <label htmlFor="quantity" className="mr-4">
+              Quantity:
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              max="10"
+              value={quantity}
+              onChange={handleInputChange}
+              className="border border-gray-400 px-2 py-1 w-16 rounded"
+            />
           </div>
-        ))}
-      </section>
+        )}
+        <div className="flex">
+          <button
+            className="bg-red-500 text-white px-6 py-2 rounded font-bold text-lg"
+            onClick={() => addToCart(product)}
+          >
+            Add to Cart
+          </button>
+          <button
+            className="bg-red-500 text-white px-6 ms-4 py-2 rounded font-bold text-lg"
+            onClick={() => addTowishlist(product)}
+          >
+            Add to Wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
     </>
   );
 }

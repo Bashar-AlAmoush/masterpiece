@@ -11,7 +11,7 @@ function DrawingHome() {
 
   function handleTypeSales(product_id) {
     window.scrollTo(0, 0);
-    navigate(`/SalesDetails/${product_id}`);
+    navigate(`/Details/${product_id}`);
   }
 
   useEffect(() => {
@@ -70,13 +70,13 @@ function DrawingHome() {
             <div className="min-h-screen flex justify-center">
               <div className="grid grid-cols-2 gap-4 items-center z-10">
                 <div className="max-w-lg text-center ms-3 sm:text-left">
-                  <h2 className="text-4xl font-bold text-black tracking-tight">
-                    A smile <br className="hidden sm:block lg:hidden" /> is an
-                    inexpensive way to change your looks
-                  </h2>
-                  <p className="mt-4 text-black">
-                    Goals are just dreams with deadline
-                  </p>
+                <h2 className="text-4xl font-bold text-black tracking-tight">
+  Explore User Drawings<br className="hidden sm:block lg:hidden" /> and Unleash Creativity
+</h2>
+<p className="mt-4 text-black">
+  Discover a collection of unique and imaginative drawings created by talented users.
+</p>
+
                  
                   <div className="flex justify-between mt-4">
                 <button
@@ -125,7 +125,7 @@ function DrawingHome() {
                     <div className="swiper-wrapper">
                       {products.map((pro,index) => (
                         <div key={index}  className="swiper-slide">
-                          <blockquote className="text-left bg-gray-800 rounded-lg p-5">
+                  <blockquote className="text-left bg-gray-800 rounded-lg p-5 lg:w-10/12 lg:h-5/6" >
                             <div className="relative h-60 sm:h-72 md:h-80">
                               <div className="relative h-full">
                                 <img
