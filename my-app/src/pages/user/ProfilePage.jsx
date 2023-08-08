@@ -147,7 +147,7 @@ const ProfilePage = () => {
               <div className="flex border-b border-gray-300">
                 <button
                   className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tl-lg focus:outline-none ${
-                    activeTab === 'tab1' ? 'active:bg-gray-200' : ''
+                    activeTab === 'tab1' ? 'focus:bg-red-500 focus:text-white ' : ''
                   }`}
                   onClick={() => openTab('tab1')}
                 >
@@ -155,7 +155,7 @@ const ProfilePage = () => {
                 </button>
                 <button
                   className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tr-lg focus:outline-none ${
-                    activeTab === 'tab2' ? 'active:bg-gray-200' : ''
+                    activeTab === 'tab2' ? 'focus:bg-red-500 focus:text-white' : ''
                   }`}
                   onClick={() => openTab('tab2')}
                 >
@@ -164,7 +164,7 @@ const ProfilePage = () => {
 
                 <button
                   className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tr-lg focus:outline-none ${
-                    activeTab === 'tab2' ? 'active:bg-gray-200' : ''
+                    activeTab === 'tab3' ? 'focus:bg-red-500 focus:text-white' : ''
                   }`}
                   onClick={() => openTab('tab3')}
                 >
@@ -172,7 +172,7 @@ const ProfilePage = () => {
                 </button>
 
               </div>
-              <div id="tab1" className={`tabcontent p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
+              <div id="tab1" className={`tabcontent   p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
   <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
   <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
     {orders && orders.length > 0 ? (

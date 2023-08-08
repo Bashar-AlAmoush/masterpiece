@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import "./App.css"
+import BackToTopButton from './components/user/BackToTopButton';
 //-----------------------------user-------------------------------//
 import NavListMenu from "./components/user/NavListMenu"
 import Footer from "./components/user/Footer"
@@ -85,6 +85,7 @@ function App() {
           <Route path="/Product/:category" element={<ServicePage />} />
           <Route path="*" element={<Page404/>} />
         </Routes>
+        <BackToTopButton/>
         <Footer />
       </Router>
 
