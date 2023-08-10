@@ -158,13 +158,7 @@ export default function Cart() {
                             Quantity{" "}
                           </label>
                           <div className="flex items-center gap-1">
-                            <button
-                              type="button"
-                              className="h-10 w-10 leading-10 text-gray-600 transition hover:opacity-75"
-                              onChange={(event) => handleCountChange(event, product.product_id)}
-                            >
-                              −
-                            </button>
+                            
                             <input
                               min={1}
                               type="number"
@@ -174,13 +168,7 @@ export default function Cart() {
                               value={product.quantity}
                               onChange={(event) => handleCountChange(event, product.product_id)}
                             />
-                            <button
-                              type="button"
-                              className="h-10 w-10 leading-10 text-gray-600 transition hover:opacity-75"
-                              onChange={(event) => handleCountChange(event, product.product_id)}
-                            >
-                              +
-                            </button>
+                            
                           </div>
                         </div>)}
 

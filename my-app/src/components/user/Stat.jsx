@@ -3,15 +3,11 @@ import { useState,useEffect } from 'react'
 import axios from 'axios';
 
 function Stat() {
-
-
     const [countuser, setCountsuer] = useState(null);
     const [countproduct, setCountproduct] = useState(null);
     const [countdrawings, setCountdrawings] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
-
     const getdata=()=>{
-
         axios
         .get('http://localhost:5000/usercount')
         .then(function (response) {
@@ -20,8 +16,6 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         });
-
-
         axios
         .get('http://localhost:5000/Productcount')
         .then(function (response) {
@@ -30,9 +24,6 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         });
-
-
-
         axios
         .get('http://localhost:5000/drawingscount')
         .then(function (response) {
@@ -41,9 +32,6 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         });
-
-
-
         axios
         .get('http://localhost:5000/salescount')
         .then(function (response) {
@@ -52,10 +40,6 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         })
-
-        
-
-
     }
 
 
@@ -95,16 +79,7 @@ console.log(countdrawings)
 
     <div className="mt-8 sm:mt-12">
       <dl className="flex flex-cols-1 justify-center gap-32 sm:grid-cols-3">
-        <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-          <dt className="order-last text-lg font-medium text-gray-500">
-            Total Sales
-          </dt>
-          <div className="flex items-center justify-center">
-            <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
-              ${totalPrice}
-            </dd>
-          </div>
-        </div>
+       
 
         <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
           <dt className="order-last text-lg font-medium text-gray-500">
