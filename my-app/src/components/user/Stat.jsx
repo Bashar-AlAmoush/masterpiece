@@ -6,7 +6,6 @@ function Stat() {
     const [countuser, setCountsuer] = useState(null);
     const [countproduct, setCountproduct] = useState(null);
     const [countdrawings, setCountdrawings] = useState(null);
-    const [totalPrice, setTotalPrice] = useState(0);
     const getdata=()=>{
         axios
         .get('http://localhost:5000/usercount')
@@ -32,14 +31,6 @@ function Stat() {
         .catch(function (error) {
           console.log(error);
         });
-        axios
-        .get('http://localhost:5000/salescount')
-        .then(function (response) {
-            calculatePrice(response.data);            
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
     }
 
 
@@ -49,17 +40,6 @@ function Stat() {
         
       }, []);
 
-
-
-
-      const calculatePrice = (salesData) => {
-        const total = salesData.reduce((acc, sale) => acc + parseFloat(sale.price), 0);
-        setTotalPrice(total);
-      };
-
-
-
-console.log(countdrawings)
 
   return (
    <>
