@@ -925,6 +925,21 @@ app.get("/DrawingAll", (req, res) => {
 
 
 
+app.get("/salescount", (req, res) => {
+  pool.query("SELECT COUNT(*) FROM products WHERE  disflag= 1 ", (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log(results);
+      res.json(results.rows);
+    }
+  });
+});
+
+
+
+
 
 
 
