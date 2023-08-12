@@ -8,9 +8,14 @@ import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 function SignIn({Refresh,setRefresh}) {
   const [ user, setUser ] = useState([]);
   const navigate = useNavigate(); 
-
   const [ user0, setUser0 ] = useState([]);
   const [ profile, setProfile ] = useState([]);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&])(?=.*[a-z])(?=.*[A-Z]).{8,}$/; 
+
 
   const login = useGoogleLogin({
       onSuccess: (codeResponse) => setUser0(codeResponse),
@@ -84,7 +89,25 @@ function SignIn({Refresh,setRefresh}) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
+    setEmailError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    if (!emailRegex.test(email)) {
+      setEmailError("Invalid email format");
+      isValid = false;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        " Password must contain at least 8 characters including a digit, a special character, a lowercase letter, and an uppercase letter."
+      );
+      isValid = false;
+    }
+
+    if (isValid) {
+      axios
       .post("http://localhost:5000/recordp", {
         email: email,
         password: password,
@@ -122,9 +145,24 @@ function SignIn({Refresh,setRefresh}) {
         }
       })
       .catch(function (error) {});
-
+    }
   };
 
+
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(emailRegex.test(e.target.value) ? "" : "Invalid email format");
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(
+      passwordRegex.test(e.target.value)
+        ? ""
+        : "Password must have at least 8 characters with at least one uppercase letter, one lowercase letter, and one digit."
+    );
+  }; 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -166,11 +204,11 @@ function SignIn({Refresh,setRefresh}) {
                       className={`border-300 tex-900 dark:text--400 placeholder-700 dark:placeholder-500 focus:ring-500 focus:border-500 dark:border-500 bg-white border-2 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 focus:outline-none`}
                       placeholder="Enter your email"
                       value={email}
-                      onChange={(e) => {setEmail(e.target.value);}}
+                      onChange={handleEmailChange} 
+
                     />
-                    <p className={`mt-2 text-sm text-600 dark:text500`}>
-                      <span className="font-medium"></span>
-                    </p>
+                         <div className="text-red-500">{emailError}</div>
+
                   </div>
                   <div>
                     <label
@@ -185,12 +223,12 @@ function SignIn({Refresh,setRefresh}) {
                       className={`border-300 text-900 placeholder-700 focus:ring--500 focus:border-500 dark:text-500 dark:placeholder-500 dark:border-500 bg-white border-2 text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:outline-none`}
                       placeholder="Enter your password"
                       value={password}
-                      onChange={(e) => {setPassword(e.target.value);}}
-                      
+                      onChange={handlePasswordChange} 
                     />
-                    <p className={`mt-2 text-sm text-600 dark:text-500`}>
-                      <span className="font-medium"></span>
-                    </p>
+                          <div className="text-xs text-red-500 mb-1 ">{passwordError}</div>
+                          <p className="">
+            </p>
+
                   </div>
                   <button
                     type="submit"

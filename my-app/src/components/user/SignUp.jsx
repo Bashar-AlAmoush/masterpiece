@@ -14,7 +14,6 @@ function SignUp() {
     onSuccess: (codeResponse) => setUser0(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
-
   useEffect(() => {
     if (user0.length !== 0) {
       axios
@@ -53,7 +52,6 @@ function SignUp() {
         .catch((err) => console.log(err.message));
     }
   }, [user0]);
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -63,7 +61,6 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let done = true;
-
     if (name === "") {
       done = false;
       setError("Please Enter a Name !");
@@ -82,8 +79,6 @@ function SignUp() {
     }
 
     if (done) {
-      console.log(name, phone, email, password);
-
       axios
         .post("http://localhost:5000/records", {
           name: name,
@@ -109,9 +104,17 @@ function SignUp() {
       setPasswordConfirm("");
     }
   };
-  // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+
   const [showRegex, setShowRegex] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+
+
+
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Basic email format validation
+  const phoneRegex = /^[0-9]{10}$/; // 10 digits
+  const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&])(?=.*[a-z])(?=.*[A-Z]).{8,}$/; // At least 8 characters including a digit, special character, lowercase, and uppercase
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -215,6 +218,13 @@ function SignUp() {
                           setError("");
                         }}
                       />
+
+{!phoneRegex.test(phone) && phone !== "" && (
+            <p className="text-xs text-red-500 mb-1 ">
+              Please enter a valid 10-digit phone number.
+            </p>
+          )}
+
                     </div>
                     <div className="mb-3">
                       <label
@@ -234,6 +244,11 @@ function SignUp() {
                           setError("");
                         }}
                       />
+                         {!emailRegex.test(email) && (
+            <p className="text-xs text-red-500 mt-1">
+              Please enter a valid email address.
+            </p>
+          )}
                     </div>
                     <div className="mb-3">
                       <label
@@ -248,22 +263,17 @@ function SignUp() {
                         className={`border-300 text-900 placeholder-700 focus:ring-500 focus:border-500 dark:text-500 dark:placeholder-500 dark:border-500 bg-white border-2 text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:outline-none`}
                         placeholder="Enter your password"
                         value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                          setShowRegex(e.target === document.activeElement);
-                          setPasswordValid(
-                            /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/.test(
-                              e.target.value
-                            )
-                          );
-                        }}
+                         onChange={(e) => {
+              setPassword(e.target.value);
+              setShowRegex(e.target === document.activeElement);
+              setPasswordValid(passwordRegex.test(e.target.value));
+            }} 
                       />
-                      {showRegex && !passwordValid && (
-                        <p className="text-xs text-red-500 mb-1 ">
-                          Password must contain at least 8 characters including
-                          a digit and a special character.
-                        </p>
-                      )}
+                     {showRegex && !passwordValid && (
+            <p className="text-xs text-red-500 mb-1 ">
+              Password must contain at least 8 characters including a digit, a special character, a lowercase letter, and an uppercase letter.
+            </p>
+          )}
                     </div>
                     <div>
                       <label
@@ -283,8 +293,12 @@ function SignUp() {
                           setError("");
                         }}
                       />
+                         {passwordConfirm !== password && passwordConfirm !== "" && (
+            <p className="text-xs text-red-500 mb-1 ">
+              Passwords do not match.
+            </p>
+          )} 
                     </div>
-                    <span className="text-red-500 text-sm mt-6">{error}</span>
                     <button
                       type="submit"
                       className="mt-5 tracking-wide font-semibold bg-red-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-red-700 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
