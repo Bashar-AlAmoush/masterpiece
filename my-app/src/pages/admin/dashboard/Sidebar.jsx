@@ -15,6 +15,7 @@ import {
     ListItemPrefix,
     
   } from "@material-tailwind/react";
+  import { mdiDraw } from '@mdi/js';
   import {
     PresentationChartBarIcon,
     InboxIcon,
@@ -114,6 +115,16 @@ import logo from "../../../images/logo.png";
             <a style={{color:'white'}}> List Sales</a>
           </ListItem>
           </Link>
+
+          <Link to='/DrawingList'>
+          <ListItem className="hover:bg-red-500">
+            <ListItemPrefix>
+            <Icon path={mdiDraw} size={1} />
+            </ListItemPrefix>
+            <a style={{color:'white'}}> List Drawing</a>
+          </ListItem>
+          </Link>
+
 
          <Link to='/Chat'>
          <ListItem className="hover:bg-red-500">
