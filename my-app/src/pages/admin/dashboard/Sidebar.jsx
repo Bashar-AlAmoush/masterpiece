@@ -131,7 +131,8 @@ import logo from "../../../images/logo.png";
            
           </ListItem>
           </Link>
-           <button onClick={handleLogOut}>
+          <hr/>
+           <button onClick={handleLogOut} className="mt-8">
            <ListItem className="hover:bg-red-500">
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
