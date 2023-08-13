@@ -42,13 +42,6 @@ import logo from "../../images/logo.png";
 
 
 export default function NavbarComponent() {
-
-
-
-
-
-
-
   const [openNav, setOpenNav] = React.useState(false);
   const { SignStatus, updateSignStatus } = useContext(UserContext);
 
@@ -60,7 +53,7 @@ export default function NavbarComponent() {
 
   function handleSign() {
     if (SignStatus ==="signUp") {
-      navigate("/SignUp");
+      navigate("/SignIn");
     } 
   }
 
@@ -332,7 +325,7 @@ export default function NavbarComponent() {
               size="sm"
               className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2"
             >
-              Sign Up
+              Sign In
             </Button>
           </>
         ) : (
@@ -361,10 +354,9 @@ export default function NavbarComponent() {
       <Button
         onClick={handleSign}
         size="sm"
-        className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2 rounded-md text-white"
+        className="bg-red-700 hover:shadow-lg-red-600 px-3 py-2 w-28 h-14  rounded-md text-white"
       >
-        Sign Up
-      </Button>
+        Sign In      </Button>
     </>
   ) : (
     <div className="flex items-center gap-2 ml-auto">
