@@ -31,6 +31,7 @@ import Chat from './pages/admin/Chat';
 import EditAboutContact from './pages/admin/EditAboutContact';
 import AcceptTables from './pages/admin/AcceptTables';
 import DrawingList from './components/admin/DrawingList';
+import PendingDrawing from './components/admin/PendingDrawing';
 //---------------------------------------------------------------//
 
 import React, { useEffect, useState, useContext } from 'react'
@@ -110,6 +111,7 @@ function App() {
             <Route path="EditAboutContact" element={<EditAboutContact />} />
             <Route path="AcceptTables" element={<AcceptTables />} />
             <Route path="DrawingList" element={<DrawingList />} />
+            <Route path="PendingDrawing" element={<PendingDrawing />} />
           </Routes>
         </div>
       </Router>

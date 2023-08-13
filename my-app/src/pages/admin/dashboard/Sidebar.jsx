@@ -21,6 +21,8 @@ import {
     InboxIcon,
     PowerIcon,
   } from "@heroicons/react/24/solid";
+  import { mdiArtboard } from '@mdi/js';
+
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import logo from "../../../images/logo.png";
@@ -122,6 +124,16 @@ import logo from "../../../images/logo.png";
             <Icon path={mdiDraw} size={1} />
             </ListItemPrefix>
             <a style={{color:'white'}}> List Drawing</a>
+          </ListItem>
+          </Link>
+
+
+          <Link to='/PendingDrawing'>
+          <ListItem className="hover:bg-red-500">
+            <ListItemPrefix>
+            <Icon path={mdiArtboard} size={1} />
+            </ListItemPrefix>
+            <a style={{color:'white'}}> Pending Drawing</a>
           </ListItem>
           </Link>
 
