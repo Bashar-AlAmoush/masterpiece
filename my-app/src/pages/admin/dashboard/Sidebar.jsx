@@ -95,14 +95,7 @@ import logo from "../../../images/logo.png";
           </ListItem>
           </Link>
 
-          <Link to='/EditAboutContact'>
-          <ListItem className="hover:bg-red-500">
-            <ListItemPrefix>
-            <Icon path={mdiInformationOutline} size={1} />
-            </ListItemPrefix>
-            <a style={{color:'white'}}> Edit About </a>
-          </ListItem>
-          </Link>
+          
 
           <Link to='/AcceptTables'>
           <ListItem className="hover:bg-red-500">
@@ -131,6 +124,16 @@ import logo from "../../../images/logo.png";
            
           </ListItem>
           </Link>
+
+          <Link to='/EditAboutContact'>
+          <ListItem className="hover:bg-red-500">
+            <ListItemPrefix>
+            <Icon path={mdiInformationOutline} size={1} />
+            </ListItemPrefix>
+            <a style={{color:'white'}}> Edit About </a>
+          </ListItem>
+          </Link>
+          
           <hr/>
            <button onClick={handleLogOut} className="mt-8">
            <ListItem className="hover:bg-red-500">
