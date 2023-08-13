@@ -133,7 +133,9 @@ const handleButtonClick = (userid) => {
                       <div key={order.id}>
                         <div className="mt-2 text-gray-700">
                           <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                            <img src={order.photo} alt="product-image" className="w-full rounded-lg sm:w-40" style={{ width: "100px" }} />
+                            <img 
+                            src={`http://localhost:5000/${order.photo}`}
+                            alt="product-image" className="w-full rounded-lg sm:w-40" style={{ width: "100px" }} />
                             <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                               <div className="mt-4 flex flex-col space-y-2 sm:mt-0 sm:space-y-6 sm:space-x-6">
                                 <p className="text-sm ms-6">Product Name: {order.name}</p>

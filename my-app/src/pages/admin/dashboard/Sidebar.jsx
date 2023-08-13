@@ -22,7 +22,7 @@ import {
   } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
-
+import logo from "../../../images/logo.png";
   export default function Sidebar() {
     const { SignStatus,updateSignStatus } = useContext(UserContext)
 
@@ -52,10 +52,16 @@ import Swal from 'sweetalert2'
     
 
     return (
-      <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-black">
+      <Card className=" min-h-[calc(100vh)]   w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-black">
         <div className="mb-2 p-4">
         <Typography className="text-red-500" variant="h5" color="blue-gray">
-        <a> Masterpiece </a>
+        <Link to="/">
+        <img
+          src={logo}
+          alt="logo"
+          style={{ height: "50px", width: "150px" }}
+        />
+      </Link>
           </Typography>
         </div>
         <List>

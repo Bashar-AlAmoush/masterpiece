@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
  import Pagination from "@mui/material/Pagination";
 
 function AddSales() {
-
     const [products, setproducts] = useState([]);
     const [FilterDataproducts, setFilterDataproducts] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -307,7 +306,7 @@ function AddSales() {
       Add Sales
       </th>
       <th scope="col" className="px-6 py-3">
-        Delete
+        Delete Sale
       </th>
     </tr>
   </thead>
@@ -448,7 +447,7 @@ function AddSales() {
   
     <div className="relative flex items-center justify-between pt-4">
       <div className="text-xl font-bold text-navy-700 dark:text-white">
-      Deleted Products
+      Deleted Sales 
       </div>
     </div>
     <form>
