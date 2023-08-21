@@ -294,16 +294,10 @@ export default function NavbarComponent() {
       icon: PowerIcon,
     },
   ];
-
-
-
-
-
-
   return (
 
     <Navbar
-    className="w-full sticky top-0 z-20"
+    className="w-full sticky top-0 z-20  max-w-full"
     style={{ backgroundColor: "black", border: "none", borderRadius: "0" }}
   >
     <div className="flex items-center justify-between text-white">
