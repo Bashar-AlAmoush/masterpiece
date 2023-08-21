@@ -293,7 +293,7 @@ useEffect(() => {
 
   <div className="relative flex items-center justify-between pt-4">
     <div className="text-xl font-bold text-navy-700  dark:text-white">
-    Deleted Products
+    Deleted Drawing
     </div>
   </div>
   <div className="mt-8 overflow-x-scroll xl:overflow-hidden">

@@ -9,13 +9,15 @@ function Painting() {
   const [Products, setProducts] = useState([]);
   const { category } = useParams();
   const [showForm, setShowForm] = useState(false);
+  const [showBUTTON, setshowBUTTON] = useState(localStorage.getItem("auth") ? true : false);
   const [userid, setUserid] = useState("");
   const [name, setName] = useState("");
   const [categoryy, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
-
+  const [id, setId] = useState();
+  const [user, setUser] = useState([]);
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
 
@@ -36,12 +38,21 @@ function Painting() {
       .get('http://localhost:5000/getId')
       .then(function (response) {
         setUserid(response.data[0].userid)
+      let x = response.data[0].userid;
+        axios
+          .get(`http://localhost:5000/user/${x}`)
+          .then(function (response) {
+            setUser(response.data);
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+       
       })
       .catch(function (error) { console.log("Error", error) });
 
   }, [category]);
-
-
   const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
@@ -53,6 +64,9 @@ function Painting() {
     const totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
     setCurrentPageUsers(1);
   }, [Products]);
+
+
+
   const itemsPerPage = 6;
   const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
   const endIndexUsers = startIndexUsers + itemsPerPage;
@@ -73,6 +87,8 @@ function Painting() {
     setCurrentPageUsers(1);
     console.log(searchTermUsers);
   };
+
+
   function handleFind() {
     console.log(Products[0].category.toLowerCase());
     const filteredDataUsers = Products?.filter((item) =>
@@ -118,7 +134,6 @@ function Painting() {
     }
   };
 
-  ;
   const files = new FormData();
   files.append('image', file);
   files.append('name', name);
@@ -149,25 +164,29 @@ function Painting() {
           })
           .catch((error) => console.log(error.message));
 
-
-
+          axios
+          .get('http://localhost:5000/getId')
+          .then(function (response) {
+            setId(response.data[0].userid);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });  
       }
       )
       .catch((err) => console.log(err.message));
 
     setShowForm(false);
   };
-
   const handleCancel = () => {
     setShowForm(false);
   };
 
 
-
+  
   return (
 
     <>
-
       <div
         className="bg-cover bg-center h-screen"
         style={{
@@ -205,12 +224,15 @@ function Painting() {
           </div>
         </div>
       </div>
+      { showBUTTON &&  (
+  <div className="flex justify-center mt-7">
+    <div className="h-12 w-36 border-2 my-4 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 text-center hover:text-white" onClick={() => setShowForm(true)}>
+      Add A Drawing
+    </div>
+  </div>
+)}
 
-      <div className="flex justify-center mt-7">
-        <div className="h-12 w-36 border-2 my-4 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 text-center  hover:text-white" onClick={() => setShowForm(true)}  >
-          Add A Drawings
-        </div>
-      </div>
+      
 
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
@@ -329,7 +351,7 @@ function Painting() {
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-3 px-5 md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 ">
+      <div className="flex flex-col gap-3 my-8  px-5 md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 ">
         <form
           className="w-full"
         >
