@@ -5,7 +5,6 @@ import Icon from '@mdi/react';
 import { useNavigate } from 'react-router-dom';
 import { mdiPaletteOutline } from '@mdi/js';
 import { mdiDraw } from '@mdi/js';
-
 import {
   Navbar,
   Collapse,
@@ -30,17 +29,11 @@ import {
   FlagIcon,
   ChatBubbleOvalLeftIcon,
   RocketLaunchIcon,
-  
   ShoppingCartIcon,
   HomeIcon,
   HeartIcon
 } from "@heroicons/react/24/outline";
-import logo from "../../images/logo.png";
-
-
-
-
-
+import logo from "../../images/logo.png"
 export default function NavbarComponent() {
   const [openNav, setOpenNav] = React.useState(false);
   const { SignStatus, updateSignStatus } = useContext(UserContext);

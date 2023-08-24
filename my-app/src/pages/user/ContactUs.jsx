@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-function ContactUs() 
-{
+function ContactUs() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const contactMessage = {
@@ -16,6 +17,7 @@ function ContactUs()
       phone,
       message,
     };
+    
     try {
       const response = await axios.post(
         "http://localhost:5000/contacts",

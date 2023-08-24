@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 function Page404() {
   return (
    <>
- <>
-  {/* component */}
+
   <style
     dangerouslySetInnerHTML={{
       __html:
@@ -121,11 +120,12 @@ function Page404() {
       </Link>
     </center>
   </div>
+
+
+
+
+  
 </>
-
-
-   
-   </>
   )
 }
 

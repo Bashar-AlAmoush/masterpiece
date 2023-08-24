@@ -9,11 +9,11 @@ function SignUp() {
   const [user0, setUser0] = useState([]);
   const [profile, setProfile] = useState([]);
   const [errorG, setErrorG] = useState("");
-
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser0(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
+
   useEffect(() => {
     if (user0.length !== 0) {
       axios
@@ -52,6 +52,9 @@ function SignUp() {
         .catch((err) => console.log(err.message));
     }
   }, [user0]);
+
+
+  
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");

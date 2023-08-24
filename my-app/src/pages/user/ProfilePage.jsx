@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect ,useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 const ProfilePage = () => {
   const [id, setId] = useState();
   const [orders, setOrders] = useState([]);
@@ -71,7 +70,7 @@ const ProfilePage = () => {
       <div className="min-h-screen bg-gray-200 flex flex-col">
         <div className="flex flex-col md:flex-row flex-1">
           <div className="w-full md:w-1/2">
-            {/* <!-- Left side content --> */}
+            
             <div className="h-full bg-gray-200 pt-8">
               <div>
               <div className="w-full md:w-3/4 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
@@ -142,7 +141,6 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="w-full md:w-1/2">
-            {/* <!-- Right side content --> */}
             <div className="w-full max-w-md mx-auto mt-8">
               <div className="flex border-b border-gray-300">
                 <button
@@ -170,7 +168,6 @@ const ProfilePage = () => {
                 >
                   User Drawings
                 </button>
-
               </div>
               <div id="tab1" className={`tabcontent   p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
   <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
@@ -182,14 +179,11 @@ const ProfilePage = () => {
           <div>
             <p className="font-bold">{order.name}</p>
             <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
-
             <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-4">
             <img
               src={`http://localhost:5000/${order.photo}`}
-             
-             
              alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
             <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
            
@@ -219,11 +213,8 @@ const ProfilePage = () => {
                         <div className="mt-4 sm:mt-0 sm:ml-4">
                           <img
                             src={`http://localhost:5000/${order.photo}`}
-                           
-                           
                            alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
                           <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
-                         
                         </div>
                       </div>
                     </div>
@@ -233,13 +224,6 @@ const ProfilePage = () => {
                   )}
                 </div>
               </div>
-
-              
-
-
-
-             
-
               <div id="tab3" className={`tabcontent p-4 ${activeTab === 'tab3' ? '' : 'hidden'}`}>
   <h2 className="text-lg font-bold text-gray-800">User Drawings</h2>
   <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>

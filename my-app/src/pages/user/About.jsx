@@ -7,7 +7,10 @@ import { mdiPaletteOutline } from '@mdi/js';
 import { useState, useEffect } from "react";
 
 function About() {
+
   const [aboutUsData, setAboutUsData] = useState({});
+
+
   useEffect(() => {
     const getAboutData = async () => {
       try {
@@ -20,6 +23,8 @@ function About() {
     };
     getAboutData();
   }, []);
+
+
   return (
     <>
 
@@ -154,14 +159,14 @@ function About() {
                   <div className="py-3 sm:py-4">
                     <img
                       src="https://img.freepik.com/free-photo/abstract-colorful-splash-3d-background-generative-ai-background_60438-2527.jpg?w=1060&t=st=1687773565~exp=1687774165~hmac=0a024fbebb387ee062c8c419c89ffacc7033ea5685a5e471dc85b88bcb979373"
-                      alt="an image"
+                      alt="an pic"
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div className="py-3 sm:py-4">
                     <img
                       src="https://img.freepik.com/free-photo/dirty-coloured-palette-paint_23-2148660898.jpg?w=996&t=st=1687773766~exp=1687774366~hmac=ac48d93f21d3601fc20c2d78e728a7e339e2eee351d8c5a05c8325978520bfdc"
-                      alt=""
+                      alt="about pic "
                       className="w-full rounded-2xl"
                     />
                   </div>
@@ -170,7 +175,7 @@ function About() {
                   <div className="relative z-10 my-4">
                     <img
                       src="https://images.pexels.com/photos/3893650/pexels-photo-3893650.jpeg?auto=compress&cs=tinysrgb&w=600"
-                      alt=""
+                      alt=" avout pic"
                       className="w-full rounded-2xl"
                     />
                     <span className="absolute -right-7 -bottom-7 z-[-1]">

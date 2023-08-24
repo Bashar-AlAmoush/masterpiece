@@ -32,23 +32,10 @@ function Painting() {
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
-
-
     axios
       .get('http://localhost:5000/getId')
       .then(function (response) {
         setUserid(response.data[0].userid)
-      let x = response.data[0].userid;
-        axios
-          .get(`http://localhost:5000/user/${x}`)
-          .then(function (response) {
-            setUser(response.data);
-           
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-       
       })
       .catch(function (error) { console.log("Error", error) });
 
@@ -85,7 +72,6 @@ function Painting() {
     );
     setFilterDataUsers(filteredDataUsers);
     setCurrentPageUsers(1);
-    console.log(searchTermUsers);
   };
 
 
@@ -105,9 +91,7 @@ function Painting() {
 
   function handleRes(Products) {
     let product_id = Products.product_id;
-    console.log(product_id);
     navigate(`/Details/${product_id}`);
-
   }
 
 
@@ -133,7 +117,6 @@ function Painting() {
         break;
     }
   };
-
   const files = new FormData();
   files.append('image', file);
   files.append('name', name);
@@ -143,35 +126,16 @@ function Painting() {
   files.append('userid', userid);
 
   const handleCreatePost = async () => {
-
-    console.log(file)
-
-
-
     axios
       .post("http://localhost:5000/newDrawing", files)
       .then(function (response) {
-
-
-        console.log(response.data);
         axios
           .get(`http://localhost:5000/DrawingAll`)
           .then((response) => {
-            console.log(response.data);
             setProducts(response.data);
             setFilterDataUsers(response.data);
-            console.log(response.data);
           })
-          .catch((error) => console.log(error.message));
-
-          axios
-          .get('http://localhost:5000/getId')
-          .then(function (response) {
-            setId(response.data[0].userid);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });  
+          .catch((error) => console.log(error.message));  
       }
       )
       .catch((err) => console.log(err.message));
@@ -181,11 +145,7 @@ function Painting() {
   const handleCancel = () => {
     setShowForm(false);
   };
-
-
-  
   return (
-
     <>
       <div
         className="bg-cover bg-center h-screen"
@@ -231,9 +191,6 @@ function Painting() {
     </div>
   </div>
 )}
-
-      
-
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-md z-50 scrollbar" style={{ width: "580px", maxHeight: "80vh", overflowY: "auto" }}>
@@ -393,10 +350,6 @@ function Painting() {
             />
           </div>
         </form>
-
-
-
-
         <div
           className="w-full md:w-6/12 flex flex-col md:flex-row items-center md:items-stretch gap-2 md:gap-4 "
         >
@@ -413,7 +366,6 @@ function Painting() {
             <option value="Realism">Realism</option>
             <option value="Anime">Anime/Manga</option>
           </select>
-
           <select
             className="px-4 py-3 w-full md:w-48 rounded-md bg-gray-100 border border-red-500 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mb-2 md:mb-0"
             value={yourSelectedStateValueAddress}
@@ -436,9 +388,6 @@ function Painting() {
           </button>
         </div>
       </div>
-
-
-
       <div className="flex flex-wrap gap-10 justify-center my-16">
         {FilterDataUsers
           .filter(
@@ -484,12 +433,6 @@ function Painting() {
             </div>
           ))}
       </div>
-
-
-
-
-
-
       {Products.length >= 6 && <div className="flex justify-center mb-5 bg-[#f8f8f8]">
         <div className="flex w-full justify-center mt-5 bg-[#f8f8f8] mb-5">
           <Pagination
@@ -504,10 +447,6 @@ function Painting() {
             style={{ color: 'white' }}
           />
         </div>
-
-
-
-
       </div>}
 
     </>

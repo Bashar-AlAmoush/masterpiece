@@ -22,7 +22,6 @@ const [deletedproducts, setdeletedproducts] = useState([]);
     .then((response) => {
       setproducts(response.data);
       setFilterDataproducts(response.data)
-      console.log(response.data)
          
     })
     .catch((error) => console.log(error.message))
@@ -33,16 +32,13 @@ useEffect(() => {
   axios.get('http://localhost:5000/deletedproducts')
   .then((response) => {
     setdeletedproducts(response.data);
-    setFilterDatadeletedproducts(response.data)
-    console.log(response.data)
-       
+    setFilterDatadeletedproducts(response.data)       
   })
   .catch((error) => console.log(error.message))
 }, []);
 
        //-----------------------search------------------------//
        const [searchTermproducts, setSearchTermproducts] = useState('');
-       const [searchTermdeletedproducts, setSearchTermdeletedproducts] = useState('');
        
        
        const filterDataByNameproducts = (searchTermproducts) => {
@@ -55,25 +51,6 @@ useEffect(() => {
          setFilterDataproducts(filteredDataRestaurants);
          setCurrentPageproducts(1)
        }
-       
-
-
-
-
-
-       const filterDataByNamedeletedproducts= (searchTermdeletedproducts) => {
-        console.log(searchTermproducts)
-        
-        const filteredDatadeletedproducts = products.filter(item =>
-      
-          item.name.toLowerCase().includes(searchTermproducts.toLowerCase())
-        );
-        setFilterDatadeletedproducts(filteredDatadeletedproducts);
-        setCurrentPagedeletedproducts(1)
-      }
-
-
-       
        const [currentPageproducts, setCurrentPageproducts] = useState(1);
        const [currentPagedeletedproducts, setCurrentPagedeletedproducts] = useState(1);
 
@@ -128,7 +105,6 @@ useEffect(() => {
            
               axios.put('http://localhost:5000/product/'+id)
               .then((response) => {
-                  console.log(response.data);
                   axios.get('http://localhost:5000/productsAll')
           .then((response) => {
             setproducts(response.data);
@@ -139,9 +115,7 @@ useEffect(() => {
           axios.get('http://localhost:5000/deletedproducts')
           .then((response) => {
             setdeletedproducts(response.data);
-            setFilterDatadeletedproducts(response.data)
-            console.log(response.data)
-               
+            setFilterDatadeletedproducts(response.data)               
           })
           .catch((error) => console.log(error.message))
               })
@@ -165,14 +139,12 @@ useEffect(() => {
         icon: 'warning'
     }
     ).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
   
             Swal.fire(` ${name} has been recover `, '', 'success');
          
             axios.put('http://localhost:5000/recoverproduct/'+id)
             .then((response) => {
-                console.log(response.data);
                 axios.get('http://localhost:5000/productsAll')
         .then((response) => {
           setproducts(response.data);
@@ -183,9 +155,7 @@ useEffect(() => {
         axios.get('http://localhost:5000/deletedproducts')
         .then((response) => {
           setdeletedproducts(response.data);
-          setFilterDatadeletedproducts(response.data)
-          console.log(response.data)
-             
+          setFilterDatadeletedproducts(response.data)     
         })
         .catch((error) => console.log(error.message))
             })
@@ -245,7 +215,6 @@ useEffect(() => {
   axios
   .post("http://localhost:5000/newproduct",files)
   .then(function (response) {
-      console.log(response.data);
       axios.get('http://localhost:5000/productsAll')
           .then((response) => {
             setproducts(response.data);
@@ -257,7 +226,6 @@ useEffect(() => {
           .then((response) => {
             setdeletedproducts(response.data);
             setFilterDatadeletedproducts(response.data)
-            console.log(response.data)
                
           })
           .catch((error) => console.log(error.message))
@@ -268,15 +236,8 @@ useEffect(() => {
   
       setShowForm(false);
     };
-  
-
   return (
-    
 <>
-
-
-
-
 
 <div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)] '>
 <div className="relative flex items-center justify-between pt-4">

@@ -53,15 +53,10 @@ function App() {
       setHideRouterUser(roles[0])
       setHideRouterAdmin(roles[1])
       updateRouts(roles)
-     
     }
-
   }, [Refresh]);
 
   console.log(roles)
-
-
-  //-----------------------------User Router-------------------------------//
   const AppRouterUser = () => {
     const [currentTable, setCurrentTable] = useState({})
 
@@ -93,11 +88,8 @@ function App() {
 
     );
   };
-
-  //----------------------------Admin Router------------------------------//
   const AppRouterAdmin = () => {
     return (
-
       <Router>
         <Sidebar />
         <div style={{ width: "100%" }}>

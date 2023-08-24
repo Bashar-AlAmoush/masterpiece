@@ -12,7 +12,6 @@ const LiveChat = () => {
     axios.get('http://localhost:5000/reporters')
     .then((response) => {
       setReporters(response.data);
-      console.log(response.data)
       setCurrentUser(response.data[0])
       setAvColor(
         {
@@ -23,14 +22,10 @@ const LiveChat = () => {
     })
     .catch((error) => console.log(error.message))
 }, []);
- function HandleUser(e){
-  setCurrentUser(e)
-  setAvColor(
-   {
-    backgroundColor: Checkcolor(e), 
-    color: '#fff', 
-   } )
- }
+ 
+
+
+
  function Checkcolor(e){
 
   let color0=""
@@ -71,11 +66,7 @@ const LiveChat = () => {
     const body = message;
     console.log(recipient)
     const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-
     window.location.href = mailtoLink;
-
-
   }
 
 

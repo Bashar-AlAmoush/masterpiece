@@ -2,18 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
-
 const EditProfile = () => {
   const navigate = useNavigate("/");
-  const [person, setPerson] = useState([]);
-
-
-
   const [user, setUser] = useState({})
   const [id, setId] = useState({})
-
-
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [PhoneNumber, setPhoneNumber] = useState("")
@@ -25,12 +17,9 @@ const EditProfile = () => {
       .then(function (response) {
     
           setId(response.data[0].userid)
-          console.log(response.data[0].userid)
-
                let x = response.data[0].userid
           axios.get(`http://localhost:5000/user/${x}`)
           .then(function (response) {
-              console.log(response.data);
               setUser(response.data[0])
         setId(response.data[0].userid)
 
@@ -49,6 +38,7 @@ const EditProfile = () => {
       });
   }, [id]
   )
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -56,8 +46,6 @@ const EditProfile = () => {
       username, email, phone_number: PhoneNumber, password: Password
     })
       .then(function (response) {
-        console.log(response.data);
-
         Swal.fire({
           position: "center",
           icon: "success",
@@ -70,8 +58,8 @@ const EditProfile = () => {
       .catch(function (error) {
         console.log(error);
       });
-
   }
+
 
   return (
     <>

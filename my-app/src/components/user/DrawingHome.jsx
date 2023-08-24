@@ -55,7 +55,6 @@ function DrawingHome() {
 
   return (
     <>
-      <>
         <style
           dangerouslySetInnerHTML={{
             __html:
@@ -170,11 +169,7 @@ function DrawingHome() {
       </div>
     </div>
     </div>
-      </>
-
-
-
-
+     
     </>
   );
 }

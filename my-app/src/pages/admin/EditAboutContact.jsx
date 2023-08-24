@@ -10,7 +10,6 @@ const EditAboutContact = () => {
       axios.get('http://localhost:5000/aboutus')
       .then((response) => {
         setabout(response.data);
-         console.log(response.data)
          setAbout_title(response.data.about_title)
           setAbout_us(response.data.about_us)
       })

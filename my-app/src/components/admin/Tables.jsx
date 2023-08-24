@@ -12,7 +12,6 @@ const Tables = () => {
       .then((response) => {
         usersetorders(response.data)
         setFilterDatauser(response.data)
-          console.log(response.data)
       })
       .catch((error) => console.log(error.message))
     }, []);
@@ -46,15 +45,15 @@ const startIndexUsers = (currentPageOrders - 1) * itemsPerPage;
 const endIndexUsers = startIndexUsers + itemsPerPage;
 
 slicedArrayUsers = FilterDatauser.slice(startIndexUsers, endIndexUsers);
-console.log(slicedArrayUsers)
 const handlePageChangeUsers = (event, pageNumber) => {
   setCurrentPageOrders(pageNumber);
 };
+
+
 const handleButtonClick = (userid) => {
         axios.get(`http://localhost:5000/ordersData/`+userid)
         .then((response) => {
           setorders(response.data);
-            console.log(response.data)
         })
         .catch((error) => console.log(error.message))
 };

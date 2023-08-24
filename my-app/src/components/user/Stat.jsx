@@ -6,6 +6,7 @@ function Stat() {
     const [countuser, setCountsuer] = useState(null);
     const [countproduct, setCountproduct] = useState(null);
     const [countdrawings, setCountdrawings] = useState(null);
+
     const getdata=()=>{
         axios
         .get('http://localhost:5000/usercount')
@@ -94,15 +95,7 @@ function Stat() {
     </div>
   </div>
 </section>
-
-
-   
-
-
-
-
    </>
   )
 }
-
 export default Stat

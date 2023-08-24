@@ -22,13 +22,11 @@ function SalesDetails() {
           .get('http://localhost:5000/getId')
           .then(function (response) {
             setId(response.data[0].userid);
-            console.log(response.data[0].userid);
             axios
             
             .get(`http://localhost:5000/getusercart/${response.data[0].userid}`)
            .then(function (response) {
              setCart(response.data);
-              console.log(response.data);
             })
            .catch(function (error) {
               console.log(error);
@@ -57,8 +55,6 @@ function SalesDetails() {
             product_id: product.product_id,
             quantity: quantity,})
             .then((response) => {
-                
-
                 axios
                 .get(`http://localhost:5000/getusercart/${id}`)
                 .then(function (response) {
@@ -100,11 +96,8 @@ function SalesDetails() {
     }
   }
   else{
-
     toast.error(`please login to have you own  cart`);
-
   }
-   
   };
 
 
@@ -120,11 +113,10 @@ function SalesDetails() {
 
     setQuantity(value);
   };
+
+
   
   const addTowishlist = (product) => {
-    console.log(id);
-    console.log(product);
-  
     const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
   if(id){
     if (existingProduct) {
@@ -135,7 +127,6 @@ function SalesDetails() {
                 .get(`http://localhost:5000/getusercart/${id}`)
                 .then(function (response) {
                   setwishlist(response.data);
-                  console.log(response.data);
                 
                 })
                 .catch(function (error) {
@@ -158,7 +149,6 @@ function SalesDetails() {
         .get(`http://localhost:5000/getusercart/${id}`)
         .then(function (response) {
           setwishlist(response.data);
-          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -174,11 +164,7 @@ function SalesDetails() {
     toast.error(`please login to have you own Wishlist  `);
   }
   };
-
-
   
-
-
     return (
       <>
          <ToastContainer />

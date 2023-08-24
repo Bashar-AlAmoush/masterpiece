@@ -39,11 +39,7 @@ const UsersInfo = () => {
     })
     .catch((error) => console.log(error.message))
 }, []);
-
-  //-----------------------search------------------------//
-
   const filterDataByNameUsers = (searchTermUsers) => {
-
     const filteredDataUsers = persons.filter((item) =>
       item.username.toLowerCase().includes(searchTermUsers.toLowerCase())
     );
@@ -110,14 +106,12 @@ const UsersInfo = () => {
       icon: 'warning'
   }
   ).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
 
           Swal.fire(` ${name} has been removed `, '', 'success');
        
           axios.put('http://localhost:5000/recordss/'+id)
           .then((response) => {
-              console.log(response.data);
               axios.get('http://localhost:5000/records')
               .then((response) => {
                   setFilterDataUsers(response.data)
@@ -153,14 +147,12 @@ const handlerecover = (id,name) => {
     icon: 'warning'
 }
 ).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
 
         Swal.fire(` ${name} has been recover `, '', 'success');
      
         axios.put('http://localhost:5000/recoverrecordss/'+id)
         .then((response) => {
-            console.log(response.data);
             axios.get('http://localhost:5000/records')
             .then((response) => {
                 setFilterDataUsers(response.data)
@@ -178,17 +170,9 @@ const handlerecover = (id,name) => {
 
         })
         .catch((error) => console.log(error.message))
-    
-   
-
-
-
     } else
         Swal.fire(' Cancelled', '', 'error')
-
 })
-
-
 }
 
 
@@ -219,7 +203,6 @@ if (role == "user"){
     icon: 'warning'
 }
 ).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       axios.put('http://localhost:5000/records/' + userid, {
         id: typeid,           

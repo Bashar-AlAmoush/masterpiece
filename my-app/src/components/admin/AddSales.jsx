@@ -2,11 +2,9 @@ import Icon from '@mdi/react';
 import { mdiDelete } from "@mdi/js";
 import React, { useEffect, useState } from 'react'
 import { mdiRestore } from '@mdi/js';
-
 import axios from 'axios'
 import Swal from 'sweetalert2'
  import Pagination from "@mui/material/Pagination";
-
 function AddSales() {
     const [products, setproducts] = useState([]);
     const [FilterDataproducts, setFilterDataproducts] = useState([]);
@@ -22,7 +20,6 @@ function AddSales() {
       .then((response) => {
         setproducts(response.data);
         setFilterDataproducts(response.data)
-        console.log(response.data)
            
       })
       .catch((error) => console.log(error.message))
@@ -33,9 +30,7 @@ function AddSales() {
     axios.get('http://localhost:5000/deletedsales')
     .then((response) => {
       setdeletedproducts(response.data);
-      setFilterDatadeletedproducts(response.data)
-      console.log(response.data)
-         
+      setFilterDatadeletedproducts(response.data) 
     })
     .catch((error) => console.log(error.message))
   }, []);
@@ -57,10 +52,6 @@ function AddSales() {
          }
          
   
-  
-  
-  
-  
          const filterDataByNamedeletedproducts= (searchTermdeletedproducts) => {
           console.log(searchTermproducts)
           
@@ -72,8 +63,6 @@ function AddSales() {
           setCurrentPagedeletedproducts(1)
         }
   
-  
-         
          const [currentPageproducts, setCurrentPageproducts] = useState(1);
          const [currentPagedeletedproducts, setCurrentPagedeletedproducts] = useState(1);
   
@@ -128,7 +117,6 @@ function AddSales() {
              
                 axios.put('http://localhost:5000/sales/'+id)
                 .then((response) => {
-                    console.log(response.data);
                     axios.get('http://localhost:5000/saleAll')
             .then((response) => {
               setproducts(response.data);
@@ -140,7 +128,6 @@ function AddSales() {
             .then((response) => {
               setdeletedproducts(response.data);
               setFilterDatadeletedproducts(response.data)
-              console.log(response.data)
                  
             })
             .catch((error) => console.log(error.message))
@@ -154,7 +141,6 @@ function AddSales() {
   
       }
   
-  
       const handlerecover = (id,name) => {
         Swal.fire({
           title: ` Do you want to recover ${name}?  `,
@@ -165,14 +151,11 @@ function AddSales() {
           icon: 'warning'
       }
       ).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-    
               Swal.fire(` ${name} has been recover `, '', 'success');
            
               axios.put('http://localhost:5000/recoversales/'+id)
               .then((response) => {
-                  console.log(response.data);
                   axios.get('http://localhost:5000/saleAll')
           .then((response) => {
             setproducts(response.data);
@@ -184,7 +167,6 @@ function AddSales() {
           .then((response) => {
             setdeletedproducts(response.data);
             setFilterDatadeletedproducts(response.data)
-            console.log(response.data)
                
           })
           .catch((error) => console.log(error.message))
@@ -229,44 +211,29 @@ function AddSales() {
               setFilterDataproducts(response.data);
             })
             .catch((error) => console.log(error.message));
-      
           axios.get('http://localhost:5000/deletedproducts')
             .then((response) => {
               setdeletedproducts(response.data);
               setFilterDatadeletedproducts(response.data);
-              console.log(response.data);
             })
             .catch((error) => console.log(error.message));
         } catch (error) {
           console.log("Error creating new sale:", error.message);
         }
-      
         setShowForm(false);
       };
-      
-      
-  
     return (
       
   <>
-  
-  
-  
-  
   
   <div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)] '>
   <div className="relative flex items-center justify-between pt-4">
       <div className="text-xl font-bold text-navy-700 dark:text-white">
       All  products
       </div>
-    
-   
     </div>
-  
     <form>
-   
    <div className="relative">
-  
      <input
        type="text"
        id="search"
@@ -279,10 +246,8 @@ function AddSales() {
         filterDataByNameproducts(e.target.value);
       }}
      />
-  
    </div>
   </form>
-  
     <div className="mt-8 overflow-x-scroll  xl:overflow-hidden">
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -512,25 +477,19 @@ function AddSales() {
   
   slicedArraydeletedproducts.map((e)=>{
   return(
-    
-  
     <tbody key={e.userid}>
       <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 {e.name} 
-              
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-              
                   {e.category}
-                
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 {e.description}
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 {e.price}
-              
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 {e.new_price}
@@ -543,22 +502,10 @@ function AddSales() {
           </tr>
          
         </tbody>
-  
-  
-  
-  
   )
-  
-  
-  
   })
-  
   }
-  
-  
-          
       </table>
-  
       <div className='flex w-full justify-center mt-5'>   
       {(
           <Pagination
@@ -569,15 +516,8 @@ function AddSales() {
         )}
       </div> 
     </div>
-  
-  
   </div>
-  
-  
-  
-  
     </>
-    
   )
 }
 

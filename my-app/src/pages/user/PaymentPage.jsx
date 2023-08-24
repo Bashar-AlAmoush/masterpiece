@@ -7,13 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function PaymentPage() {
+
+
   const [person, setPerson] = useState([]);
   const [cartData, setCartData] = useState([]);
   const navigate = useNavigate();
 const total=localStorage.getItem("total")
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/getId")
@@ -23,7 +24,6 @@ const total=localStorage.getItem("total")
           .get(`http://localhost:5000/getusercart/${response.data[0].userid}`)
           .then(function (response) {
             setCartData( response.data);
-            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
@@ -43,7 +43,7 @@ const total=localStorage.getItem("total")
 
 const hndelorder=() =>{
   
-  cartData?.map((element)=>{
+  cartData?.map((element,index)=>{
   let orderdata = {
     userid: person[0].userid,
     category:element.category,
@@ -58,22 +58,18 @@ const hndelorder=() =>{
 axios
 .post("http://localhost:5000/neworder", orderdata)
 .then((response) => {
-  
-  console.log(response.data);
-})
+  })
 .catch((error) => {
   console.log(error.message)
 });
-
-  
 })
-  
 }
 
 
 
+
   const handlePayment = () => {
-    if (localStorage.auth != null && localStorage.auth != "") {
+    if (localStorage.auth !== null && localStorage.auth !=="") {
       const cardNumber = document.getElementById("card-no").value;
       const cardRegex = /^(4\d{15}|5\d{15})$/;
       const today = new Date();
@@ -120,6 +116,8 @@ axios
     }
   };
 
+
+
   const submitPayment = () => {
     const paymentData = {
       username,
@@ -147,6 +145,9 @@ axios
         });
       });
   };
+
+
+
   return (
     <>
     <ToastContainer />

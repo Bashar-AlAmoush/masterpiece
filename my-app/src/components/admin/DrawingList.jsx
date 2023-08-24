@@ -11,12 +11,6 @@ function DrawingList() {
 
     const [products, setproducts] = useState([]);
   const [FilterDataproducts, setFilterDataproducts] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [name, setName] = useState("");
-const [category, setCategory] = useState("");
-const [price, setPrice] = useState("");
-const [description, setDescription] = useState("");
-const [file, setFile] = useState(null);
 const [deletedproducts, setdeletedproducts] = useState([]);
   const [FilterDatadeletedproducts, setFilterDatadeletedproducts] = useState([]);
   useEffect(() => {
@@ -24,7 +18,6 @@ const [deletedproducts, setdeletedproducts] = useState([]);
     .then((response) => {
       setproducts(response.data);
       setFilterDataproducts(response.data)
-      console.log(response.data)     
     })
     .catch((error) => console.log(error.message))
 }, []);
@@ -34,18 +27,17 @@ useEffect(() => {
   axios.get('http://localhost:5000/deleteDrawing')
   .then((response) => {
     setdeletedproducts(response.data);
-    setFilterDatadeletedproducts(response.data)
-    console.log(response.data)
-       
+    setFilterDatadeletedproducts(response.data)       
   })
   .catch((error) => console.log(error.message))
 }, []);
 
-       //-----------------------search------------------------//
        const [searchTermproducts, setSearchTermproducts] = useState('');
-       const [searchTermdeletedproducts, setSearchTermdeletedproducts] = useState('');
-       
-       
+      
+
+
+
+
        const filterDataByNameproducts = (searchTermproducts) => {
          console.log(searchTermproducts)
          
@@ -57,21 +49,6 @@ useEffect(() => {
          setCurrentPageproducts(1)
        }
        
-
-
-
-
-
-       const filterDataByNamedeletedproducts= (searchTermdeletedproducts) => {
-        console.log(searchTermproducts)
-        
-        const filteredDatadeletedproducts = products.filter(item =>
-      
-          item.name.toLowerCase().includes(searchTermproducts.toLowerCase())
-        );
-        setFilterDatadeletedproducts(filteredDatadeletedproducts);
-        setCurrentPagedeletedproducts(1)
-      }
 
 
        
@@ -124,12 +101,9 @@ useEffect(() => {
       ).then((result) => {
        
           if (result.isConfirmed) {
-    
               Swal.fire(` ${name} has been removed `, '', 'success');
-           
               axios.put('http://localhost:5000/product/'+id)
               .then((response) => {
-                  console.log(response.data);
                   axios.get('http://localhost:5000/DrawingAll')
           .then((response) => {
             setproducts(response.data);
@@ -141,7 +115,6 @@ useEffect(() => {
           .then((response) => {
             setdeletedproducts(response.data);
             setFilterDatadeletedproducts(response.data)
-            console.log(response.data)
                
           })
           .catch((error) => console.log(error.message))
@@ -166,14 +139,10 @@ useEffect(() => {
         icon: 'warning'
     }
     ).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-  
             Swal.fire(` ${name} has been recover `, '', 'success');
-         
             axios.put('http://localhost:5000/recoverproduct/'+id)
             .then((response) => {
-                console.log(response.data);
                 axios.get('http://localhost:5000/DrawingAll')
         .then((response) => {
           setproducts(response.data);
@@ -183,9 +152,7 @@ useEffect(() => {
         axios.get('http://localhost:5000/deleteDrawing')
         .then((response) => {
           setdeletedproducts(response.data);
-          setFilterDatadeletedproducts(response.data)
-          console.log(response.data)
-             
+          setFilterDatadeletedproducts(response.data)             
         })
         .catch((error) => console.log(error.message))
             })
@@ -257,9 +224,7 @@ useEffect(() => {
               {e.name} 
           </td>
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          
                 {e.category}
-              
           </td>
           <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               {e.description}
@@ -277,7 +242,6 @@ useEffect(() => {
     );
   })}
 </table>
-
     <div className='flex w-full justify-center mt-5'>   
     {(
         <Pagination
@@ -288,9 +252,6 @@ useEffect(() => {
       )}
     </div> 
   </div>
-
-
-
   <div className="relative flex items-center justify-between pt-4">
     <div className="text-xl font-bold text-navy-700  dark:text-white">
     Deleted Drawing
@@ -312,9 +273,6 @@ useEffect(() => {
           <th scope="col" className="px-6 py-3">
            price
           </th>
-
-         
-
           <th scope="col" className="px-6 py-3">Recover
           </th>
 
@@ -325,7 +283,6 @@ useEffect(() => {
 slicedArraydeletedproducts.map((e)=>{
 
 return(
-
   <tbody key={e.userid}>
       <tr className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 `}>
       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
@@ -348,22 +305,11 @@ return(
                     </button>
           </td>
         </tr>
-       
       </tbody>
-
-
-
-
 )
-
-
-
 })
 
-}
-
-
-        
+}  
     </table>
 
     <div className='flex w-full justify-center mt-5'>   
@@ -376,8 +322,6 @@ return(
       )}
     </div> 
   </div>
-
-
 </div>
   )
 }

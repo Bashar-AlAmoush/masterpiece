@@ -4,13 +4,11 @@ import logo from '../../images/logo.png';
 const Footer = () => {
   return (
     <>
-
       <footer className="bg-black text-center text-  lg:text-left">
         <div className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
           <div className="mr-12 hidden lg:block text-white">
             <span>Get connected with us on social networks:</span>
           </div>
-          {/* Social network icons container */}
           <div className="flex justify-center">
             <a target='_blank' href="https://www.facebook.com/bashar.omush.7" className="mr-6 text-white ">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -51,7 +49,7 @@ const Footer = () => {
               Artistry unleashed! Shop unique artworks and top-notch supplies for your creative journey. Elevate your art now!
               </p>
             </div>
-            {/* Products section */}
+            
             <div className>
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                 Quick links
@@ -72,7 +70,7 @@ const Footer = () => {
                 <Link to="/ContactUs" className="text-white ">Contact</Link>
               </p>
             </div>
-            {/* Contact section */}
+          
             <div >
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                 Contact
@@ -107,7 +105,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        {/*Copyright section*/}
         <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700 text-white">
           <span>© 2023 Copyright: </span>
           <Link className="font-semibold text-white" to="/">Masterpiece

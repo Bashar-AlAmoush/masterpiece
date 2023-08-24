@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button } from "@material-tailwind/react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 function Wishlist() {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [id, setId] = useState();
   const [wishlist, setWishlist] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     axios.get('http://localhost:5000/getId')
       .then(function (response) {
@@ -25,10 +23,6 @@ function Wishlist() {
         console.log(error);
       });
   }, []);
-
-  const toggleShowDetails = (productId) => {
-    setSelectedProductId(productId === selectedProductId ? null : productId);
-  };
 
   function handleproduct(Products) {
     let product_id = Products.product_id;
@@ -65,8 +59,8 @@ function Wishlist() {
       .catch(function (error) {
         console.log(error);
       });
-
   };
+  
   return (
     <>
       <ToastContainer />

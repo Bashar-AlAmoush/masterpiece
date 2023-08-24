@@ -15,12 +15,10 @@ export default function Cart() {
       .get('http://localhost:5000/getId')
       .then(function (response) {
         setId(response.data[0].userid);
-        console.log(response.data[0].userid);
         axios
           .get(`http://localhost:5000/getusercart/${response.data[0].userid}`)
           .then(function (response) {
             setCartData(response.data);
-            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
@@ -37,7 +35,6 @@ export default function Cart() {
     setCartData((prevCartData) => {
       const updatedCartData = prevCartData.map((product) => {
         if (product.product_id === productId) {
-          console.log(product);
           return { ...product, quantity: parseInt(value, 10) };
         }
         return product;
@@ -49,7 +46,7 @@ export default function Cart() {
           console.log(response)
         })
         .catch((error) => {
-
+          console.log(error);
         });
 
       return updatedCartData;
@@ -60,8 +57,6 @@ export default function Cart() {
     const updatedCart = [...cartData];
     const removedProduct = updatedCart.splice(index, 1)[0];
     setCartData(updatedCart);
-    console.log(removedProduct.product_id);
-
     axios
       .delete(`http://localhost:5000/deletecartdata`, {
         data: {
@@ -87,6 +82,7 @@ export default function Cart() {
     toast.error(`Product "${removedProduct.name}" has been removed from the cart.`);
   };
 
+
   const calculateSubtotal = () => {
     const subtotal = cartData.reduce((total, product) => {
       const productPrice = parseFloat(product.new_price) || parseFloat(product.price);
@@ -110,16 +106,15 @@ export default function Cart() {
     return total.toFixed(2);
   }
 
-
   const navigate = useNavigate();
 
   const handleCheckout = () => {
     const auth = localStorage.getItem('auth');
     if (auth) {
-      window.scrollTo(0, 0); // Scroll to the top of the page
+      window.scrollTo(0, 0); 
       navigate("/PaymentPage");
     } else {
-      window.scrollTo(0, 0); // Scroll to the top of the page
+      window.scrollTo(0, 0); 
       navigate(`/signin?redirectPath=${encodeURIComponent('/Cart')}`);
     }
   };
@@ -171,10 +166,6 @@ export default function Cart() {
                             
                           </div>
                         </div>)}
-
-
-
-
                       </div>
                       <p className="text-xs leading-3 text-gray-600 pt-2">{product.description}</p>
                       <div className="flex items-center justify-between pt-5 pr-6">

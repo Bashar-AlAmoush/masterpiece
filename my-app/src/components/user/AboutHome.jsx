@@ -30,8 +30,6 @@ function AboutHome() {
           </div>
         </div>
       </section>
-   
-   
    </>
   )
 }

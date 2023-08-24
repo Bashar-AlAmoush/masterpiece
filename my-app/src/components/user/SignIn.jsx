@@ -22,6 +22,8 @@ function SignIn({Refresh,setRefresh}) {
       onError: (error) => console.log('Login Failed:', error)
   });
 
+
+
   useEffect(
       () => {
           if (user0.length !== 0) {
@@ -88,10 +90,8 @@ function SignIn({Refresh,setRefresh}) {
   const { curruntUser,updateSetCurruntUser } = useContext(UserContext)
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setEmailError("");
     setPasswordError("");
-
     let isValid = true;
 
     if (!emailRegex.test(email)) {
@@ -121,21 +121,14 @@ function SignIn({Refresh,setRefresh}) {
             x= [false ,true,true]
           }else if(response.data[1]==1){
              x= [true ,false,true]
-          }else if(response.data[1]==2){
-             x= [true ,true,false]
           }
-          console.log(response.data[2])
           updateRouts(x)
           updateSetCurruntUser(response.data[2])
           localStorage.setItem("curruntUser",JSON.stringify(response.data[2]))
-          console.log("passed");
-          
           updateSignStatus("SignOut")
           localStorage.setItem("SignStatus","SignOut")
-
           localStorage.setItem("auth",JSON.stringify(response.data[0]))
           localStorage.setItem("roles",JSON.stringify(x))
-         
           const queryParams = new URLSearchParams(window.location.search);
           const redirectPath = queryParams.get('redirectPath') || '/';
           setRefresh(!Refresh)
@@ -147,7 +140,6 @@ function SignIn({Refresh,setRefresh}) {
       .catch(function (error) {});
     }
   };
-
 
 
   const handleEmailChange = (e) => {
@@ -163,6 +155,8 @@ function SignIn({Refresh,setRefresh}) {
         : "Password must have at least 8 characters with at least one uppercase letter, one lowercase letter, and one digit."
     );
   }; 
+
+  
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">

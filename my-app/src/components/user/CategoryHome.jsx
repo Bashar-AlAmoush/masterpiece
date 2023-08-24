@@ -11,10 +11,7 @@ import {  useNavigate } from "react-router-dom";
 import { useState } from "react";
 function CategoryHome() {
     const navigate = useNavigate();
-
     const [category, setcategory] = useState('');
-
-
     function handleTypeSelection(categoryy) {
         setcategory(category);
         window.scrollTo(0, 0)

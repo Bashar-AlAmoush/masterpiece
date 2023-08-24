@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
@@ -6,8 +6,6 @@ import EQUIPMENT from '../../images/EQUIPMENTpage.jpg'
 const ServicePageAll = () => {
   const [product, setproducts] = useState([]);
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
-  const [active, setActive] = React.useState(1);
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/productsAll")
@@ -15,12 +13,14 @@ const ServicePageAll = () => {
         console.log(response.data);
         setproducts(response.data);
         setFilterDataUsers(response.data);
-        
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
+
+
   const navigate = useNavigate();
   
   function handleRes(Products) {
@@ -122,9 +122,6 @@ const ServicePageAll = () => {
           </div>
         </div>
       </div>
-
-
-      
 <div className="flex flex-col gap-3 px-5 md:flex-row justify-center md:justify-between items-center mx-4 md:mx-0 ">
 <form 
 className="w-full"
@@ -167,10 +164,6 @@ className="w-full"
       />
     </div>
   </form>
-
-
-  
-
   <div 
   className="w-full md:w-6/12 flex flex-col md:flex-row items-center md:items-stretch gap-2 md:gap-4 "
   >
@@ -187,7 +180,6 @@ className="w-full"
       <option value="tools">Tools</option>
       <option value="canvas">canvas</option>
     </select>
-
     <select
       className="px-4 py-3 w-full md:w-48 rounded-md bg-gray-100 border border-red-500 focus:border-red-200 focus:bg-white focus:ring-0 text-sm appearance-none mb-2 md:mb-0"
       value={yourSelectedStateprice}
@@ -201,7 +193,6 @@ className="w-full"
       <option value="24.99">jD 20.00-Jd 24.99</option>
       <option value="29..99">jD 24.00-Jd 29.99</option>
     </select>
-
     <button
       className="w-full  md:w-20 h-12 mt-2 md:mt-0 bg-red-500 text-white text-sm font-medium rounded-md"
       onClick={handleFind}
@@ -210,9 +201,6 @@ className="w-full"
     </button>
   </div>
 </div>
-
-
-
       <div >
         <div className="flex flex-wrap gap-10 justify-center my-16 ">
           {slicedArrayUsers?.map((product, index) => {
@@ -231,7 +219,6 @@ className="w-full"
     <p className="mt-1.5 text-sm text-gray-700">{product.description}</p>
     <p className="mt-1.5 text-sm text-gray-700">{product.price}</p>
     <form className="mt-4">
-      
    <a
   href="#_"
   className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
@@ -248,24 +235,13 @@ className="w-full"
   View Details
   </span>
 </a>
-
-
-
     </form>
   </div>
-
 </div>
-
-
-
               </>
             );
           })}
         </div>
-
-
-
-
         { product.length >=4  &&
       <div className="flex w-full justify-center mt-5 bg-[#f8f8f8] mb-5">
       <Pagination

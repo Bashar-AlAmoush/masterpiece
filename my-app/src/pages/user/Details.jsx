@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import Details from '../../images/Details.jpg';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,7 +10,6 @@ function Details1() {
   const [quantity, setQuantity] = useState(1);
   const Product = useParams();
   const [wishlist, setwishlist] = useState([]);
-
   const [id, setId] = useState();
   const [cart, setCart] = useState([]);
 
@@ -46,38 +45,27 @@ function Details1() {
   }, [Product]);
 
   const addToCart = (product) => {
-    console.log(id);
-    console.log(product);
-
     const existingProduct = cart.find((item) => item.product_id === product.product_id);
 if(id){
     if (existingProduct) {
       const updatedCart = cart.map((item) => {
         if (item.product_id=== product.product_id) {
             setQuantity( item.quantity + quantity)
-
             axios.put('http://localhost:5000/updatequa',{ 
               user_id: id,
             product_id: product.product_id,
             quantity: quantity,})
             .then((response) => {
-                console.log(response.data); 
-
                 axios
                 .get(`http://localhost:5000/getusercart/${id}`)
                 .then(function (response) {
                   setCart(response.data);
-                  console.log(response.data);
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
-
-                
             })
             .catch((error) => console.log(error.message))
-
-
         }
         return item;
       });
@@ -95,7 +83,6 @@ if(id){
         .get(`http://localhost:5000/getusercart/${id}`)
         .then(function (response) {
           setCart(response.data);
-          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -104,18 +91,14 @@ if(id){
       .catch((error) => {
        console.error('Error adding to cart:', error);
       });
-     
     }
   }
   else{
     toast.error(`please login to have you own  cart`);
-
-
-
   }
-   
   };
-console.log(cart)
+
+
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -125,14 +108,12 @@ console.log(cart)
     } else if (value > 10) {
       value = 10;
     }
-
     setQuantity(value);
   };
 
 
   const addTowishlist = (product) => {
-    console.log(id);
-    console.log(product);
+ 
   
     const existingProduct = wishlist.find((item) => item.product_id === product.product_id);
   if(id){
@@ -167,7 +148,6 @@ console.log(cart)
         .get(`http://localhost:5000/getusercart/${id}`)
         .then(function (response) {
           setwishlist(response.data);
-          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -183,6 +163,7 @@ console.log(cart)
     toast.error(`please login to have you own Wishlist  `);
   }
   };
+  
   return (
     <>
       <ToastContainer />
