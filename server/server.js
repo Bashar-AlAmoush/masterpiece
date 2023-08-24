@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const path=require("path");
 const multer=require('multer');
 const nodemailer = require('nodemailer');
-// library for working with JSON Web Tokens (JWTs).
+
 const jwt = require("jsonwebtoken");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
@@ -44,7 +44,7 @@ app.post("/records", async function (req, res) {
   }
 });
 
-// Get All Records
+
 app.get("/records", async function (req, res) {
   try {
     const all_records = await pool.query(
@@ -70,12 +70,6 @@ app.get("/deleterecords", async function (req, res) {
 
 
 
-
-
-
-
-
-// Get a Specific Record
 app.get("/records/:id", async function (req, res) {
   try {
     const { id } = req.params;
@@ -88,7 +82,8 @@ app.get("/records/:id", async function (req, res) {
   }
 });
 
-// Update a Specific Record
+
+
 app.put("/records/:userid", async function (req, res) {
   try {
     const { userid } = req.params;
@@ -389,7 +384,6 @@ app.get("/getuserwishlist/:id", async function (req, res) {
 
 
 
-// in home page of the user when I try to get the restaurants based on the food type from the restaurant table and render them in another page
 app.get("/ServicePage/:category", (req, res) => {
   const { category } = req.params; // Updated variable name
 
@@ -411,7 +405,7 @@ app.get("/ServicePage/:category", (req, res) => {
 
 
 app.get("/Prod/:product_id", (req, res) => {
-  const { product_id } = req.params; // Updated variable name
+  const { product_id } = req.params; 
 console.log(product_id)
   pool.query(
     "SELECT * FROM products WHERE product_id = $1",
@@ -430,7 +424,7 @@ console.log(product_id)
 
 
 
-// in the about page will get the content from the database
+
 app.get("/aboutus", async (req, res) => {
   try {
     const query = "SELECT about_title, about_us FROM aboutus";
@@ -442,7 +436,8 @@ app.get("/aboutus", async (req, res) => {
   }
 });
 
-// Update the about us section in the database
+
+
 app.put("/aboutus", async (req, res) => {
   const { about_title, about_us } = req.body;
 
@@ -530,7 +525,6 @@ app.put("/recoversales/:id", async (req, res) => {
   }
 })
 
-// Add a new payment
 app.post("/payment", async function (req, res) {
   console.log(req.body);
   try {
@@ -577,9 +571,6 @@ app.post("/neworder", async function (req, res) {
 
 
 
-
-
-
 app.get("/paymentData", async (req, res) => {
   try {
     const paymentData = await pool.query(
@@ -619,7 +610,7 @@ app.get("/ordersData", async (req, res) => {
 });
 
 
-// get user data
+
 app.get("/user/:id", async function (req, res) {
   try {
     const { id } = req.params;
@@ -632,7 +623,7 @@ app.get("/user/:id", async function (req, res) {
   }
 });
 
-// update user details
+
 app.put("/user/:id", async function (req, res) {
   try {
     const { id } = req.params;
@@ -647,7 +638,7 @@ app.put("/user/:id", async function (req, res) {
     console.log(err.message);
   }
 });
-// get prev. orders ********
+
 app.get("/oldOrders/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -1018,7 +1009,7 @@ app.put("/Drawing/:id", async (req, res) => {
 
 
 
-// Start the server
+
 const port = 5000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
