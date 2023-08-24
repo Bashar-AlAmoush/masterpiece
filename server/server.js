@@ -365,9 +365,6 @@ app.delete("/deletewishlistdata", async function (req, res) {
 
 
 
-
-
-
 app.get("/getusercart/:id", async function (req, res) {
   try {
     const { id } = req.params;
@@ -719,7 +716,7 @@ app.get("/productsAll", (req, res) => {
 
 
 app.get("/saleAll", (req, res) => {
-  pool.query("SELECT * FROM products where disflag=1 ", (error, results) => {
+  pool.query("SELECT * FROM products where disflag=1  ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -759,7 +756,7 @@ app.get("/deleteDrawing", (req, res) => {
 
 
 app.get("/deletedsales", (req, res) => {
-  pool.query("SELECT * FROM products where disflag =0 and (user_id is null) ", (error, results) => {
+  pool.query("SELECT * FROM products where disflag =2 and (user_id is null) ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
