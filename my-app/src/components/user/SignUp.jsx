@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Signup from "../../images/Signup.jpg";
 import { useGoogleLogin } from "@react-oauth/google";
+import { UserContext } from '../../UserContext';
+
 function SignUp() {
-  const navigate = useNavigate("/");
+  const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [user0, setUser0] = useState([]);
   const [profile, setProfile] = useState([]);
   const [errorG, setErrorG] = useState("");
+  const { routs,updateRouts } = useContext(UserContext)
+  const { curruntUser,updateSetCurruntUser } = useContext(UserContext)
+  const { SignStatus,updateSignStatus } = useContext(UserContext)
+ 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser0(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
@@ -91,7 +97,34 @@ function SignUp() {
         })
         .then(function (response) {
           if (response.data != "taken") {
-            window.location.href = "http://localhost:3000/signIn";
+            axios
+            .post("http://localhost:5000/recordp", {
+              email: email,
+              password: password,
+            })
+      
+            .then(function (response) {
+              if (response.data != "not passed") {
+                console.log(response.data[1]);
+               let x =[]
+                  if (response.data[1]==0){
+                  x= [false ,true,true]
+                }else if(response.data[1]==1){
+                   x= [true ,false,true]
+                }
+                updateRouts(x)
+                updateSetCurruntUser(response.data[2])
+                localStorage.setItem("curruntUser",JSON.stringify(response.data[2]))
+                updateSignStatus("SignOut")
+                localStorage.setItem("SignStatus","SignOut")
+                localStorage.setItem("auth",JSON.stringify(response.data[0]))
+                localStorage.setItem("roles",JSON.stringify(x))
+                navigate("/");
+              } else {
+                console.log("not passed");
+              }
+            })
+            .catch(function (error) {});
           } else {
             console.log(response.data);
             alert("This Email is already taken");

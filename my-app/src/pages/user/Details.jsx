@@ -50,7 +50,7 @@ if(id){
     if (existingProduct) {
       const updatedCart = cart.map((item) => {
         if (item.product_id=== product.product_id) {
-            setQuantity( item.quantity + quantity)
+            setQuantity( parseInt(item.quantity) + parseInt(quantity))
             axios.put('http://localhost:5000/updatequa',{ 
               user_id: id,
             product_id: product.product_id,

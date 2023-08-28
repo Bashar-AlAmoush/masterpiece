@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function Cart() {
   const [cartData, setCartData] = useState([]);
   const [id, setId] = useState();
-  const category = ["Paints", "paper", "drawing", "canvas", "tools"]
+  const category = ["paints", "paper", "drawing", "canvas", "tools"]
 
   useEffect(() => {
     axios
@@ -126,7 +126,7 @@ export default function Cart() {
         <div className="w-full h-full bg-white">
           <div className="w-full h-full">
             <div className="flex md:flex-row flex-col gap-4">
-            <div className="lg:w-full w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-white overflow-y-auto overflow-x-hidden h-screen" id="scroll">
+            <div className="lg:w-full w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-white  overflow-x-hidden h-screen" id="scroll">
                 <div className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={16} height={16} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
