@@ -26,16 +26,29 @@ app.post("/records", async function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
     const checkEmail = await pool.query(
-      "SELECT email FROM users where email = $1  ",
+      "SELECT * FROM users where email = $1  ",
       [email]
     );
+    console.log(checkEmail)
 
     if (checkEmail.rows.length == 0) {
       const all_records = await pool.query(
         "INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5, $6) RETURNING *",
         [name, phone, email, password, 0, 1]
       );
-      res.json(all_records.rows);
+      
+      const token = jwt.sign(
+        { email: email, password: password },
+        secretKey,
+        { expiresIn: "9weeks" }
+      ); // Generate JWT
+      // generatedUserId = e.userid;
+      const user = await pool.query(
+        "SELECT * FROM users where email = $1  ",
+        [email]
+      );
+      res.json([token, 0, user.rows[0] ]);
+      role000 = 0;
     } else {
       res.json("taken");
     }
@@ -179,6 +192,7 @@ app.post("/recordp", async function (req, res) {
 app.get("/reporters", async function (req, res) {
   try {
     const all_records = await pool.query("SELECT * FROM contacts");
+
     res.json(all_records.rows);
   } catch (err) {
     console.log(err.message);
@@ -319,6 +333,7 @@ app.put("/updatequa/", async function (req, res) {
     const id = req.body.user_id;
     const product_id = req.body.product_id;
     const quantity = req.body.quantity;
+    console.log(quantity)
     const record = await pool.query(
       "UPDATE cart set quantity=$1 WHERE user_id =$2 and product_id=$3 ",
       [ quantity,id,product_id]
@@ -693,7 +708,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and ( new_price='0' )", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and (disflag=0  or disflag= 2 )", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -895,7 +910,7 @@ app.get("/salescount", (req, res) => {
 
 app.get("/DrawingAllHome", (req, res) => {
   pool.query(
-    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL) LIMIT 3 ",
+    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL)   order by name DESC  LIMIT 3 ",
     (error, results) => {
       if (error) {
         console.log(error.message);
