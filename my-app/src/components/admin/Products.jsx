@@ -6,91 +6,134 @@ import './scrollbar.css';
 import axios from 'axios'
 import Swal from 'sweetalert2'
  import Pagination from "@mui/material/Pagination";
-const ApproveTable = () => {
-  const [products, setproducts] = useState([]);
-  const [FilterDataproducts, setFilterDataproducts] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [name, setName] = useState("");
-const [category, setCategory] = useState("");
-const [price, setPrice] = useState("");
-const [description, setDescription] = useState("");
-const [file, setFile] = useState(null);
-const [deletedproducts, setdeletedproducts] = useState([]);
-  const [FilterDatadeletedproducts, setFilterDatadeletedproducts] = useState([]);
+function Products() {
+
+
+    const [products, setproducts] = useState([]);
+    const [FilterDataproducts, setFilterDataproducts] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+    const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
+  const [deletedproducts, setdeletedproducts] = useState([]);
+    const [FilterDatadeletedproducts, setFilterDatadeletedproducts] = useState([]);
+    useEffect(() => {
+      axios.get('http://localhost:5000/productsAll')
+      .then((response) => {
+        setproducts(response.data);
+        setFilterDataproducts(response.data)
+           
+      })
+      .catch((error) => console.log(error.message))
+  }, []);
+  
+  
   useEffect(() => {
-    axios.get('http://localhost:5000/productsAll')
+    axios.get('http://localhost:5000/deletedproducts')
     .then((response) => {
-      setproducts(response.data);
-      setFilterDataproducts(response.data)
-         
+      setdeletedproducts(response.data);
+      setFilterDatadeletedproducts(response.data)       
     })
     .catch((error) => console.log(error.message))
-}, []);
-
-
-useEffect(() => {
-  axios.get('http://localhost:5000/deletedproducts')
-  .then((response) => {
-    setdeletedproducts(response.data);
-    setFilterDatadeletedproducts(response.data)       
-  })
-  .catch((error) => console.log(error.message))
-}, []);
-
-       //-----------------------search------------------------//
-       const [searchTermproducts, setSearchTermproducts] = useState('');
-       
-       
-       const filterDataByNameproducts = (searchTermproducts) => {
-         console.log(searchTermproducts)
+  }, []);
+  
+         //-----------------------search------------------------//
+         const [searchTermproducts, setSearchTermproducts] = useState('');
          
-         const filteredDataRestaurants = products.filter(item =>
-       
-           item.name.toLowerCase().includes(searchTermproducts.toLowerCase())
-         );
-         setFilterDataproducts(filteredDataRestaurants);
-         setCurrentPageproducts(1)
-       }
-       const [currentPageproducts, setCurrentPageproducts] = useState(1);
-       const [currentPagedeletedproducts, setCurrentPagedeletedproducts] = useState(1);
-
-       let totalItemsproducts;
-       let totalItemsdeletedproducts;
-       
-       let totalPagesproducts;
-       let totalPagesdeletedproducts;
-       
-       let slicedArrayproducts;
-       let slicedArraydeletedproducts;
-       
-       const itemsPerPage = 4;
-       
-       totalItemsproducts = FilterDataproducts.length;
-       totalItemsdeletedproducts = FilterDatadeletedproducts.length;
-       
-       totalPagesproducts = Math.ceil(totalItemsproducts / itemsPerPage);
-       totalPagesdeletedproducts = Math.ceil(totalItemsdeletedproducts / itemsPerPage);
-       
-       const startIndexproducts = (currentPageproducts - 1) * itemsPerPage;
-       const startIndexdeletedproducts = (currentPagedeletedproducts - 1) * itemsPerPage;
-       
-       const endIndexproducts = startIndexproducts + itemsPerPage;
-       const endIndexdeletedproducts = startIndexdeletedproducts + itemsPerPage;
-       
-       slicedArrayproducts = FilterDataproducts.slice(startIndexproducts, endIndexproducts);
-       slicedArraydeletedproducts= FilterDatadeletedproducts.slice(startIndexdeletedproducts, endIndexdeletedproducts);
-       
-       const handlePageChangeproducts = (event, pageNumber) => {
-        setCurrentPageproducts(pageNumber);
-       };
-
-       const handlePageChangedeletedproducts = (event, pageNumber) => {
-        setCurrentPagedeletedproducts(pageNumber);
-       };
-
-       const handleDelete = (id,name) => {
+         
+         const filterDataByNameproducts = (searchTermproducts) => {
+           console.log(searchTermproducts)
+           
+           const filteredDataRestaurants = products.filter(item =>
+         
+             item.name.toLowerCase().includes(searchTermproducts.toLowerCase())
+           );
+           setFilterDataproducts(filteredDataRestaurants);
+           setCurrentPageproducts(1)
+         }
+         const [currentPageproducts, setCurrentPageproducts] = useState(1);
+         const [currentPagedeletedproducts, setCurrentPagedeletedproducts] = useState(1);
+  
+         let totalItemsproducts;
+         let totalItemsdeletedproducts;
+         
+         let totalPagesproducts;
+         let totalPagesdeletedproducts;
+         
+         let slicedArrayproducts;
+         let slicedArraydeletedproducts;
+         
+         const itemsPerPage = 4;
+         
+         totalItemsproducts = FilterDataproducts.length;
+         totalItemsdeletedproducts = FilterDatadeletedproducts.length;
+         
+         totalPagesproducts = Math.ceil(totalItemsproducts / itemsPerPage);
+         totalPagesdeletedproducts = Math.ceil(totalItemsdeletedproducts / itemsPerPage);
+         
+         const startIndexproducts = (currentPageproducts - 1) * itemsPerPage;
+         const startIndexdeletedproducts = (currentPagedeletedproducts - 1) * itemsPerPage;
+         
+         const endIndexproducts = startIndexproducts + itemsPerPage;
+         const endIndexdeletedproducts = startIndexdeletedproducts + itemsPerPage;
+         
+         slicedArrayproducts = FilterDataproducts.slice(startIndexproducts, endIndexproducts);
+         slicedArraydeletedproducts= FilterDatadeletedproducts.slice(startIndexdeletedproducts, endIndexdeletedproducts);
+         
+         const handlePageChangeproducts = (event, pageNumber) => {
+          setCurrentPageproducts(pageNumber);
+         };
+  
+         const handlePageChangedeletedproducts = (event, pageNumber) => {
+          setCurrentPagedeletedproducts(pageNumber);
+         };
+  
+         const handleDelete = (id,name) => {
+          Swal.fire({
+            title: ` Do you want to remove ${name}?  `,
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: "Cancel",
+            icon: 'warning'
+        }
+        ).then((result) => {
+         
+            if (result.isConfirmed) {
+      
+                Swal.fire(` ${name} has been removed `, '', 'success');
+             
+                axios.put('http://localhost:5000/product/'+id)
+                .then((response) => {
+                    axios.get('http://localhost:5000/productsAll')
+            .then((response) => {
+              setproducts(response.data);
+              setFilterDataproducts(response.data);
+            })
+            .catch((error) => console.log(error.message)); 
+  
+            axios.get('http://localhost:5000/deletedproducts')
+            .then((response) => {
+              setdeletedproducts(response.data);
+              setFilterDatadeletedproducts(response.data)               
+            })
+            .catch((error) => console.log(error.message))
+                })
+                .catch((error) => console.log(error.message))
+                
+            } else
+                Swal.fire(' Cancelled', '', 'error')
+      
+        })
+  
+      }
+  
+  
+      const handlerecover = (id,name) => {
         Swal.fire({
-          title: ` Do you want to remove ${name}?  `,
+          title: ` Do you want to recover ${name}?  `,
           showConfirmButton: true,
           showCancelButton: true,
           confirmButtonText: "OK",
@@ -98,12 +141,11 @@ useEffect(() => {
           icon: 'warning'
       }
       ).then((result) => {
-       
           if (result.isConfirmed) {
     
-              Swal.fire(` ${name} has been removed `, '', 'success');
+              Swal.fire(` ${name} has been recover `, '', 'success');
            
-              axios.put('http://localhost:5000/product/'+id)
+              axios.put('http://localhost:5000/recoverproduct/'+id)
               .then((response) => {
                   axios.get('http://localhost:5000/productsAll')
           .then((response) => {
@@ -111,11 +153,11 @@ useEffect(() => {
             setFilterDataproducts(response.data);
           })
           .catch((error) => console.log(error.message)); 
-
+  
           axios.get('http://localhost:5000/deletedproducts')
           .then((response) => {
             setdeletedproducts(response.data);
-            setFilterDatadeletedproducts(response.data)               
+            setFilterDatadeletedproducts(response.data)     
           })
           .catch((error) => console.log(error.message))
               })
@@ -125,121 +167,82 @@ useEffect(() => {
               Swal.fire(' Cancelled', '', 'error')
     
       })
-
-    }
-
-
-    const handlerecover = (id,name) => {
-      Swal.fire({
-        title: ` Do you want to recover ${name}?  `,
-        showConfirmButton: true,
-        showCancelButton: true,
-        confirmButtonText: "OK",
-        cancelButtonText: "Cancel",
-        icon: 'warning'
-    }
-    ).then((result) => {
-        if (result.isConfirmed) {
   
-            Swal.fire(` ${name} has been recover `, '', 'success');
-         
-            axios.put('http://localhost:5000/recoverproduct/'+id)
+    }
+  
+  
+  
+      const handleCancel = () => {
+        setShowForm(false);
+      };
+  
+  
+  
+      const handleInputChange = (event) => {
+        const { name, value } = event.target;
+      
+        switch (name) {
+          case "name":
+            setName(value);
+            break;
+          case "category":
+            setCategory(value);
+            break;
+          case "price":
+            setPrice(value);
+            break;
+          case "description":
+            setDescription(value);
+            break;
+       
+          default:
+            break;
+        }
+      };
+    
+  ;
+      const files=new FormData();
+      files.append('image',file);
+      files.append('name',name);
+      files.append('category',category);
+      files.append('price',price);
+      files.append('description',description);
+  
+      const handleCreatePost = async () => {
+      
+    console.log(file)
+  
+  
+  
+    axios
+    .post("http://localhost:5000/newproduct",files)
+    .then(function (response) {
+        axios.get('http://localhost:5000/productsAll')
             .then((response) => {
-                axios.get('http://localhost:5000/productsAll')
-        .then((response) => {
-          setproducts(response.data);
-          setFilterDataproducts(response.data);
-        })
-        .catch((error) => console.log(error.message)); 
-
-        axios.get('http://localhost:5000/deletedproducts')
-        .then((response) => {
-          setdeletedproducts(response.data);
-          setFilterDatadeletedproducts(response.data)     
-        })
-        .catch((error) => console.log(error.message))
+              setproducts(response.data);
+              setFilterDataproducts(response.data);
+            })
+            .catch((error) => console.log(error.message));
+  
+            axios.get('http://localhost:5000/deletedproducts')
+            .then((response) => {
+              setdeletedproducts(response.data);
+              setFilterDatadeletedproducts(response.data)
+                 
             })
             .catch((error) => console.log(error.message))
-            
-        } else
-            Swal.fire(' Cancelled', '', 'error')
   
-    })
-
-  }
-
-
-
-    const handleCancel = () => {
-      setShowForm(false);
-    };
-
-
-
-    const handleInputChange = (event) => {
-      const { name, value } = event.target;
-    
-      switch (name) {
-        case "name":
-          setName(value);
-          break;
-        case "category":
-          setCategory(value);
-          break;
-        case "price":
-          setPrice(value);
-          break;
-        case "description":
-          setDescription(value);
-          break;
-     
-        default:
-          break;
       }
-    };
-  
-;
-    const files=new FormData();
-    files.append('image',file);
-    files.append('name',name);
-    files.append('category',category);
-    files.append('price',price);
-    files.append('description',description);
-
-    const handleCreatePost = async () => {
+    )
+    .catch((err) => console.log(err.message));
     
-  console.log(file)
+        setShowForm(false);
+      };
 
-
-
-  axios
-  .post("http://localhost:5000/newproduct",files)
-  .then(function (response) {
-      axios.get('http://localhost:5000/productsAll')
-          .then((response) => {
-            setproducts(response.data);
-            setFilterDataproducts(response.data);
-          })
-          .catch((error) => console.log(error.message));
-
-          axios.get('http://localhost:5000/deletedproducts')
-          .then((response) => {
-            setdeletedproducts(response.data);
-            setFilterDatadeletedproducts(response.data)
-               
-          })
-          .catch((error) => console.log(error.message))
-
-    }
-  )
-  .catch((err) => console.log(err.message));
-  
-      setShowForm(false);
-    };
   return (
-<>
-
-<div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)] '>
+    <>
+    
+    <div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)] '>
 <div className="relative flex items-center justify-between pt-4">
     <div className="text-xl font-bold text-navy-700 dark:text-white">
     All  products
@@ -551,11 +554,8 @@ return(
 
 </div>
 
-
-
-
-  </>
-  )
+    
+    </>  )
 }
 
-export default ApproveTable
+export default Products

@@ -25,13 +25,16 @@ import Sidebar from './pages/admin/dashboard/Sidebar';
 import NavListMenuD from './pages/admin/dashboard/NavDashboard'
 import MainDashboard from './pages/admin/MainDashboard';
 import ListUser from './pages/admin/ListUser'
-import ListRestaurant from './pages/admin/ListRestaurant';
 import ListSales from './pages/admin/ListSales';
 import Chat from './pages/admin/Chat';
 import EditAboutContact from './pages/admin/EditAboutContact';
-import AcceptTables from './pages/admin/AcceptTables';
+import ListOrders from './pages/admin/ListOrders';
 import DrawingList from './components/admin/DrawingList';
 import PendingDrawing from './components/admin/PendingDrawing';
+
+
+
+import ListProducts from './pages/admin/ListProducts';
 //---------------------------------------------------------------//
 
 import React, { useEffect, useState, useContext } from 'react'
@@ -97,11 +100,11 @@ function App() {
           <Routes>
             <Route index element={<MainDashboard />} />
             <Route path="ListUser" element={<ListUser />} />
-            <Route path="ListRestaurant" element={<ListRestaurant />} />
+            <Route path="ListProducts" element={<ListProducts />} />
             <Route path="ListSales" element={<ListSales />} />
             <Route path="Chat" element={<Chat />} />
             <Route path="EditAboutContact" element={<EditAboutContact />} />
-            <Route path="AcceptTables" element={<AcceptTables />} />
+            <Route path="ListOrders" element={<ListOrders />} />
             <Route path="DrawingList" element={<DrawingList />} />
             <Route path="PendingDrawing" element={<PendingDrawing />} />
           </Routes>

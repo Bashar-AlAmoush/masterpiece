@@ -2,7 +2,9 @@ import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import "pure-react-carousel/dist/react-carousel.es.css";
-const Tables = () => {
+
+function Orders() {
+
     const [orders, setorders] = useState([]);
     const [userorders, usersetorders] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
@@ -57,6 +59,8 @@ const handleButtonClick = (userid) => {
         })
         .catch((error) => console.log(error.message))
 };
+
+
   return (
     <>
     <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)]">
@@ -212,9 +216,7 @@ const handleButtonClick = (userid) => {
             `}</style>
         </div>
     </>
-    
-   
   )
 }
 
-export default Tables
+export default Orders

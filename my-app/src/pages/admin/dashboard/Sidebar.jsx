@@ -89,7 +89,7 @@ import logo from "../../../images/logo.png";
           </ListItem>
           </Link>
 
-          <Link to='/ListRestaurant'>
+          <Link to='/ListProducts'>
           <ListItem className="hover:bg-red-500">
             <ListItemPrefix>
             <Icon path={mdiBrush} size={1} />
@@ -100,7 +100,7 @@ import logo from "../../../images/logo.png";
 
           
 
-          <Link to='/AcceptTables'>
+          <Link to='/ListOrders'>
           <ListItem className="hover:bg-red-500">
             <ListItemPrefix>
             <Icon path={mdiCartCheck} size={1} />
