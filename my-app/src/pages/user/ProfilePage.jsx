@@ -77,12 +77,6 @@ const ProfilePage = () => {
   }, [id]);
 
 
-  function issale(id) {
-
-  }
-
-
-
   return (
     <>
       <div className="min-h-screen bg-gray-200 flex flex-col">
@@ -193,7 +187,7 @@ const ProfilePage = () => {
                   }`}
                   onClick={() => openTab('tab4')}
                 >
-                  User sales Drawings 
+                  Sold Drawings 
                 </button>
 
 
@@ -258,7 +252,7 @@ const ProfilePage = () => {
   <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
     {Drawings && Drawings.length > 0 ? (
       Drawings.map((order, index) => (
-        <div className="mt-2 text-gray-700" onLoad={issale(order.product_id)}  key={index}>
+        <div className="mt-2 text-gray-700"   key={index}>
           <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
             <div>
               <p className="font-bold">{order.name}</p>
@@ -288,8 +282,8 @@ const ProfilePage = () => {
   <h2 className="text-lg font-bold text-gray-800"> sold Drawings</h2>
   <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
     {saleDrawings && saleDrawings.length > 0 ? (
-      Drawings.map((order, index) => (
-        <div className="mt-2 text-gray-700" onLoad={issale(order.product_id)}  key={index}>
+      saleDrawings.map((order, index) => (
+        <div className="mt-2 text-gray-700"   key={index}>
           <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
             <div>
               <p className="font-bold">{order.name}</p>
@@ -300,11 +294,8 @@ const ProfilePage = () => {
             <div className="mt-4 sm:mt-0 sm:ml-4">
               <img
                 src={`http://localhost:5000/${order.photo}`}
-               
-               
-               alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
-              <p className="font-bold text-gray-600" >  sold </p>
-             
+               alt={order.name} className="w-full h-16 object-cover rounded-lg" />
+              <p className="font-bold text-gray-600" >Quantity: {order.quantity} </p>
             </div>
           </div>
         </div>

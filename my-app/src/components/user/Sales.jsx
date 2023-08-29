@@ -39,7 +39,7 @@ function Sales() {
       setwishlist(updatedCart);
     } else {
       toast.success(`${product.name} has been added to your wishlist`);
-      axios.post('http://localhost:5000/addTowishlist', {
+      axios.post('http://localhost:5000/addsalesTowishlist', {
         user_id: id,
         product: product,
       })  

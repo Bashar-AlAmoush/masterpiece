@@ -192,6 +192,7 @@ function Painting() {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-md z-50 scrollbar" style={{ width: "580px", maxHeight: "80vh", overflowY: "auto" }}>
             <h2 className="text-2xl font-bold mb-4">Add New Drawings </h2>
+            <p className="text-red-700 text-sm"> note: the website will take 2% from price of the drawing </p>
             <form>
               <div className="mb-4">
                 <label
