@@ -5,8 +5,8 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 const pool = require("./db");
 const bcrypt = require("bcrypt");
-const path=require("path");
-const multer=require('multer');
+const path = require("path");
+const multer = require('multer');
 const nodemailer = require('nodemailer');
 
 const jwt = require("jsonwebtoken");
@@ -36,7 +36,7 @@ app.post("/records", async function (req, res) {
         "INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5, $6) RETURNING *",
         [name, phone, email, password, 0, 1]
       );
-      
+
       const token = jwt.sign(
         { email: email, password: password },
         secretKey,
@@ -47,7 +47,7 @@ app.post("/records", async function (req, res) {
         "SELECT * FROM users where email = $1  ",
         [email]
       );
-      res.json([token, 0, user.rows[0] ]);
+      res.json([token, 0, user.rows[0]]);
       role000 = 0;
     } else {
       res.json("taken");
@@ -122,11 +122,11 @@ app.put("/records/:userid", async function (req, res) {
 app.put("/recordss/:userid", async function (req, res) {
   try {
     const { userid } = req.params;
-   
+
 
     const record = await pool.query(
       "UPDATE users SET flags = 0 WHERE userid = $1",
-      [ userid]
+      [userid]
     );
     res.send("Updated Successfully");
   } catch (err) {
@@ -139,11 +139,11 @@ app.put("/recordss/:userid", async function (req, res) {
 app.put("/recoverrecordss/:userid", async function (req, res) {
   try {
     const { userid } = req.params;
-   
+
 
     const record = await pool.query(
       "UPDATE users SET flags = 1 WHERE userid = $1",
-      [ userid]
+      [userid]
     );
     res.send("Updated Successfully");
   } catch (err) {
@@ -261,17 +261,17 @@ app.post("/addToCart", async function (req, res) {
     const description = req.body.product.description;
     const addcart = await pool.query(
       "INSERT INTO cart (user_id,product_id, category, description ,price,name,photo,quantity) VALUES($1, $2, $3 , $4 ,$5,$6,$7,$8) RETURNING *",
-      [id, product_id, category, description, price,name,photo,quantity]
+      [id, product_id, category, description, price, name, photo, quantity]
     );
     res.json(addcart.rows);
   } catch (err) {
     console.log(err.message);
-   }
+  }
 });
 
 app.post("/countdata/:product_id", async function (req, res) {
   try {
-    const {product_id } = req.params;
+    const { product_id } = req.params;
     const { value } = req.body;
 
     const user = await pool.query(
@@ -279,7 +279,7 @@ app.post("/countdata/:product_id", async function (req, res) {
       [value, product_id]
     );
     res.json(user.rows);
-   
+
   } catch (err) {
     console.log(err.message);
   }
@@ -298,14 +298,32 @@ app.post("/addTowishlist", async function (req, res) {
     const description = req.body.product.description;
     const addTowishlist = await pool.query(
       "INSERT INTO wishlist (user_id,product_id, category, description ,price,name,photo) VALUES($1, $2, $3 , $4 ,$5,$6,$7) RETURNING *",
-      [id, product_id, category, description, price,name,photo]
+      [id, product_id, category, description, price, name, photo]
     );
     res.json(addTowishlist.rows);
   } catch (err) {
     console.log(err.message);
-   }
+  }
 });
 
+app.post("/addsalesTowishlist", async function (req, res) {
+  try {
+    const id = req.body.user_id;
+    const product_id = req.body.product.product_id;
+    const name = req.body.product.name;
+    const category = req.body.product.category;
+    const price = req.body.product.new_price;
+    const photo = req.body.product.photo;
+    const description = req.body.product.description;
+    const addTowishlist = await pool.query(
+      "INSERT INTO wishlist (user_id,product_id, category, description ,price,name,photo) VALUES($1, $2, $3 , $4 ,$5,$6,$7) RETURNING *",
+      [id, product_id, category, description, price, name, photo]
+    );
+    res.json(addTowishlist.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 app.post("/addsaleToCart", async function (req, res) {
   try {
@@ -319,12 +337,12 @@ app.post("/addsaleToCart", async function (req, res) {
     const description = req.body.product.description;
     const addcart = await pool.query(
       "INSERT INTO cart (user_id,product_id, category, description ,price,name,photo,quantity) VALUES($1, $2, $3 , $4 ,$5,$6,$7,$8) RETURNING *",
-      [id, product_id, category, description, price,name,photo,quantity]
+      [id, product_id, category, description, price, name, photo, quantity]
     );
     res.json(addcart.rows);
   } catch (err) {
     console.log(err.message);
-   }
+  }
 });
 
 
@@ -336,7 +354,7 @@ app.put("/updatequa/", async function (req, res) {
     console.log(quantity)
     const record = await pool.query(
       "UPDATE cart set quantity=$1 WHERE user_id =$2 and product_id=$3 ",
-      [ quantity,id,product_id]
+      [quantity, id, product_id]
     );
     res.send("Updated Successfully");
   } catch (err) {
@@ -378,7 +396,7 @@ app.delete("/deletewishlistdata", async function (req, res) {
 app.get("/getusercart/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const record = await pool.query("SELECT * FROM cart WHERE user_id = $1  ORDER BY name ASC ", [ id ]);
+    const record = await pool.query("SELECT * FROM cart WHERE user_id = $1  ORDER BY name ASC ", [id]);
     res.json(record.rows);
   } catch (err) {
     console.log(err.message);
@@ -390,7 +408,7 @@ app.get("/getusercart/:id", async function (req, res) {
 app.get("/getuserwishlist/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const record = await pool.query("SELECT * FROM wishlist WHERE user_id = $1", [ id ]);
+    const record = await pool.query("SELECT * FROM wishlist WHERE user_id = $1", [id]);
     res.json(record.rows);
   } catch (err) {
     console.log(err.message);
@@ -420,8 +438,8 @@ app.get("/ServicePage/:category", (req, res) => {
 
 
 app.get("/Prod/:product_id", (req, res) => {
-  const { product_id } = req.params; 
-console.log(product_id)
+  const { product_id } = req.params;
+  console.log(product_id)
   pool.query(
     "SELECT * FROM products WHERE product_id = $1",
     [product_id],
@@ -474,7 +492,7 @@ app.put("/product/:id", async (req, res) => {
     const { id } = req.params;
     const table_status = await pool.query(
       "UPDATE products SET flags = 1 WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
@@ -488,7 +506,7 @@ app.put("/sales/:id", async (req, res) => {
     const { id } = req.params;
     const table_status = await pool.query(
       "UPDATE products SET disflag ='2 'WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
@@ -502,7 +520,7 @@ app.get("/sales/:id", async (req, res) => {
     const { id } = req.params;
     const table_status = await pool.query(
       "select * from products WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
@@ -518,7 +536,7 @@ app.put("/recoverproduct/:id", async (req, res) => {
     const { id } = req.params;
     const table_status = await pool.query(
       "UPDATE products SET flags = 0 WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
@@ -532,7 +550,7 @@ app.put("/recoversales/:id", async (req, res) => {
     const { id } = req.params;
     const table_status = await pool.query(
       "UPDATE products SET disflag = 1 WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
@@ -575,7 +593,7 @@ app.post("/neworder", async function (req, res) {
     const userid = req.body.userid;
     const neworder = await pool.query(
       "INSERT INTO orders (user_id, category, count, description, name,photo,price,product_id) VALUES($1, $2, $3, $4, $5,$6,$7,$8) RETURNING *",
-      [userid, category, count, description, name,photo,price,product_id]
+      [userid, category, count, description, name, photo, price, product_id]
     );
 
     res.json(neworder.rows);
@@ -692,10 +710,10 @@ app.get("/getId", async function (req, res) {
     const password = userpassword;
     const currentRecord = await pool.query(
       "SELECT * FROM users WHERE email = '" +
-        email +
-        "' AND password = '" +
-        password +
-        "'"
+      email +
+      "' AND password = '" +
+      password +
+      "'"
     );
     let person0 = currentRecord.rows;
     res.json(person0);
@@ -708,7 +726,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   ", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and  ( disflag=0  or disflag= 2 ) ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -792,21 +810,21 @@ const upload = multer({
   storage: storage,
 });
 
-app.post("/newproduct",upload.single('image') , async function (req, res) {
+app.post("/newproduct", upload.single('image'), async function (req, res) {
   try {
-    const {name,category,price,description}=req.body 
+    const { name, category, price, description } = req.body
 
     const imagePath = req.file.path;
-    
-      const all_records = await pool.query(
-        "INSERT INTO products (name,category, price, description,photo) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
-        [name, category, price, description, imagePath]
-      );
-      res.json(all_records.rows);
-    } 
-      
-    
-   catch (err) {
+
+    const all_records = await pool.query(
+      "INSERT INTO products (name,category, price, description,photo) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
+      [name, category, price, description, imagePath]
+    );
+    res.json(all_records.rows);
+  }
+
+
+  catch (err) {
     console.log(err.message);
   }
 });
@@ -815,19 +833,19 @@ app.post("/newproduct",upload.single('image') , async function (req, res) {
 
 
 
-app.post("/newDrawing",upload.single('image') , async function (req, res) {
+app.post("/newDrawing", upload.single('image'), async function (req, res) {
   try {
-    const {name,category,price,description,userid}=req.body 
+    const { name, category, price, description, userid } = req.body
     const imagePath = req.file.path;
-      const all_records = await pool.query(
-        "INSERT INTO products (name,category, price, description,photo,user_id ,drawingflag) VALUES($1, $2, $3 , $4 , $5,$6, $7) RETURNING *",
-        [name, category, price, description, imagePath,userid,1]
-      );
-      res.json(all_records.rows);
-    } 
-      
-    
-   catch (err) {
+    const all_records = await pool.query(
+      "INSERT INTO products (name,category, price, description,photo,user_id ,drawingflag) VALUES($1, $2, $3 , $4 , $5,$6, $7) RETURNING *",
+      [name, category, price, description, imagePath, userid, 1]
+    );
+    res.json(all_records.rows);
+  }
+
+
+  catch (err) {
     console.log(err.message);
   }
 });
@@ -941,20 +959,33 @@ app.get("/PendingDrawing", (req, res) => {
 });
 
 
+// app.get("/user/:id", async function (req, res) {
+//   try {
+//     const { id } = req.params;
+//     const user = await pool.query("SELECT * FROM users WHERE userid = $1 ", [
+//       id,
+//     ]);
+//     res.json(user.rows);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
 
-app.get("/DrawingAll", (req, res) => {
-  pool.query(
-    "SELECT * FROM products WHERE drawingflag = 0 AND (user_id IS NOT NULL)",
-    (error, results) => {
-      if (error) {
-        console.log(error.message);
-        res.status(500).json({ error: "Internal server error" });
-      } else {
-        res.json(results.rows);
-      }
-    }
-  );
+
+
+app.get("/DrawingAll/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const allDrawing = await pool.query(
+      "SELECT * FROM products WHERE flags = 0 AND (user_id !=$1)", [id])
+      console.log(allDrawing.rows);
+      res.status(200).json(allDrawing.rows)
+  } catch (error) {
+    res.status(500).json(`server error ${error}`)
+    console.error(error)
+  }
+
 });
 
 
@@ -999,7 +1030,7 @@ app.get("/ALLusers", (req, res) => {
 app.get("/getuserDrawings/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const record = await pool.query("SELECT * FROM Products WHERE user_id = $1  ORDER BY name ASC  ", [ id ]);
+    const record = await pool.query("SELECT * FROM Products WHERE user_id = $1  ORDER BY name ASC  ", [id]);
     res.json(record.rows);
   } catch (err) {
     console.log(err.message);
@@ -1008,13 +1039,25 @@ app.get("/getuserDrawings/:id", async function (req, res) {
 
 
 
+app.get("/issale/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM products  INNER JOIN orders  ON products.product_id = orders.product_id WHERE products.user_id = $1 ;",[id]);
+    res.json(record.rows);
+    console.log(record.rows)
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
 
 app.put("/Drawing/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const table_status = await pool.query(
       "UPDATE products SET drawingflag = 0 WHERE product_id = $1",
-      [ id]
+      [id]
     );
     res.json(table_status.rows);
   } catch (err) {
