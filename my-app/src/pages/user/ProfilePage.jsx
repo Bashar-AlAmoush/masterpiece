@@ -6,6 +6,7 @@ const ProfilePage = () => {
   const [orders, setOrders] = useState([]);
   const [prevOrders, setPrevOrders] = useState([]);
   const [Drawings, setDrawings] = useState([]);
+  const [saleDrawings, setsaleDrawings] = useState([]);
   const [user, setUser] = useState([]);
   const [activeTab, setActiveTab] = useState('tab1');
 
@@ -58,12 +59,29 @@ const ProfilePage = () => {
             console.log(error);
           });
 
+          axios
+          .get(`http://localhost:5000/issale/${x}`)
+          .then(function (response) {
+            console.log(response.data);
+            setsaleDrawings(response.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
       })
       .catch(function (error) {
         console.log(error);
       });
      
   }, [id]);
+
+
+  function issale(id) {
+
+  }
+
+
 
   return (
     <>
@@ -168,6 +186,17 @@ const ProfilePage = () => {
                 >
                   User Drawings
                 </button>
+
+                <button
+                  className={`w-1/2 py-4 text-center font-medium text-gray-700 bg-gray-100 rounded-tr-lg focus:outline-none ${
+                    activeTab === 'tab4' ? 'focus:bg-red-500 focus:text-white' : ''
+                  }`}
+                  onClick={() => openTab('tab4')}
+                >
+                  User sales Drawings 
+                </button>
+
+
               </div>
               <div id="tab1" className={`tabcontent   p-4 ${activeTab === 'tab1' ? '' : 'hidden'}`}>
   <h2 className="text-lg font-bold text-gray-800">User Cart</h2>
@@ -210,7 +239,7 @@ const ProfilePage = () => {
             
                           <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
                         </div>
-                        <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <div className="mt-4 sm:mt-0 sm:ml-4" >
                           <img
                             src={`http://localhost:5000/${order.photo}`}
                            alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
@@ -229,7 +258,7 @@ const ProfilePage = () => {
   <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
     {Drawings && Drawings.length > 0 ? (
       Drawings.map((order, index) => (
-        <div className="mt-2 text-gray-700" key={index}>
+        <div className="mt-2 text-gray-700" onLoad={issale(order.product_id)}  key={index}>
           <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
             <div>
               <p className="font-bold">{order.name}</p>
@@ -243,7 +272,7 @@ const ProfilePage = () => {
                
                
                alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
-              <p className="font-bold text-gray-600">Quantity: {order.quantity}</p>
+              <p className="font-bold text-gray-600" >Quantity: {order.quantity}</p>
              
             </div>
           </div>
@@ -254,6 +283,38 @@ const ProfilePage = () => {
     )}
   </div>
 </div>
+
+<div id="tab4" className={`tabcontent p-4 ${activeTab === 'tab4' ? '' : 'hidden'}`}>
+  <h2 className="text-lg font-bold text-gray-800"> sold Drawings</h2>
+  <div className="mt-2 text-gray-700  overflow-y-auto" style={{ height: "31rem" }}>
+    {saleDrawings && saleDrawings.length > 0 ? (
+      Drawings.map((order, index) => (
+        <div className="mt-2 text-gray-700" onLoad={issale(order.product_id)}  key={index}>
+          <div className="justify-between rounded-lg bg-white p-6 shadow-md sm:flex">
+            <div>
+              <p className="font-bold">{order.name}</p>
+              <p className="mt-2 text-gray-600 text-sm">{order.description}</p>
+
+              <p className="font-bold text-gray-600 mt-4">price: {order.price}</p>
+            </div>
+            <div className="mt-4 sm:mt-0 sm:ml-4">
+              <img
+                src={`http://localhost:5000/${order.photo}`}
+               
+               
+               alt={order.name} className="w-16 h-16 object-cover rounded-lg" />
+              <p className="font-bold text-gray-600" >  sold </p>
+             
+            </div>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p> There is no Drawings for the user.</p>
+    )}
+  </div>
+</div>
+
 
             </div>
           </div>
