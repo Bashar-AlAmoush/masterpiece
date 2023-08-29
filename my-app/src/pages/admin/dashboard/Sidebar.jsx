@@ -69,7 +69,7 @@ import logo from "../../../images/logo.png";
         </div>
         <List>
           <Link to='/'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500">
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -81,7 +81,7 @@ import logo from "../../../images/logo.png";
 
 
            <Link to='/ListUser'>
-           <ListItem className="hover:bg-red-500">
+           <ListItem className="hover:bg-red-500 focus:bg-red-500">
             <ListItemPrefix>
             <Icon path={mdiAccountMultipleOutline} size={1} />
             </ListItemPrefix>
@@ -90,7 +90,7 @@ import logo from "../../../images/logo.png";
           </Link>
 
           <Link to='/ListProducts'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
             <Icon path={mdiBrush} size={1} />
             </ListItemPrefix>
@@ -101,7 +101,7 @@ import logo from "../../../images/logo.png";
           
 
           <Link to='/ListOrders'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500">
             <ListItemPrefix>
             <Icon path={mdiCartCheck} size={1} />
             </ListItemPrefix>
@@ -110,26 +110,26 @@ import logo from "../../../images/logo.png";
           </Link>
 
           <Link to='/ListSales'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
             <Icon path={mdiSaleOutline} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}> List Sales</a>
+            <a style={{color:'white'}}> Sales List </a>
           </ListItem>
           </Link>
 
           <Link to='/DrawingList'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
             <Icon path={mdiDraw} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}> List Drawing</a>
+            <a style={{color:'white'}}> Drawing List </a>
           </ListItem>
           </Link>
 
 
           <Link to='/PendingDrawing'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
             <Icon path={mdiArtboard} size={1} />
             </ListItemPrefix>
@@ -139,7 +139,7 @@ import logo from "../../../images/logo.png";
 
 
          <Link to='/Chat'>
-         <ListItem className="hover:bg-red-500">
+         <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -149,7 +149,7 @@ import logo from "../../../images/logo.png";
           </Link>
 
           <Link to='/EditAboutContact'>
-          <ListItem className="hover:bg-red-500">
+          <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
             <Icon path={mdiInformationOutline} size={1} />
             </ListItemPrefix>
@@ -159,7 +159,7 @@ import logo from "../../../images/logo.png";
           
           <hr/>
            <button onClick={handleLogOut} className="mt-8">
-           <ListItem className="hover:bg-red-500">
+           <ListItem className="hover:bg-red-500 focus:bg-red-500 ">
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
             </ListItemPrefix>
