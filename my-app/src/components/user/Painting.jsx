@@ -16,30 +16,27 @@ function Painting() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
-  const [id, setId] = useState();
-  const [user, setUser] = useState([]);
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
   const [yourSelectedStateValueType, setOptionType] = useState("");
 
-
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/DrawingAll`)
-      .then((response) => {
-        console.log(response.data);
-        setProducts(response.data);
-        setFilterDataUsers(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error.message));
     axios
       .get('http://localhost:5000/getId')
       .then(function (response) {
         setUserid(response.data[0].userid)
+        axios
+        .get(`http://localhost:5000/DrawingAll/${response.data[0].userid}`)
+        .then((response) => {
+          console.log(response.data);
+          setProducts(response.data);
+          setFilterDataUsers(response.data);
+        })
+        .catch((error) => console.log(error.message));
       })
       .catch(function (error) { console.log("Error", error) });
-
   }, [category]);
+
+
   const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
