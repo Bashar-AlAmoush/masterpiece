@@ -708,7 +708,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and (disflag=0  or disflag= 2 )", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -945,7 +945,7 @@ app.get("/PendingDrawing", (req, res) => {
 
 app.get("/DrawingAll", (req, res) => {
   pool.query(
-    "SELECT * FROM products WHERE flags = 0 AND (user_id IS NOT NULL)",
+    "SELECT * FROM products WHERE drawingflag = 0 AND (user_id IS NOT NULL)",
     (error, results) => {
       if (error) {
         console.log(error.message);
