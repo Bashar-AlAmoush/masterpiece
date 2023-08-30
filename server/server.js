@@ -164,25 +164,16 @@ app.post("/recordp", async function (req, res) {
     useremail = email;
     const password = req.body.password;
     userpassword = password;
-
-    const all_records = await pool.query("SELECT * FROM users");
+    const all_records = await pool.query("SELECT * FROM users where username=$1 and password=$2",[email,password]);
     let persons0 = all_records.rows;
-    persons0.map((e) => {
-      if (e.email == email) {
-        if (e.password == password) {
           const token = jwt.sign(
-            { email: e.email, password: e.password },
+            { email: persons0.email, password:persons0.password },
             secretKey,
             { expiresIn: "9weeks" }
-          ); // Generate JWT
-          generatedUserId = e.userid;
-          res.json([token, e.type_id, e]);
-          role000 = e.type_id;
-        }
-      }
-    });
-
-    //   res.json({email,password});
+          ); 
+          generatedUserId = persons0.userid;
+          res.json([token, persons0.type_id, persons0]);
+          role000 = persons0.type_id;
   } catch (err) {
     console.log(err.message);
   }
@@ -726,7 +717,7 @@ app.get("/getId", async function (req, res) {
 
 
 app.get("/productsAll", (req, res) => {
-  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )   and  ( disflag=0  or disflag= 2 ) ", (error, results) => {
+  pool.query("SELECT * FROM products where flags =0  and   (user_id is null )    ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -754,7 +745,7 @@ app.get("/saleAll", (req, res) => {
 
 
 app.get("/deletedproducts", (req, res) => {
-  pool.query("SELECT * FROM products where flags =1 ", (error, results) => {
+  pool.query("SELECT * FROM products where flags =1 and (user_id is null ) ", (error, results) => {
     if (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -973,6 +964,24 @@ app.get("/DrawingAll/:id", async (req, res) => {
   }
 
 });
+
+
+
+
+app.get("/DrawingAll", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const allDrawing = await pool.query(
+      "SELECT * FROM products WHERE flags = 0 AND (user_id is not null )")
+      console.log(allDrawing.rows);
+      res.status(200).json(allDrawing.rows)
+  } catch (error) {
+    res.status(500).json(`server error ${error}`)
+    console.error(error)
+  }
+
+});
+
 
 
 
