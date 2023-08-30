@@ -959,20 +959,6 @@ app.get("/PendingDrawing", (req, res) => {
 });
 
 
-// app.get("/user/:id", async function (req, res) {
-//   try {
-//     const { id } = req.params;
-//     const user = await pool.query("SELECT * FROM users WHERE userid = $1 ", [
-//       id,
-//     ]);
-//     res.json(user.rows);
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// });
-
-
-
 
 app.get("/DrawingAll/:id", async (req, res) => {
   try {
